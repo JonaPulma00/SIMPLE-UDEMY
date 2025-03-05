@@ -15,3 +15,4 @@ python -m pip install fastapi
 pip install uvicorn
 uvicorn myapi:app --reload
 url/docs
+pip install sqlalchemy asyncmy alembic
