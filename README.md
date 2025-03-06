@@ -16,3 +16,6 @@ pip install uvicorn
 uvicorn myapi:app --reload
 url/docs
 pip install sqlalchemy asyncmy alembic
+pip install sqlalchemy[asyncio] asyncmy python-dotenv
+pip install asyncmy
+pip install cryptography
