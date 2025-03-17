@@ -7,11 +7,11 @@ class UserCreate(BaseModel):
   password: str
   is_instructor: Optional[bool] = False
 
-  class UserLogin(BaseModel):
+class UserLogin(BaseModel):
     username: str
     password: str
 
-  class Token(BaseModel):
+class Token(BaseModel):
     access_token: str
     refresh_token: str
     token_type: str = "bearer"
