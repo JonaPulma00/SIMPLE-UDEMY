@@ -14,3 +14,4 @@ class User(Base):
   profile_picture = Column(String(255), nullable=True)
   bio = Column(Text, nullable=True)
   created_at = Column(TIMESTAMP, server_default=func.now())
+  is_instructor = Column(Boolean, default=False)
