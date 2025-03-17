@@ -6,5 +6,5 @@ logging.basicConfig(level=logging.INFO)
 
 app = FastAPI()
 
-app.include_router(auth_router, prefix="auth", tags=["auth"])
+app.include_router(auth_router, prefix="api/v1")
 
