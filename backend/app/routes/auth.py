@@ -11,7 +11,7 @@ router = APIRouter()
 @router.post("/register")
 async def register(user: UserCreate, db: AsyncSession = Depends(get_db)):
     db_user = await register_user(db, user)
-    return {"succes": true, "message": "Usuario registrado exitosamente"}
+    return {"succes": True, "message": "Usuario registrado exitosamente"}
 
 # Login 
 @router.post("/login", response_model=Token)
