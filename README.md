@@ -19,3 +19,5 @@ pip install sqlalchemy asyncmy alembic
 pip install sqlalchemy[asyncio] asyncmy python-dotenv
 pip install asyncmy
 pip install cryptography
+pip install bcrypt
+pip install pyjwt
