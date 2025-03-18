@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+sqlalchemy
+sqlalchemy[asyncio]
+asyncmy
+alembic
+python-dotenv
+cryptography
+bcrypt
+pyjwt
