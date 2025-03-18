@@ -42,7 +42,7 @@ async def authenticate_user(db: AsyncSession, username: str, password: str):
     user = result.scalar_one_or_none()
     
     if not user or not verify_password(password, user.password):
-        logger.warning(f"Intento de login fallido: {username}")
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+        logger.warning(f"Login attempt failed: {username}")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Credentials not found")
     
     return user

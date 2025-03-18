@@ -19,7 +19,7 @@ async def login(user: UserLogin, db: AsyncSession = Depends(get_db)):
     db_user = await authenticate_user(db, user.username, user.password)
     access_token = create_access_token({"sub": db_user.user_id})
     refresh_token = create_refresh_token({"sub": db_user.user_id})
-    return {"access_token": access_token, "refresh_token": refresh_token, "token_type": "bearer"}
+    return {"access_token": access_token, "refresh_token": refresh_token}
 
 # Refresh token
 @router.post("/refresh", response_model=Token)
