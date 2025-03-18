@@ -31,8 +31,7 @@ async def refresh(refresh_token: str):
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
         new_tokens = {
             "access_token": create_access_token({"sub": user_id}),
-            "refresh_token": create_refresh_token({"sub": user_id}),
-            "token_type": "bearer"
+            "refresh_token": create_refresh_token({"sub": user_id})
         }
         return new_tokens
     except jwt.PyJWTError:
