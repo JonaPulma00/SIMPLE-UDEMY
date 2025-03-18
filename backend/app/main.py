@@ -1,10 +1,10 @@
 from fastapi import FastAPI
-from app.routes.auth import router as auth_router
+from app.routes.routes import router as api_routes
 import logging
 
 logging.basicConfig(level=logging.INFO)
 
 app = FastAPI()
 
-app.include_router(auth_router, prefix="/api/v1")
+app.include_router(api_routes, prefix="/api/v1")
 
