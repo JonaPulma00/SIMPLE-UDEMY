@@ -1,10 +1,12 @@
 import { NavLink } from "react-router-dom"
 import { useState } from "react"
-import '../../styles/Navbar.css'
+
+import '../styles/Navbar.css'
 
 export const Navbar = () => {
   const [isMenuActive, setIsMenuActive] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+
 
   const toggleMenu = () => {
     setIsMenuActive(!isMenuActive)

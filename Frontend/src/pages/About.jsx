@@ -1,4 +1,4 @@
-import { Footer } from "../components/auth/Footer"
+import { Footer } from "../components/Footer"
 export const About = () => {
   return (
     <>
