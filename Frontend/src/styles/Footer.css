@@ -34,7 +34,7 @@
 
 .icon {
   color: white;
-  font-size: 32px;
+  font-size: 25px;
   display: inline-block;
   margin: 0 10px;
   transition: 0.5s;
@@ -58,7 +58,7 @@
 }
 .menu-icon {
   color: white;
-  font-size: 20px;
+  font-size: 15px;
   display: inline-block;
   text-decoration: none;
   margin: 5px 10px;
@@ -75,5 +75,5 @@
   text-align: center;
   margin-top: 15px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 15px;
 }
