@@ -52,7 +52,7 @@ export const Footer = () => {
             <NavLink to='' className="menu-icon"> About us </NavLink>
           </li>
         </ul>
-        <p className="text"> Copyright © 2024-2025| MyEd All rights reserved</p>
+        <p className="text"> Copyright © 2024-2025 | MyEd All rights reserved</p>
       </footer>
     </>
   )
