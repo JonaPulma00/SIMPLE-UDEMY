@@ -8,7 +8,7 @@ export const Navbar = () => {
 
   const toggleMenu = () => {
     setIsMenuActive(!isMenuActive)
-    // Close dropdown when toggling menu
+
     setIsDropdownOpen(false)
   }
 
@@ -25,7 +25,7 @@ export const Navbar = () => {
       <div className={`nav-links ${isMenuActive ? 'active' : ''}`}>
         <ul>
           <li><NavLink className="active">Overview</NavLink></li>
-          <li><NavLink>Technology</NavLink></li>
+          <li><NavLink>Technologies</NavLink></li>
           <li className="dropdown">
             <NavLink
               className="dropdown-toggle"
@@ -45,7 +45,7 @@ export const Navbar = () => {
         </ul>
       </div>
       <div className="auth-buttons">
-        <NavLink className="btn btn-login">Log In</NavLink>
+        <NavLink className="btn-login">Log In</NavLink>
         <NavLink className="btn btn-get-started">Get Started</NavLink>
       </div>
       <div

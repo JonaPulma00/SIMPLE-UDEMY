@@ -105,10 +105,36 @@
 
 .btn-login {
   color: white;
+  border: 1px solid #00ffaacc;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: color 0.5s ease-in-out;
+}
+
+.btn-login::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #00ffaacc;
+  transition: transform 0.5s ease-in-out;
+  z-index: -1;
 }
 
 .btn-login:hover {
-  color: rgba(0, 255, 170, 0.8);
+  color: #000;
+}
+
+.btn-login:hover::before {
+  transform: translateY(-100%);
 }
 
 .btn-get-started {
