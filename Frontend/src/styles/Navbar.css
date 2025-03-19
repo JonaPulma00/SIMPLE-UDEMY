@@ -73,7 +73,6 @@
   z-index: 100;
   padding: 10px 0;
   border: 1px solid rgba(0, 255, 170, 0.1);
-  /* No display:none needed as we're conditionally rendering in React */
 }
 
 .dropdown-menu li {
@@ -99,8 +98,8 @@
   padding: 8px 16px;
   border-radius: 5px;
   font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s;
+  font-weight: 300;
+  transition: all .5s ease-in-out;
 }
 
 .btn-login {
@@ -244,8 +243,9 @@
 }
 
 @media (max-width: 576px) {
-  .auth-buttons {
-    display: none;
+
+  .navbar{
+    padding: 15px 15px 20px 15px;
   }
 
   .nav-links.active .auth-buttons {

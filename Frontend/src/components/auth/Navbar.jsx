@@ -16,7 +16,6 @@ export const Navbar = () => {
     e.preventDefault()
     setIsDropdownOpen(!isDropdownOpen)
   }
-
   return (
     <nav className="navbar">
       <div className="logo">
@@ -45,7 +44,7 @@ export const Navbar = () => {
         </ul>
       </div>
       <div className="auth-buttons">
-        <NavLink className="btn-login">Log In</NavLink>
+        <NavLink to='/login' className="btn-login">Log In</NavLink>
         <NavLink className="btn btn-get-started">Get Started</NavLink>
       </div>
       <div
