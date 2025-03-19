@@ -4,9 +4,7 @@ export const Login = () => {
 
   const navigate = useNavigate()
 
-  const handleClick = () => {
-    navigate("/login")
-  }
+
   return (
     <>
       <div>Login</div>

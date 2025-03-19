@@ -6,9 +6,13 @@ export const Footer = () => {
       <footer className="footer">
         <ul className="social-icon">
           <li className="icon-elem">
-            <NavLink to='/login' className="icon">
+            <NavLink
+              to="/about"
+              className={({ isActive }) => isActive ? "icon active-icon" : "icon"}
+            >
               <ion-icon name="logo-youtube"></ion-icon>
             </NavLink>
+
           </li>
           <li className="icon-elem">
             <NavLink to='' className="icon">

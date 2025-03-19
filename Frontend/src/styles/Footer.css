@@ -10,7 +10,7 @@
 	left: 0;
 	bottom: 0;
   width: 100%;
-  background: #286bcf;
+  background: #000;
   min-height: 100px;
   padding: 5px 50px;
   display: flex;
@@ -68,6 +68,10 @@
 
 .menu-icon:hover {
   opacity: 1;
+}
+.active-icon {
+  color: red; 
+  transform: scale(1.2); 
 }
 
 .text {

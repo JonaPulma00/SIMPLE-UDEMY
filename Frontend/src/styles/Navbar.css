@@ -1,0 +1,236 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  background-color: #000;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0, 255, 170, 0.1);
+  border-bottom: 1px solid rgba(0, 255, 170, 0.05);
+}
+
+.logo a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 24px;
+  letter-spacing: 1px;
+}
+
+.nav-links ul {
+  display: flex;
+  list-style: none;
+}
+
+.nav-links li {
+  position: relative;
+  margin: 0 15px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s;
+  padding: 8px 0;
+  display: block;
+}
+
+.nav-links a:hover {
+  color: rgba(0, 255, 170, 0.8);
+}
+
+.nav-links a.active {
+  color: rgba(0, 255, 170, 0.8);
+}
+
+.arrow {
+  font-size: 10px;
+  margin-left: 5px;
+  display: inline-block;
+  transition: transform 0.3s;
+}
+
+.arrow.rotated {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #111;
+  min-width: 180px;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  padding: 10px 0;
+  border: 1px solid rgba(0, 255, 170, 0.1);
+  /* No display:none needed as we're conditionally rendering in React */
+}
+
+.dropdown-menu li {
+  margin: 0;
+}
+
+.dropdown-menu a {
+  padding: 10px 20px;
+  color: #ddd;
+}
+
+.dropdown-menu a:hover {
+  background-color: rgba(0, 255, 170, 0.1);
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.btn-login {
+  color: white;
+}
+
+.btn-login:hover {
+  color: rgba(0, 255, 170, 0.8);
+}
+
+.btn-get-started {
+  background-color: white;
+  color: black;
+}
+
+.btn-get-started:hover {
+  background-color: rgba(0, 255, 170, 0.8);
+  color: black;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: white;
+  transition: all 0.3s;
+}
+
+/* Green glow effect */
+.navbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 100%, rgba(0, 255, 170, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Responsive design */
+@media (max-width: 992px) {
+  .navbar {
+    padding: 15px 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  .nav-links {
+    position: fixed;
+    left: -100%;
+    top: 70px;
+    gap: 0;
+    flex-direction: column;
+    background-color: #111;
+    width: 100%;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    z-index: 99;
+  }
+
+  .nav-links.active {
+    left: 0;
+  }
+
+  .nav-links ul {
+    flex-direction: column;
+    padding: 20px 0;
+  }
+
+  .nav-links li {
+    margin: 10px 0;
+  }
+
+  .dropdown-menu {
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    background-color: #222;
+  }
+
+  .dropdown-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .auth-buttons {
+    position: absolute;
+    right: 80px;
+  }
+}
+
+@media (max-width: 576px) {
+  .auth-buttons {
+    display: none;
+  }
+
+  .nav-links.active .auth-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+    position: static;
+  }
+
+  .nav-links.active .auth-buttons .btn {
+    margin: 5px 20px;
+  }
+}

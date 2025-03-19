@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { Footer } from "../components/auth/Footer"
+import { Navbar } from "../components/auth/Navbar"
 export const Home = () => {
 
   const navigate = useNavigate()
@@ -9,11 +10,8 @@ export const Home = () => {
   }
   return (
     <>
+      <Navbar />
       <div>Home</div>
-      <button onClick={handleClick}> Click me</button>
-      <button onClick={() => navigate(-1)}>Go Back</button>
-      <button onClick={() => navigate(1)}>Go Forward</button>
-
       <Footer />
     </>
   )
