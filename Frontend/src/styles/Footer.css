@@ -12,7 +12,7 @@
   width: 100%;
   background: #286bcf;
   min-height: 100px;
-  padding: 20px 50px;
+  padding: 5px 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -74,6 +74,6 @@
   color: white;
   text-align: center;
   margin-top: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 1px;
   font-size: 15px;
 }
