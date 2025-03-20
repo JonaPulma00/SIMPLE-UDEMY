@@ -19,3 +19,11 @@ export const validateUser = {
     });
   },
 };
+
+const getToken = () => {
+  sessionStorage.getItem("auth_token");
+};
+
+const getRefreshToken = () => {
+  sessionStorage.getItem("refresh_token");
+};

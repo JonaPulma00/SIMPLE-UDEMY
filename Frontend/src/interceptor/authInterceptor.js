@@ -1,4 +1,5 @@
 import axios from "axios";
+import { config } from "../config/appConfig";
 
 const api = axios.create({
   baseURL: "http://127.0.0.1:8000/api/v1",
@@ -30,10 +31,9 @@ api.interceptors.response.use(
         const refreshToken = getRefreshToken();
         if (!refreshToken) throw new Error("No refresh token");
 
-        const res = await axios.post(
-          "http://127.0.0.1:8000/api/v1/auth/refresh",
-          { refreshToken }
-        );
+        const res = await axios.post(`${config.BASE_API_URL}/auth/refresh`, {
+          refreshToken,
+        });
 
         sessionStorage.setItem("access_token", res.data.token);
         originalRequest.headers.Authorization = `Bearer ${res.data.token}`;
