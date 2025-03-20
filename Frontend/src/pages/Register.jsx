@@ -1,9 +1,31 @@
-import { NavLink } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { Navbar } from "../components/Navbar"
+import { useForm } from "../hooks/useForm"
+import { useState } from "react"
+import { registerUser } from "../services/authService"
 export const Register = () => {
 
   const navigate = useNavigate()
+
+  const initialForm = {
+    username: '',
+    email: '',
+    password: ''
+  }
+  const { username, email, password, formState, onInputChange } = useForm({ initialForm })
+
+  const [error, setError] = useState('')
+
+  const onSubmit = async (e) => {
+    e.prevendDefault();
+
+    try {
+      await registerUser.register(formState)
+      navigate('/myEd/dashboard')
+    } catch (error) {
+      setError('Error in registration, try again')
+    }
+  }
   return (
     <>
       <Navbar />
@@ -26,8 +48,6 @@ export const Register = () => {
             </div>
             <button type="submit" className="btn">Register</button>
           </form>
-          {/* <button onClick={() => navigate(-1)}>Go Back</button>
-          <button onClick={() => navigate(1)}>Go Forward</button> */}
         </div>
       </div>
     </>
