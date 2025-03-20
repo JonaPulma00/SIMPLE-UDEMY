@@ -27,10 +27,10 @@ export const Login = () => {
               <p>Don't have a account?  <NavLink to='/register' >Register</NavLink></p>
             </div>
           </form>
+          <button onClick={() => navigate(-1)}>Go Back</button>
+          <button onClick={() => navigate(1)}>Go Forward</button>
         </div>
       </div>
-      <button onClick={() => navigate(-1)}>Go Back</button>
-      <button onClick={() => navigate(1)}>Go Forward</button>
     </>
   )
 }

@@ -13,6 +13,8 @@
   align-items: center;
   min-height: 100vh;
   background-image: url('../assets/LoginWallpaper.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .wrapper{
     width: 420px;
@@ -123,4 +125,12 @@
 
 .register-link p a:hover{
     text-decoration: underline;
+}
+
+
+/*Responsive design*/
+@media (max-width: 900px) {
+  .wrapper {
+    width: 360px;
+  }
 }
