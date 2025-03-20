@@ -13,16 +13,16 @@ export const Register = () => {
             <h1>Register</h1>
             <div className="input-box">
               <input type="text" placeholder="Username" />
-              <i class="fa-solid fa-user"></i>
+              <i className="fa-solid fa-user"></i>
             </div>
             <div className="input-box">
               <input type="email" placeholder="Email" />
-              <i class="fa-sharp fa-solid fa-envelope"></i>
+              <i className="fa-sharp fa-solid fa-envelope"></i>
             </div>
 
             <div className="input-box">
               <input type="password" placeholder="Password" />
-              <i class="fa-sharp-duotone fa-solid fa-lock"></i>
+              <i className="fa-sharp-duotone fa-solid fa-lock"></i>
             </div>
             <button type="submit" className="btn">Register</button>
           </form>

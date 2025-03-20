@@ -13,11 +13,11 @@ export const Login = () => {
             <h1>Login</h1>
             <div className="input-box">
               <input type="text" placeholder="Username" />
-              <i class="fa-solid fa-user"></i>
+              <i className="fa-solid fa-user"></i>
             </div>
             <div className="input-box">
               <input type="password" placeholder="Password" />
-              <i class="fa-sharp-duotone fa-solid fa-lock"></i>
+              <i className="fa-sharp-duotone fa-solid fa-lock"></i>
             </div>
             <div className="remember-forget">
               <label ><input type="checkbox" />
