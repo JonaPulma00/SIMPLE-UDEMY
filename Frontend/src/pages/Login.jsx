@@ -1,10 +1,12 @@
 import { NavLink } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
+import { Navbar } from "../components/Navbar"
 import "../styles/Login.css"
 export const Login = () => {
   const navigate = useNavigate()
   return (
     <>
+      <Navbar />
       <div className="general-container">
         <div className="wrapper">
           <form action="">
@@ -27,8 +29,8 @@ export const Login = () => {
               <p>Don't have a account?  <NavLink to='/register' >Register</NavLink></p>
             </div>
           </form>
-          <button onClick={() => navigate(-1)}>Go Back</button>
-          <button onClick={() => navigate(1)}>Go Forward</button>
+          {/* <button onClick={() => navigate(-1)}>Go Back</button>
+          <button onClick={() => navigate(1)}>Go Forward</button> */}
         </div>
       </div>
     </>

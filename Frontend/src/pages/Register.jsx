@@ -26,8 +26,8 @@ export const Register = () => {
             </div>
             <button type="submit" className="btn">Register</button>
           </form>
-          <button onClick={() => navigate(-1)}>Go Back</button>
-          <button onClick={() => navigate(1)}>Go Forward</button>
+          {/* <button onClick={() => navigate(-1)}>Go Back</button>
+          <button onClick={() => navigate(1)}>Go Forward</button> */}
         </div>
       </div>
     </>

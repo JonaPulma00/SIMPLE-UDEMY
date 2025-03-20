@@ -21,7 +21,7 @@ export const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="logo">
-        <NavLink>MyEd</NavLink>
+        <NavLink to="/">MyEd</NavLink>
       </div>
       <div className={`nav-links ${isMenuActive ? 'active' : ''}`}>
         <ul>
@@ -47,7 +47,7 @@ export const Navbar = () => {
       </div>
       <div className="auth-buttons">
         <NavLink to='/login' className="btn-login">Log In</NavLink>
-        <NavLink className="btn btn-get-started">Get Started</NavLink>
+        <NavLink to='/register' className="btn btn-get-started">Get Started</NavLink>
       </div>
       <div
         className={`hamburger ${isMenuActive ? 'active' : ''}`}
