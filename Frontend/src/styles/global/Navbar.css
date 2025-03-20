@@ -5,6 +5,10 @@
   font-family: Arial, sans-serif;
 }
 
+nav{
+background-color: aqua;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;

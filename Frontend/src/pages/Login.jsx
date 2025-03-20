@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { Navbar } from "../components/Navbar"
-import "../styles/Login.css"
+import "../styles/user/Login.css"
 export const Login = () => {
   const navigate = useNavigate()
   return (
