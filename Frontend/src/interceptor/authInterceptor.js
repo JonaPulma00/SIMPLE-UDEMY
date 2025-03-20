@@ -32,11 +32,11 @@ api.interceptors.response.use(
         if (!refreshToken) throw new Error("No refresh token");
 
         const res = await axios.post(`${config.BASE_API_URL}/auth/refresh`, {
-          refreshToken,
+          refresh_token: refreshToken,
         });
 
-        sessionStorage.setItem("access_token", res.data.token);
-        originalRequest.headers.Authorization = `Bearer ${res.data.token}`;
+        sessionStorage.setItem("access_token", res.data.access_token);
+        originalRequest.headers.Authorization = `Bearer ${res.data.access_token}`;
         return api(originalRequest);
       } catch (refreshError) {
         sessionStorage.removeItem("access_token");

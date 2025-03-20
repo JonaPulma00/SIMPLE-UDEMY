@@ -48,16 +48,28 @@ async def authenticate_user(db: AsyncSession, username: str, password: str):
 
     return {
         "access_token": create_access_token({"sub": user.user_id}),
-        "refresh_token": create_refresh_token({"sub": user.user_id})
+        "refresh_token": create_refresh_token({"sub": user.user_id}),
+        "user_id": user.user_id
     }
 
 async def refresh_access_token(refresh_token: str):
+    if not refresh_token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, 
+            detail="No refresh token provided"
+        )
+    
     try:
         payload = jwt.decode(refresh_token, SECRET_KEY, algorithms=[JWT_ALGORITHM])
         user_id = payload.get("sub")
         if user_id is None:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
-
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN, 
+                detail="Invalid token"
+            )
         return {"access_token": create_access_token({"sub": user_id})}
     except jwt.PyJWTError:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, 
+            detail="Invalid token"
+        )
