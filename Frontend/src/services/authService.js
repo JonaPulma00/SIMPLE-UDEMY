@@ -8,10 +8,7 @@ export const registerUser = {
 };
 
 export const loginUser = {
-  login: (username, password) => {
-    return axios.post(`http://127.0.0.1:8000/api/v1/auth/login`, {
-      username,
-      password,
-    });
+  login: (formData) => {
+    return axios.post(`http://127.0.0.1:8000/api/v1/auth/login`, formData);
   },
 };
