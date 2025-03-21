@@ -12,7 +12,7 @@ export const Register = () => {
     email: '',
     password: ''
   }
-  const { username, email, password, formState, onInputChange } = useForm({ initialForm })
+  const { username, email, password, formState, onInputChange } = useForm(initialForm)
 
   const [error, setError] = useState('')
 
