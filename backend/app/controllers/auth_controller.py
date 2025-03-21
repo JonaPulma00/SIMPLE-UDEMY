@@ -47,9 +47,8 @@ async def authenticate_user(db: AsyncSession, username: str, password: str):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
 
     return {
-        "access_token": create_access_token({"sub": user.user_id}),
-        "refresh_token": create_refresh_token({"sub": user.user_id}),
-        "user_id": user.user_id
+        "access_token": create_access_token({"uuid": user.user_id, "email":user.email, "is_instructor": user.is_instructor}),
+        "refresh_token": create_refresh_token({"uuid": user.user_id}),
     }
 
 async def refresh_access_token(refresh_token: str):
