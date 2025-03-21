@@ -1,9 +1,19 @@
 import { NavLink } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { Navbar } from "../components/Navbar"
+import { useForm } from "../hooks/useForm"
+
+
 import "../styles/user/Login.css"
 export const Login = () => {
+
+  const initialForm = {
+    username: '',
+    password: ''
+  }
   const navigate = useNavigate()
+  const { username, password, onInputChange, formState } = useForm()
+  const [error, setError] = useState('')
   return (
     <>
       <Navbar />
