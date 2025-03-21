@@ -1,25 +1,30 @@
 import axios from "axios";
-import { config } from "../config/appConfig";
+// import { config } from "../config/appConfig";
 
-export const saveTokens = () => {
-  sessionStorage.setItem("auth_token");
-  sessionStorage.setItem("refresh_token");
+export const saveTokens = (access_token, refresh_token) => {
+  sessionStorage.setItem("access_token", access_token);
+  sessionStorage.setItem("refresh_token", refresh_token);
 };
 
 export const getToken = () => {
-  sessionStorage.getItem("auth_token");
+  return sessionStorage.getItem("access_token");
 };
 
 export const getRefreshToken = () => {
-  sessionStorage.getItem("refresh_token");
+  return sessionStorage.getItem("refresh_token");
 };
 
 export const refreshToken = () => {
-  const refreshToken = getRefreshToken();
-  return axios.post(`${config.BASE_API_URL}/auth/refresh`, refreshToken);
+  const refresh_token = getRefreshToken();
+  if (!refresh_token) return Promise.reject("No refresh token available");
+  return axios.post(`${config.BASE_API_URL}/auth/refresh`, { refresh_token });
 };
 
 export const deleteTokens = () => {
-  sessionStorage.removeItem("auth_token");
+  sessionStorage.removeItem("access_token");
   sessionStorage.removeItem("refresh_token");
+};
+
+export const logoutApp = () => {
+  deleteTokens();
 };
