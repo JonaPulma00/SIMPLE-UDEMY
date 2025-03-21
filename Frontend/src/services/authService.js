@@ -1,19 +1,15 @@
 import axios from "axios";
-import { config } from "../config/appConfig";
+// import { config } from "../config/appConfig";
 
 export const registerUser = {
-  register: (username, email, password) => {
-    return axios.post(`${config.BASE_API_URL}/auth/register`, {
-      username,
-      email,
-      password,
-    });
+  register: (formData) => {
+    return axios.post(`http://127.0.0.1:8000/api/v1/auth/register`, formData);
   },
 };
 
 export const loginUser = {
   login: (username, password) => {
-    return axios.post(`${config.BASE_API_URL}/auth/login`, {
+    return axios.post(`http://127.0.0.1:8000/api/v1/auth/login`, {
       username,
       password,
     });

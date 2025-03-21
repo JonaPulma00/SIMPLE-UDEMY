@@ -17,39 +17,70 @@ export const Register = () => {
   const [error, setError] = useState('')
 
   const onSubmit = async (e) => {
-    e.prevendDefault();
-
+    e.preventDefault();
     try {
-      await registerUser.register(formState)
-      navigate('/myEd/dashboard')
+      const response = await registerUser.register({
+        username: formState.username,
+        email: formState.email,
+        password: formState.password
+      });
+      navigate('/dashboard');
     } catch (error) {
-      setError('Error in registration, try again')
+      console.error("Registration error", error);
+      if (error.response && error.response.data) {
+        setError(error.response.data.detail || 'An error occurred. Try again.');
+      } else {
+        setError('Error in registration, try again');
+      }
+      setTimeout(() => setError(''), 5000);
     }
   }
   return (
     <>
       <Navbar />
-      <div className="general-container">
+      <form className="general-container" onSubmit={onSubmit}>
         <div className="wrapper">
-          <form action="">
-            <h1>Register</h1>
-            <div className="input-box">
-              <input type="text" placeholder="Username" />
-              <i className="fa-solid fa-user"></i>
-            </div>
-            <div className="input-box">
-              <input type="email" placeholder="Email" />
-              <i className="fa-sharp fa-solid fa-envelope"></i>
-            </div>
+          <h1>Register</h1>
+          <div className="input-box">
+            <label htmlFor="name" className="form-label">
+              <input
+                type="text"
+                placeholder="Username"
+                className="form-input"
+                value={username}
+                name="username"
+                onChange={onInputChange} />
+            </label>
+            <i className="fa-solid fa-user"></i>
+          </div>
+          <div className="input-box">
+            <label htmlFor="name" className="form-label">
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                name="email"
+                className="form-input"
+                onChange={onInputChange} />
+            </label>
+            <i className="fa-sharp fa-solid fa-envelope"></i>
+          </div>
 
-            <div className="input-box">
-              <input type="password" placeholder="Password" />
-              <i className="fa-sharp-duotone fa-solid fa-lock"></i>
-            </div>
-            <button type="submit" className="btn">Register</button>
-          </form>
+          <div className="input-box">
+            <label htmlFor="name" className="form-label">
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                name="password"
+                onChange={onInputChange} />
+            </label>
+            <i className="fa-sharp-duotone fa-solid fa-lock"></i>
+          </div>
+          <button type="submit" className="btn">Register</button>
+          {error && <p className="error-message">{error}</p>}
         </div>
-      </div>
+      </form>
     </>
   )
 }

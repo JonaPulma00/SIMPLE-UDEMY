@@ -126,7 +126,19 @@
 .register-link p a:hover{
     text-decoration: underline;
 }
-
+.error-message {
+    color: #ff4d4d; 
+    background: #ffe6e6; 
+    border: 1px solid #ff4d4d;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+    width: 100%;
+    max-width: 400px;
+  }
+  
 
 /*Responsive design*/
 @media (max-width: 900px) {
