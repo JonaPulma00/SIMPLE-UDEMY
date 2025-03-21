@@ -26,6 +26,12 @@ export const deleteTokens = () => {
   sessionStorage.removeItem("refresh_token");
 };
 
+export const isAuth = () => {
+  const access_token = getToken();
+  if (access_token) return true;
+  return false;
+};
 export const logoutApp = () => {
   deleteTokens();
+  window.location.href = "/login";
 };

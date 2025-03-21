@@ -1,11 +1,11 @@
-import { Navigate, Route } from "react-router-dom";
-import { getToken } from "../services/tokenService";
+import { Navigate, useLocation } from "react-router-dom";
+import { isAuth } from "../services/tokenService";
 
-const ProtectedRoute = ({ element, ...rest }) => {
-  const token = getToken();
-  return token ? (
-    <Route {...rest} element={element} />
-  ) : (
-    <Navigate to="/login" />
-  );
+export const ProtectedRoute = ({ children }) => {
+  let location = useLocation();
+  let authenticated = isAuth();
+  if (!authenticated) {
+    return <Navigate to="/login" state={{ from: location }} />;
+  }
+  return children;
 };

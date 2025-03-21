@@ -20,6 +20,9 @@ export const loginUser = {
         if (response.data.access_token && response.data.refresh_token) {
           saveTokens(response.data.access_token, response.data.refresh_token);
         }
+      })
+      .catch((error) => {
+        console.error("Login failed: ", error);
       });
   },
 };

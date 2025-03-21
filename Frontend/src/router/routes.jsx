@@ -4,6 +4,10 @@ import { Login } from "../pages/Login"
 import { About } from "../pages/About"
 import { Register } from "../pages/Register"
 import { WelcomePage } from "../pages/WelcomePage"
+import { ProtectedRoute } from "../components/ProtectedRoutes"
+
+
+
 export const AppRoutes = () => {
   return (
     <Routes>
@@ -11,7 +15,13 @@ export const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/about" element={<About />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/dashboard" element={<WelcomePage />} />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <WelcomePage />
+          </ProtectedRoute>
+        } />
       <Route path="/*" element={<Navigate to='/' />}></Route>
     </Routes>
   )
