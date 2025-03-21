@@ -51,13 +51,13 @@ async def authenticate_user(db: AsyncSession, username: str, password: str):
         "refresh_token": create_refresh_token({"uuid": user.user_id})
     }
 
-async def refresh_access_token(db: AsyncSession, refresh_token: str):
+async def refresh_access_token(refresh_token: str):
     if not refresh_token:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, 
             detail="No refresh token provided"
         )
-
+    
     try:
         payload = jwt.decode(refresh_token, SECRET_KEY, algorithms=[JWT_ALGORITHM])
         user_id = payload.get("uuid")
@@ -66,24 +66,7 @@ async def refresh_access_token(db: AsyncSession, refresh_token: str):
                 status_code=status.HTTP_403_FORBIDDEN, 
                 detail="Invalid token"
             )
-
-        stmt = select(User).filter(User.user_id == user_id)
-        result = await db.execute(stmt)
-        user = result.scalar_one_or_none()
-
-        if not user:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND, 
-                detail="User not found"
-            )
-
-        return {
-            "access_token": create_access_token({
-                "uuid": user.user_id,
-                "email": user.email,
-                "is_instructor": user.is_instructor
-            })
-        }
+        return {"access_token": create_access_token({"uuid": user_id})}
     except jwt.PyJWTError:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN, 

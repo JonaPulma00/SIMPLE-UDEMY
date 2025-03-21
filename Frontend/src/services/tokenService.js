@@ -1,5 +1,4 @@
 import axios from "axios";
-// import { config } from "../config/appConfig";
 
 export const saveTokens = (access_token, refresh_token) => {
   sessionStorage.setItem("access_token", access_token);
@@ -17,7 +16,9 @@ export const getRefreshToken = () => {
 export const refreshToken = () => {
   const refresh_token = getRefreshToken();
   if (!refresh_token) return Promise.reject("No refresh token available");
-  return axios.post(`${config.BASE_API_URL}/auth/refresh`, { refresh_token });
+  return axios.post(`http://127.0.0.1:8000/api/v1/auth/refresh`, {
+    refresh_token,
+  });
 };
 
 export const deleteTokens = () => {

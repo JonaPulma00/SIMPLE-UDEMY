@@ -1,5 +1,9 @@
+import { Navbar } from "../components/Navbar"
 export const WelcomePage = () => {
   return (
-    <div>Welcome to the app</div>
+    <>
+      <Navbar />
+      <div>Welcome to the app</div>
+    </>
   )
 }
