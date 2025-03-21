@@ -48,8 +48,7 @@ async def authenticate_user(db: AsyncSession, username: str, password: str):
 
     return {
         "access_token": create_access_token({"uuid": user.user_id, "email":user.email, "is_instructor": user.is_instructor}),
-        "refresh_token": create_refresh_token({"uuid": user.user_id}),
-        "user_id": user.user_id
+        "refresh_token": create_refresh_token({"uuid": user.user_id})
     }
 
 async def refresh_access_token(db: AsyncSession, refresh_token: str):
