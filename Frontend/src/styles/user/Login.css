@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-image: url('../../assets/LoginWallpaper.jpg');
+  background-image: url('../../assets/login/LoginWallpaper.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }

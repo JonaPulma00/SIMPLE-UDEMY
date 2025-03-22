@@ -2,7 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { Footer } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
 import "../styles/global/Home.css";
-
+import iconLearn from '../assets/home/study.png'
+import iconTeacher from '../assets/home/teacher.png'
+import iconCode from '../assets/home/code.png'
 export const Home = () => {
   const navigate = useNavigate();
 
@@ -10,11 +12,11 @@ export const Home = () => {
     "JavaScript",
     "TypeScript",
     "Java",
-    "React",
+    "Vue",
     "Python",
     "TDD",
-    "AI",
-    "C#",
+    "React",
+    "C++",
     "UI/UX Design",
     "Angular"
   ];
@@ -60,20 +62,20 @@ export const Home = () => {
 
       {/* Benefits Section */}
       <section className="benefits-section">
-        <h2>Why Learn With Us</h2>
+        <h2>Benefits of using MyEd</h2>
         <div className="benefits-container">
           <div className="benefit-card">
-            <div className="benefit-icon">🌟</div>
-            <h3>Learn at your own pace</h3>
+            <img alt="student-img" src={iconLearn} className="benefit-icon" />
+            <h3>Learning at your own pace!</h3>
             <p>Enjoy lifetime access to courses on our website and app</p>
           </div>
           <div className="benefit-card">
-            <div className="benefit-icon">👨‍🏫</div>
-            <h3>Learn from experts</h3>
+            <img alt="student-img" src={iconTeacher} className="benefit-icon" />
+            <h3>Learning from experts</h3>
             <p>Select any course you want from our instructors</p>
           </div>
           <div className="benefit-card">
-            <div className="benefit-icon">📚</div>
+            <img alt="student-img" src={iconCode} className="benefit-icon" />
             <h3>Find video courses on almost any topic</h3>
             <p>Build your own library, with your own topics</p>
           </div>
