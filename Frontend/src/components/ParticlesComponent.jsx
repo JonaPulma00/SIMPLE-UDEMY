@@ -1,17 +1,16 @@
 import Particles, { initParticlesEngine } from "@tsparticles/react";
-import { useEffect } from "react";
+import { useEffect, memo } from "react";
 import { loadSlim } from "@tsparticles/slim";
 
 
 
-export const ParticlesComponent = (props) => {
+export const ParticlesComponent = memo((props) => {
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
     })
   }, []);
-
 
   const options = {
     fpsLimit: 120,
@@ -79,5 +78,5 @@ export const ParticlesComponent = (props) => {
   }
 
   return <Particles id={props.id} options={options} />;
-};
+});
 

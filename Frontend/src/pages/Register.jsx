@@ -44,7 +44,7 @@ export const Register = () => {
   return (
     <>
       <div className="page-wrapper">
-        <ParticlesComponent />
+        <ParticlesComponent id='particles' />
         <div className="content-wrapper">
           <Navbar />
           <form className="general-container" onSubmit={onSubmit}>
