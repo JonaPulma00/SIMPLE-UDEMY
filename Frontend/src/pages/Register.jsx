@@ -27,12 +27,16 @@ export const Register = () => {
       navigate('/dashboard');
     } catch (error) {
       console.error("Registration error", error);
-      if (error.response && error.response.data) {
-        setError(error.response.data.detail || 'An error occurred. Try again.');
+      if (error.detail) {
+        if (Array.isArray(error.detail)) {
+          setError(error.detail.map(err => err.msg).join(', '));
+        } else {
+          setError(error.detail);
+        }
       } else {
         setError('Error in registration, try again');
       }
-      setTimeout(() => setError(''), 5000);
+      setTimeout(() => setError(''), 10000);
     }
   }
   return (

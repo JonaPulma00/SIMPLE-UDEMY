@@ -1,14 +1,16 @@
 import axios from "axios";
 import { saveTokens } from "./tokenService";
 
-// import { config } from "../config/appConfig";
-
-let access_token = "";
-let refresh_token = "";
-let user;
 export const registerUser = {
   register: (formData) => {
-    return axios.post(`http://127.0.0.1:8000/api/v1/auth/register`, formData);
+    return axios
+      .post(`http://127.0.0.1:8000/api/v1/auth/register`, formData)
+      .catch((error) => {
+        if (error.response) {
+          return Promise.reject(error.response.data);
+        }
+        return Promise.reject(error.message || "Registration failed");
+      });
   },
 };
 
@@ -20,9 +22,13 @@ export const loginUser = {
         if (response.data.access_token && response.data.refresh_token) {
           saveTokens(response.data.access_token, response.data.refresh_token);
         }
+        return response;
       })
       .catch((error) => {
-        console.error("Login failed: ", error);
+        if (error.response) {
+          return Promise.reject(error.response.data);
+        }
+        return Promise.reject(error.message || "Login failed");
       });
   },
 };

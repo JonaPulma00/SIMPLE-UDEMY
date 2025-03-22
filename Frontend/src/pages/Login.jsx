@@ -17,22 +17,24 @@ export const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(formState)
-
     try {
       const response = await loginUser.login({
         username: formState.username,
         password: formState.password
-      })
-      navigate('/dashboard')
+      });
+      navigate('/dashboard');
     } catch (error) {
-      console.error('Error: ', error)
-      if (error.response && error.response.data) {
-        setError(error.response.data || 'Error, try again')
+      console.error('Error: ', error);
+      if (error.detail) {
+        if (Array.isArray(error.detail)) {
+          setError(error.detail.map(err => err.msg).join(', '));
+        } else {
+          setError(error.detail);
+        }
       } else {
-        setError('Try again please')
+        setError('Error in login, try again');
       }
-      setTimeout(() => setError(''), 5000);
+      setTimeout(() => setError(''), 10000);
     }
   }
   return (
