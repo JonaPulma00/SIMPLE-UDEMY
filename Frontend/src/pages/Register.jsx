@@ -3,6 +3,8 @@ import { Navbar } from "../components/Navbar"
 import { useForm } from "../hooks/useForm"
 import { useState } from "react"
 import { registerUser } from "../services/authService"
+import { ParticlesBackground } from "../components/ParticlesBackground"
+import '../styles/user/Login.css'
 export const Register = () => {
 
   const navigate = useNavigate()
@@ -41,6 +43,9 @@ export const Register = () => {
   }
   return (
     <>
+        <div className="page-wrapper">
+        <ParticlesBackground />
+        <div className="content-wrapper">
       <Navbar />
       <form className="general-container" onSubmit={onSubmit}>
         <div className="wrapper">
@@ -85,6 +90,8 @@ export const Register = () => {
           {error && <p className="error-message">{error}</p>}
         </div>
       </form>
+      </div>
+    </div>
     </>
   )
 }

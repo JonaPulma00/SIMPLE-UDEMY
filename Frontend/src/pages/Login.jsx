@@ -5,6 +5,8 @@ import { useForm } from "../hooks/useForm"
 import { useState } from "react"
 import { loginUser } from "../services/authService"
 import "../styles/user/Login.css"
+import { ParticlesBackground } from "../components/ParticlesBackground"
+
 export const Login = () => {
 
   const initialForm = {
@@ -38,48 +40,51 @@ export const Login = () => {
     }
   }
   return (
-    <>
-      <Navbar />
-      <form className="general-container" onSubmit={onSubmit}>
-        <div className="wrapper">
-          <h1>Login</h1>
-          <div className="input-box">
-            <label htmlFor="name" className="form-label">
-              <input
-                type="text"
-                placeholder="Username"
-                name="username"
-                onChange={onInputChange}
-                value={username}
-                className="form-input" />
-            </label>
-            <i className="fa-solid fa-user"></i>
-          </div>
+    <div className="page-wrapper">
+      <ParticlesBackground />
+      <div className="content-wrapper">
+        <Navbar />
+        <form className="general-container" onSubmit={onSubmit}>
+          <div className="wrapper">
+            <h1>Login</h1>
+            <div className="input-box">
+              <label htmlFor="name" className="form-label">
+                <input
+                  type="text"
+                  placeholder="Username"
+                  name="username"
+                  onChange={onInputChange}
+                  value={username}
+                  className="form-input" />
+              </label>
+              <i className="fa-solid fa-user"></i>
+            </div>
 
-          <div className="input-box">
-            <label htmlFor="name" className="form-label">
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                name="password"
-                onChange={onInputChange}
-                className="form-input" />
-            </label>
-            <i className="fa-sharp-duotone fa-solid fa-lock"></i>
+            <div className="input-box">
+              <label htmlFor="name" className="form-label">
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  name="password"
+                  onChange={onInputChange}
+                  className="form-input" />
+              </label>
+              <i className="fa-sharp-duotone fa-solid fa-lock"></i>
+            </div>
+            <div className="remember-forget">
+              <label ><input type="checkbox" />
+                Remember me</label>
+              <NavLink to='/' > Forgot Password?</NavLink>
+            </div>
+            <button type="submit" className="btn">Log in</button>
+            <div className="register-link">
+              <p>Don't have a account?  <NavLink to='/register' >Register</NavLink></p>
+            </div>
+            {error && <p className="error-message">{error}</p>}
           </div>
-          <div className="remember-forget">
-            <label ><input type="checkbox" />
-              Remember me</label>
-            <NavLink to='/' > Forgot Password?</NavLink>
-          </div>
-          <button type="submit" className="btn">Log in</button>
-          <div className="register-link">
-            <p>Don't have a account?  <NavLink to='/register' >Register</NavLink></p>
-          </div>
-          {error && <p className="error-message">{error}</p>}
-        </div>
-      </form>
-    </>
+        </form>
+      </div>
+    </div>
   )
 }
