@@ -5,7 +5,7 @@ import "../styles/global/Home.css";
 import iconLearn from '../assets/home/study.png';
 import iconTeacher from '../assets/home/teacher.png';
 import iconCode from '../assets/home/code.png';
-import ParticlesComponent from "../components/ParticlesComponent";
+import { ParticlesComponent } from "../components/ParticlesComponent";
 export const Home = () => {
   const navigate = useNavigate();
 

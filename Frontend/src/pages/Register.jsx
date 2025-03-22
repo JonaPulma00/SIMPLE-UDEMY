@@ -3,7 +3,7 @@ import { Navbar } from "../components/Navbar"
 import { useForm } from "../hooks/useForm"
 import { useState } from "react"
 import { registerUser } from "../services/authService"
-import ParticlesComponent from "../components/ParticlesComponent"
+import { ParticlesComponent } from "../components/ParticlesComponent"
 import '../styles/user/authForms.css'
 export const Register = () => {
 

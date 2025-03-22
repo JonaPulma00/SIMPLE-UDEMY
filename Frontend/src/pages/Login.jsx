@@ -5,7 +5,7 @@ import { useForm } from "../hooks/useForm"
 import { useState } from "react"
 import { loginUser } from "../services/authService"
 import "../styles/user/authForms.css"
-import ParticlesComponent from "../components/ParticlesComponent"
+import { ParticlesComponent } from "../components/ParticlesComponent"
 
 export const Login = () => {
 
