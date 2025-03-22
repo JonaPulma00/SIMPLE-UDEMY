@@ -1,3 +1,190 @@
-.home-container{
-  background-color: blue;
+/* General Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+h1, h2, h3 {
+  margin-bottom: 1rem;
+}
+
+button {
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+section {
+  padding: 3rem 2rem;
+}
+
+/* Hero Section */
+.hero-section {
+  background-color: #f8f9fa;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #6a6f73;
+}
+
+/* Search Bar */
+.search-container {
+  display: flex;
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid #1c1d1f;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.search-container input {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  font-size: 1rem;
+}
+
+.search-container button {
+  padding: 1rem 1.5rem;
+  background-color: #1c1d1f;
+  color: white;
+  border: none;
+}
+
+.search-container button:hover {
+  background-color: #333;
+}
+
+/* Topics Section */
+.topics-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.topics-section h2 {
+  margin-bottom: 2rem;
+}
+
+.topics-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.topic-button {
+  padding: 0.7rem 1.2rem;
+  background-color: white;
+  border: 1px solid #1c1d1f;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.topic-button:hover {
+  background-color: #f7f9fa;
+}
+
+/* Benefits Section */
+.benefits-section {
+  background-color: #f8f9fa;
+  text-align: center;
+}
+
+.benefits-section h2 {
+  margin-bottom: 2rem;
+}
+
+.benefits-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.benefit-card {
+  padding: 2rem;
+}
+
+.benefit-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* CTA Section */
+.cta-section {
+  background-color: #1c1d1f;
+  color: white;
+  text-align: center;
+}
+
+.cta-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-button {
+  margin-top: 1.5rem;
+  padding: 1rem 2rem;
+  background-color: white;
+  color: #1c1d1f;
+  border: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #ddd;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .benefits-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  section {
+    padding: 2rem 1rem;
+  }
+
+  .hero-section {
+    padding: 3rem 1rem;
+  }
+
+  .search-container {
+    flex-direction: column;
+  }
+
+  .search-container input,
+  .search-container button {
+    width: 100%;
+  }
 }
