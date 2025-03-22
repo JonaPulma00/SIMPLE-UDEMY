@@ -5,8 +5,7 @@ import "../styles/global/Home.css";
 import iconLearn from '../assets/home/study.png';
 import iconTeacher from '../assets/home/teacher.png';
 import iconCode from '../assets/home/code.png';
-import { ParticlesBackground } from "../components/ParticlesBackground";
-
+import ParticlesComponent from "../components/ParticlesComponent";
 export const Home = () => {
   const navigate = useNavigate();
 
@@ -29,7 +28,7 @@ export const Home = () => {
 
   return (
     <div className="page-wrapper">
-      <ParticlesBackground />
+      <ParticlesComponent id="particles" />
       <div className="content-wrapper">
         <Navbar />
         <section className="hero-section">

@@ -4,8 +4,8 @@ import { Navbar } from "../components/Navbar"
 import { useForm } from "../hooks/useForm"
 import { useState } from "react"
 import { loginUser } from "../services/authService"
-import "../styles/user/Login.css"
-import { ParticlesBackground } from "../components/ParticlesBackground"
+import "../styles/user/authForms.css"
+import ParticlesComponent from "../components/ParticlesComponent"
 
 export const Login = () => {
 
@@ -41,7 +41,7 @@ export const Login = () => {
   }
   return (
     <div className="page-wrapper">
-      <ParticlesBackground />
+      <ParticlesComponent id="particles" />
       <div className="content-wrapper">
         <Navbar />
         <form className="general-container" onSubmit={onSubmit}>

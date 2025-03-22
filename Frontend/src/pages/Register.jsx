@@ -3,8 +3,8 @@ import { Navbar } from "../components/Navbar"
 import { useForm } from "../hooks/useForm"
 import { useState } from "react"
 import { registerUser } from "../services/authService"
-import { ParticlesBackground } from "../components/ParticlesBackground"
-import '../styles/user/Login.css'
+import ParticlesComponent from "../components/ParticlesComponent"
+import '../styles/user/authForms.css'
 export const Register = () => {
 
   const navigate = useNavigate()
@@ -43,55 +43,55 @@ export const Register = () => {
   }
   return (
     <>
-        <div className="page-wrapper">
-        <ParticlesBackground />
+      <div className="page-wrapper">
+        <ParticlesComponent />
         <div className="content-wrapper">
-      <Navbar />
-      <form className="general-container" onSubmit={onSubmit}>
-        <div className="wrapper">
-          <h1>Register</h1>
-          <div className="input-box">
-            <label htmlFor="name" className="form-label">
-              <input
-                type="text"
-                placeholder="Username"
-                className="form-input"
-                value={username}
-                name="username"
-                onChange={onInputChange} />
-            </label>
-            <i className="fa-solid fa-user"></i>
-          </div>
-          <div className="input-box">
-            <label htmlFor="name" className="form-label">
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                name="email"
-                className="form-input"
-                onChange={onInputChange} />
-            </label>
-            <i className="fa-sharp fa-solid fa-envelope"></i>
-          </div>
+          <Navbar />
+          <form className="general-container" onSubmit={onSubmit}>
+            <div className="wrapper">
+              <h1>Register</h1>
+              <div className="input-box">
+                <label htmlFor="name" className="form-label">
+                  <input
+                    type="text"
+                    placeholder="Username"
+                    className="form-input"
+                    value={username}
+                    name="username"
+                    onChange={onInputChange} />
+                </label>
+                <i className="fa-solid fa-user"></i>
+              </div>
+              <div className="input-box">
+                <label htmlFor="name" className="form-label">
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    name="email"
+                    className="form-input"
+                    onChange={onInputChange} />
+                </label>
+                <i className="fa-sharp fa-solid fa-envelope"></i>
+              </div>
 
-          <div className="input-box">
-            <label htmlFor="name" className="form-label">
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                name="password"
-                onChange={onInputChange} />
-            </label>
-            <i className="fa-sharp-duotone fa-solid fa-lock"></i>
-          </div>
-          <button type="submit" className="btn">Register</button>
-          {error && <p className="error-message">{error}</p>}
+              <div className="input-box">
+                <label htmlFor="name" className="form-label">
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    name="password"
+                    onChange={onInputChange} />
+                </label>
+                <i className="fa-sharp-duotone fa-solid fa-lock"></i>
+              </div>
+              <button type="submit" className="btn">Register</button>
+              {error && <p className="error-message">{error}</p>}
+            </div>
+          </form>
         </div>
-      </form>
       </div>
-    </div>
     </>
   )
 }
