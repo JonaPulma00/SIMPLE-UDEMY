@@ -12,14 +12,24 @@ export const Register = () => {
   const initialForm = {
     username: '',
     email: '',
-    password: ''
+    password: '',
+    confirm: ''
   }
-  const { username, email, password, formState, onInputChange } = useForm(initialForm)
+  const { username, email, password, confirm, formState, onInputChange } = useForm(initialForm)
 
   const [error, setError] = useState('')
 
+  const confirmPassword = () => {
+    if (confirm != password) {
+      setError('Passwords must match!')
+      return false;
+    } else {
+      return true;
+    }
+  }
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (!confirmPassword()) return;
     try {
       const response = await registerUser.register({
         username: formState.username,
@@ -82,6 +92,18 @@ export const Register = () => {
                     placeholder="Password"
                     value={password}
                     name="password"
+                    onChange={onInputChange} />
+                </label>
+                <i className="fa-sharp-duotone fa-solid fa-lock"></i>
+              </div>
+
+              <div className="input-box">
+                <label htmlFor="name" className="form-label">
+                  <input
+                    type="password"
+                    placeholder="Confirm password"
+                    value={confirm}
+                    name="confirm"
                     onChange={onInputChange} />
                 </label>
                 <i className="fa-sharp-duotone fa-solid fa-lock"></i>
