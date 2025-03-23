@@ -22,4 +22,3 @@ app.add_middleware(
 )
 
 app.include_router(api_routes, prefix="/api/v1")
-

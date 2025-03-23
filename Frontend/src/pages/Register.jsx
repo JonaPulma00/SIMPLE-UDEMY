@@ -1,18 +1,13 @@
 import { useNavigate } from "react-router-dom"
 import { Navbar } from "../components/Navbar"
 import { useForm } from "../hooks/useForm"
-import { useState, useRef, useEffect } from "react"
+import { useState } from "react"
 import { registerUser } from "../services/authService"
 import { ParticlesComponent } from "../components/ParticlesComponent"
 import '../styles/user/authForms.css'
 export const Register = () => {
 
   const navigate = useNavigate()
-  const focusRef = useRef()
-
-  useEffect(() => {
-    focusRef.current.focus()
-  })
   const initialForm = {
     username: '',
     email: '',
@@ -67,13 +62,13 @@ export const Register = () => {
               <div className="input-box">
                 <label htmlFor="name" className="form-label">
                   <input
-                    ref={focusRef}
                     type="text"
                     placeholder="Username"
                     className="form-input"
                     value={username}
                     name="username"
-                    onChange={onInputChange} />
+                    onChange={onInputChange}
+                    autoFocus />
                 </label>
                 <i className="fa-solid fa-user"></i>
               </div>

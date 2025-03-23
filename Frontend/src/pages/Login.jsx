@@ -2,17 +2,13 @@ import { NavLink } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { Navbar } from "../components/Navbar"
 import { useForm } from "../hooks/useForm"
-import { useState, useRef, useEffect } from "react"
+import { useState } from "react"
 import { loginUser } from "../services/authService"
 import "../styles/user/authForms.css"
 import { ParticlesComponent } from "../components/ParticlesComponent"
 
 export const Login = () => {
-  const focusRef = useRef()
 
-  useEffect(() => {
-    focusRef.current.focus()
-  }, [])
   const initialForm = {
     username: '',
     password: ''
@@ -54,7 +50,7 @@ export const Login = () => {
             <div className="input-box">
               <label htmlFor="name" className="form-label">
                 <input
-                  ref={focusRef}
+                  autoFocus
                   type="text"
                   placeholder="Username"
                   name="username"

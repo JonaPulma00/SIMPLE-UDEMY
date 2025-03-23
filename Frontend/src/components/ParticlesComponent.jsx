@@ -5,7 +5,6 @@ import { loadSlim } from "@tsparticles/slim";
 
 
 export const ParticlesComponent = memo((props) => {
-
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
@@ -41,7 +40,7 @@ export const ParticlesComponent = memo((props) => {
       },
       links: {
         color: "#FFFFFF",
-        distance: 150,
+        distance: 120,
         enable: true,
         opacity: 0.3,
         width: 1,
@@ -53,7 +52,7 @@ export const ParticlesComponent = memo((props) => {
           default: "bounce",
         },
         random: true,
-        speed: 1,
+        speed: 1.5,
         straight: false,
       },
       number: {
@@ -61,7 +60,7 @@ export const ParticlesComponent = memo((props) => {
           enable: true,
           value: 1200,
         },
-        value: 120,
+        value: 150,
       },
       opacity: {
         value: 1.0,
