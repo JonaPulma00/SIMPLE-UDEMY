@@ -8,6 +8,7 @@ from app.schemas.user import UserCreate, UserLogin
 from app.utils.security import get_password_hash, verify_password, create_access_token, create_refresh_token
 import logging
 from app.core.config import SECRET_KEY, JWT_ALGORITHM
+from app.utils.token_store import token_blacklist
 
 logger = logging.getLogger(__name__)
 
@@ -72,3 +73,24 @@ async def refresh_access_token(refresh_token: str):
             status_code=status.HTTP_403_FORBIDDEN, 
             detail="Invalid token"
         )
+
+async def logout_user(token: str):
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="No token provided"
+        )
+    
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[JWT_ALGORITHM])
+        
+        token_blacklist.add(token)
+        
+        logger.info(f"User logged out: {payload.get('email', 'unknown')}")
+        return {"success": True, "message": "Successfully logged out"}
+    except jwt.PyJWTError:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Invalid token"
+        )
+
