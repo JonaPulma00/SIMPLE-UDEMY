@@ -65,18 +65,18 @@ export const Home = () => {
           <div className="benefits-container">
             <div className="benefit-card">
               <img alt="student-img" src={iconLearn || "/placeholder.svg"} className="benefit-icon" />
-              <h3>Learning at your own pace!</h3>
-              <p>Enjoy lifetime access to courses on our website and app</p>
+              <h3>Learn at your own pace!</h3>
+              <p>Enjoy lifetime access to courses on our website</p>
             </div>
             <div className="benefit-card">
               <img alt="student-img" src={iconTeacher || "/placeholder.svg"} className="benefit-icon" />
-              <h3>Learning from experts</h3>
+              <h3>Learn from experts</h3>
               <p>Select any course you want from our instructors</p>
             </div>
             <div className="benefit-card">
               <img alt="student-img" src={iconCode || "/placeholder.svg"} className="benefit-icon" />
-              <h3>Find video courses on almost any topic</h3>
-              <p>Build your own library, with your own topics</p>
+              <h3>Find video courses to improve your knwoledge</h3>
+              <p>Build your own library, with your own courses</p>
             </div>
           </div>
         </section>
@@ -85,10 +85,10 @@ export const Home = () => {
           <div className="cta-content">
             <h2>Become an instructor</h2>
             <p>
-              Instructors from around the world teach millions of students. We
+              Instructors from around the world teach hundreds of students. We
               provide the tools and skills to teach what you love.
             </p>
-            <button className="cta-button" onClick={() => navigate("/teach")}>
+            <button className="cta-button" onClick={() => navigate("/jsak")}>
               Start Teaching Today
             </button>
           </div>

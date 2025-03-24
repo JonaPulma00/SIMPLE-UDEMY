@@ -4,6 +4,7 @@ import { Login } from "../pages/Login"
 import { About } from "../pages/About"
 import { Register } from "../pages/Register"
 import { WelcomePage } from "../pages/WelcomePage"
+import { Reviews } from "../pages/Reviews"
 import { ProtectedRoute } from "../components/ProtectedRoutes"
 
 
@@ -15,6 +16,7 @@ export const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/about" element={<About />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/reviews" element={<Reviews />} />
       <Route
         path="/dashboard"
         element={
@@ -22,6 +24,7 @@ export const AppRoutes = () => {
             <WelcomePage />
           </ProtectedRoute>
         } />
+
       <Route path="/*" element={<Navigate to='/' />}></Route>
     </Routes>
   )

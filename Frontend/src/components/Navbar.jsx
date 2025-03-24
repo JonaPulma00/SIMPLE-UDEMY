@@ -26,7 +26,7 @@ export const Navbar = () => {
       <div className={`nav-links ${isMenuActive ? 'active' : ''}`}>
         <ul>
           <li><NavLink className="active">Home</NavLink></li>
-          <li><NavLink>Popular technologies</NavLink></li>
+          <li><NavLink>Categories</NavLink></li>
           <li className="dropdown">
             <NavLink
               className="dropdown-toggle"
