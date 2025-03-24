@@ -25,8 +25,8 @@ export const Navbar = () => {
       </div>
       <div className={`nav-links ${isMenuActive ? 'active' : ''}`}>
         <ul>
-          <li><NavLink className="active">Overview</NavLink></li>
-          <li><NavLink>Technologies</NavLink></li>
+          <li><NavLink className="active">Home</NavLink></li>
+          <li><NavLink>Popular technologies</NavLink></li>
           <li className="dropdown">
             <NavLink
               className="dropdown-toggle"
@@ -36,13 +36,11 @@ export const Navbar = () => {
             </NavLink>
             {isDropdownOpen && (
               <ul className="dropdown-menu">
-                <li><NavLink>Client Stories</NavLink></li>
-                <li><NavLink>Case Studies</NavLink></li>
                 <li><NavLink>Reviews</NavLink></li>
               </ul>
             )}
           </li>
-          <li><NavLink>Resources</NavLink></li>
+          <li><NavLink>Courses</NavLink></li>
         </ul>
       </div>
       <div className="auth-buttons">
