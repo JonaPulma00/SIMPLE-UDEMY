@@ -8,7 +8,7 @@ from app.schemas.user import UserCreate, UserLogin
 from app.utils.security import get_password_hash, verify_password, create_access_token, create_refresh_token
 import logging
 from app.core.config import SECRET_KEY, JWT_ALGORITHM
-from app.utils.token_store import token_blacklist
+from app.utils.security import add_to_blacklist
 
 logger = logging.getLogger(__name__)
 
@@ -84,7 +84,7 @@ async def logout_user(token: str):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[JWT_ALGORITHM])
         
-        token_blacklist.add(token)
+        add_to_blacklist(token, ex=1200)
         
         logger.info(f"User logged out: {payload.get('email', 'unknown')}")
         return {"success": True, "message": "Successfully logged out"}

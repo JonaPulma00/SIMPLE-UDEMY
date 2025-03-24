@@ -3,7 +3,9 @@ import jwt
 from datetime import datetime, timedelta
 from app.core.config import SECRET_KEY, JWT_ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES, REFRESH_TOKEN_EXPIRE_MINUTES
 from fastapi import HTTPException, status
-from app.utils.token_store import token_blacklist
+import redis 
+redis_client = redis.Redis(host="localhost", port=6379, decode_responses=True)
+
 
 def get_password_hash(password: str):
   return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
@@ -23,8 +25,14 @@ def create_refresh_token(data: dict, expires_delta: timedelta = timedelta(minute
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=JWT_ALGORITHM)
 
+def add_to_blacklist(token: str, expiration: int):
+    redis_client.setex(token, expiration, 'blacklisted')
+
+def is_token_blacklisted(token: str) -> bool:
+    redis_client.get(token)
+
 def verify_token(token: str):
-    if token in token_blacklist:
+    if is_token_blacklisted(token):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Token has been invalidated"
