@@ -88,7 +88,7 @@ export const Home = () => {
               Instructors from around the world teach hundreds of students. We
               provide the tools and skills to teach what you love.
             </p>
-            <button className="cta-button" onClick={() => navigate("/jsak")}>
+            <button className="cta-button" onClick={() => navigate("/instructor-register")}>
               Start Teaching Today
             </button>
           </div>
