@@ -27,7 +27,8 @@ async def register_user(db: AsyncSession, user: UserCreate):
         username=user.username,
         email=user.email,
         password=hashed_password,
-        is_instructor=user.is_instructor
+        is_instructor=user.is_instructor,
+        pending_validation=user.pending_validation
     )
 
     db.add(db_user)
@@ -48,7 +49,7 @@ async def authenticate_user(db: AsyncSession, username: str, password: str):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
 
     return {
-        "access_token": create_access_token({"uuid": user.user_id, "email":user.email, "is_instructor": user.is_instructor}),
+        "access_token": create_access_token({"uuid": user.user_id, "username": user.username, "email":user.email, "is_instructor": user.is_instructor, "pending_validation": user.pending_validation}),
         "refresh_token": create_refresh_token({"uuid": user.user_id})
     }
 
@@ -93,4 +94,3 @@ async def logout_user(token: str):
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Invalid token"
         )
-

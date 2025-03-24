@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from app.core.config import SECRET_KEY, JWT_ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES, REFRESH_TOKEN_EXPIRE_MINUTES
 from fastapi import HTTPException, status
 import redis 
-redis_client = redis.Redis(host="localhost", port=6379, decode_responses=True)
+redis_client = redis.Redis(host="localhost", port=6380, decode_responses=True)
 
 
 def get_password_hash(password: str):
@@ -27,6 +27,7 @@ def create_refresh_token(data: dict, expires_delta: timedelta = timedelta(minute
 
 def add_to_blacklist(token: str):
     redis_client.setex(token, 1200, 'blacklisted')
+    print(f"Token added to blacklist: {token}") 
 
 def is_token_blacklisted(token: str) -> bool:
     redis_client.get(token)

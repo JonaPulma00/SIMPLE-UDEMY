@@ -15,3 +15,4 @@ class User(Base):
   bio = Column(Text, nullable=True)
   created_at = Column(TIMESTAMP, server_default=func.now())
   is_instructor = Column(Boolean, default=False)
+  pending_validation = Column(Boolean, default=False)
