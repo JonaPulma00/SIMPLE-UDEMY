@@ -60,7 +60,7 @@ export const ParticlesComponent = memo((props) => {
           enable: true,
           value: 1200,
         },
-        value: 150,
+        value: 100,
       },
       opacity: {
         value: 1.0,
