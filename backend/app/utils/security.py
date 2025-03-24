@@ -25,8 +25,8 @@ def create_refresh_token(data: dict, expires_delta: timedelta = timedelta(minute
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=JWT_ALGORITHM)
 
-def add_to_blacklist(token: str, expiration: int):
-    redis_client.setex(token, expiration, 'blacklisted')
+def add_to_blacklist(token: str):
+    redis_client.setex(token, 1200, 'blacklisted')
 
 def is_token_blacklisted(token: str) -> bool:
     redis_client.get(token)

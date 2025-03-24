@@ -84,7 +84,7 @@ async def logout_user(token: str):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[JWT_ALGORITHM])
         
-        add_to_blacklist(token, ex=1200)
+        add_to_blacklist(token)
         
         logger.info(f"User logged out: {payload.get('email', 'unknown')}")
         return {"success": True, "message": "Successfully logged out"}
