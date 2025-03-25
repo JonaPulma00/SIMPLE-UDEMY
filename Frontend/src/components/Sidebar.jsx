@@ -17,7 +17,7 @@ export const Sidebar = () => {
     <>
       <input type="checkbox" id="sidebar-toggle" className="sidebar-checkbox" />
       <label htmlFor="sidebar-toggle" className="sidebar-toggle-label">
-        <span className="hamburger"></span>
+        <span className="sidebar-hamburger"></span>
       </label>
 
       <div className="dashboard-sidebar">

@@ -71,7 +71,7 @@ export const Login = () => {
                   onChange={onInputChange}
                   className="form-input" />
               </label>
-              <i className="fa-sharp-duotone fa-solid fa-lock"></i>
+              <i className="fa-sharp-duotone fa-solid fa-lock" />
             </div>
             <div className="remember-forget">
               <label ><input type="checkbox" />
