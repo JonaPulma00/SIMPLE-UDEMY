@@ -33,5 +33,4 @@ export const isAuth = () => {
 };
 export const logoutApp = () => {
   deleteTokens();
-  window.location.href = "/login";
 };
