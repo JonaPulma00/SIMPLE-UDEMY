@@ -1,0 +1,9 @@
+/* Dashboard Container */
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  background-color: #0a0a0a;
+  color: #f8f9fa;
+  font-family: 'Poppins', sans-serif;
+  justify-content: space-between;
+}
