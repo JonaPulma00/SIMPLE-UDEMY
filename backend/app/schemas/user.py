@@ -7,7 +7,7 @@ class UserCreate(BaseModel):
   email: EmailStr
   password: str
   is_instructor: Optional[bool] = False
-  peding_validation: Optional[bool] = False
+  pending_validation: Optional[bool] = False
 
   @validator('username')
   def trim_username(cls, v):

@@ -26,6 +26,14 @@ export const Sidebar = () => {
         </div>
 
         <div className="sidebar-menu">
+          <div className="user-profile">
+            <NavLink to="/dashbooard" className="">
+              <div className="profile-wrapper">
+                <img src="/nose-jpg" alt="user-profile-image" />
+              </div>
+            </NavLink>
+          </div>
+
           <div className="menu-item">
             <NavLink to="/dashboard" className="">
               <i className="fas fa-home"></i>
