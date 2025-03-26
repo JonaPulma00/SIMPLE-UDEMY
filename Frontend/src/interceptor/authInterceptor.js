@@ -1,12 +1,11 @@
 import axios from "axios";
 import { config } from "../config/appConfig";
+import { getToken } from "../services/tokenService";
+import { getRefreshToken } from "../services/tokenService";
 
 const api = axios.create({
   baseURL: "http://127.0.0.1:8000/api/v1",
 });
-
-const getToken = () => sessionStorage.getItem("access_token");
-const getRefreshToken = () => sessionStorage.getItem("refresh_token");
 
 api.interceptors.request.use(
   (config) => {

@@ -3,7 +3,7 @@ import { Home } from "../pages/Home"
 import { Login } from "../pages/Login"
 import { About } from "../pages/About"
 import { Register } from "../pages/Register"
-import { WelcomePage } from "../pages/WelcomePage"
+import { WelcomePage } from "../pages/dashboard/WelcomePage"
 import { Reviews } from "../pages/Reviews"
 import { ProtectedRoute } from "../components/ProtectedRoutes"
 
