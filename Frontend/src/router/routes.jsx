@@ -6,7 +6,7 @@ import { Register } from "../pages/Register"
 import { WelcomePage } from "../pages/WelcomePage"
 import { Reviews } from "../pages/Reviews"
 import { ProtectedRoute } from "../components/ProtectedRoutes"
-import { InstructorRegister } from "../pages/InstructorRegister"
+
 
 
 export const AppRoutes = () => {
@@ -17,7 +17,6 @@ export const AppRoutes = () => {
       <Route path="/about" element={<About />} />
       <Route path="/register" element={<Register />} />
       <Route path="/reviews" element={<Reviews />} />
-      <Route path="/instructor-register" element={<InstructorRegister />} />
       <Route
         path="/dashboard"
         element={

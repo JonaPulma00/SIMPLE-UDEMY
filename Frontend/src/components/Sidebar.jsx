@@ -14,6 +14,7 @@ export const Sidebar = () => {
       console.error('Error  on login out: ', error)
     }
   }
+
   return (
     <>
       <input type="checkbox" id="sidebar-toggle" className="sidebar-checkbox" />

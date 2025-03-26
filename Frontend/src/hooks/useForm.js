@@ -3,10 +3,10 @@ export const useForm = (initialForm = {}) => {
   const [formState, setformState] = useState(initialForm);
 
   const onInputChange = ({ target }) => {
-    const { name, value } = target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     setformState({
       ...formState,
-      [name]: value,
+      [target.name]: value,
     });
   };
 

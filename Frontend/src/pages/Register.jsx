@@ -12,9 +12,10 @@ export const Register = () => {
     username: '',
     email: '',
     password: '',
-    confirm: ''
+    confirm: '',
+    is_instructor: false
   }
-  const { username, email, password, confirm, formState, onInputChange } = useForm(initialForm)
+  const { username, email, password, confirm, is_instructor, formState, onInputChange } = useForm(initialForm)
 
   const [error, setError] = useState('')
 
@@ -33,7 +34,8 @@ export const Register = () => {
       const response = await registerUser.register({
         username: formState.username,
         email: formState.email,
-        password: formState.password
+        password: formState.password,
+        is_instructor: formState.is_instructor
       });
       navigate('/dashboard');
     } catch (error) {
@@ -73,7 +75,7 @@ export const Register = () => {
                 <i className="fa-solid fa-user"></i>
               </div>
               <div className="input-box">
-                <label htmlFor="name" className="form-label">
+                <label htmlFor="email" className="form-label">
                   <input
                     type="email"
                     placeholder="Email"
@@ -86,7 +88,7 @@ export const Register = () => {
               </div>
 
               <div className="input-box">
-                <label htmlFor="name" className="form-label">
+                <label htmlFor="password" className="form-label">
                   <input
                     type="password"
                     placeholder="Password"
@@ -98,7 +100,7 @@ export const Register = () => {
               </div>
 
               <div className="input-box">
-                <label htmlFor="name" className="form-label">
+                <label htmlFor="password" className="form-label">
                   <input
                     type="password"
                     placeholder="Confirm password"
@@ -107,6 +109,19 @@ export const Register = () => {
                     onChange={onInputChange} />
                 </label>
                 <i className="fa-sharp-duotone fa-solid fa-lock"></i>
+              </div>
+              <div className="confirm-choice">
+                <label htmlFor="is_instructor" className="instructor-label">
+                  <input
+                    type="checkbox"
+                    id="is_instructor"
+                    name="is_instructor"
+                    className="instructor-checkbox"
+                    checked={is_instructor}
+                    onChange={onInputChange}
+                  />
+                  <span className="checkbox-text">I want to be an instructor</span>
+                </label>
               </div>
               <button type="submit" className="btn">Register</button>
               {error && <p className="error-message">{error}</p>}
