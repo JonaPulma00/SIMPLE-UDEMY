@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { logoutUser } from "../services/userService";
 import '../styles/dashboard/Sidebar.css'
+import iconTest from '../assets/home/teacher.png'
 
 export const Sidebar = () => {
   const navigate = useNavigate()
@@ -26,12 +27,16 @@ export const Sidebar = () => {
         </div>
 
         <div className="sidebar-menu">
+
           <div className="user-profile">
-            <NavLink to="/dashbooard" className="">
+            <NavLink to="/dashboard" className="">
               <div className="profile-wrapper">
-                <img src="/nose-jpg" alt="user-profile-image" />
+                <img src={iconTest} alt="user-profile-image" />
               </div>
             </NavLink>
+            <div className="profile-info">
+              <div className="user-name">Hello, User</div>
+            </div>
           </div>
 
           <div className="menu-item">

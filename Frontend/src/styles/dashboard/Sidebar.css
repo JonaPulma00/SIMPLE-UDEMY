@@ -43,30 +43,43 @@
   text-decoration: none;
 }
 
-.user-profile{
+.user-profile {
   display: flex;
   align-items: center;
   width: 100%;
   padding: 15px 22px;
   background: transparent;
-  border: 2px solid blue;
   color: #b8b8b8;
-  text-align: left;
+  background-color: #444;
   transition: all 0.3s ease;
   cursor: pointer;
-  font-size: 15px;
   text-decoration: none;
 }
 
+.user-profile:hover {
+  background-color: rgba(0, 255, 98, 0.1);
+}
+
 .profile-wrapper {
-  width: 50px;
-  height: 50px;
-  border: 2px solid red;
-  border-radius: 50px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 2px solid #222;
+}
+
+.profile-info {
+  margin-left: 15px;
+  flex: 1;
+}
+
+.profile-info .user-name {
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 2px;
 }
 
 .profile-wrapper img {
