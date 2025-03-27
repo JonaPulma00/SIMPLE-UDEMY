@@ -16,3 +16,13 @@ class User(Base):
   created_at = Column(TIMESTAMP, server_default=func.now())
   is_instructor = Column(Boolean, default=False)
   pending_validation = Column(Boolean, default=False)
+
+class Course(Base):
+    __tablename__ = 'courses'
+
+    course_id = Column(String(36), primary_key=True)
+    instructor_id = Column(String(36), ForeignKey('users.user_id'), nullable=False)
+    title = Column(String(100), nullable=False)
+    description = Column(Text, nullable=True)
+    category_id = Column(String(36), ForeignKey('categories.category_id'), nullable=True)
+    created_at = Column(TIMESTAMP, server_default=func.now())

@@ -4,6 +4,7 @@ from app.controllers.auth_controller import register_user, authenticate_user, re
 from app.db.database import get_db
 from app.schemas.user import UserCreate, UserLogin, Token, RefreshTokenRequest, AccessTokenResponse
 from fastapi.security import OAuth2PasswordBearer
+import app.middlewares.authenticate_token
 
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
