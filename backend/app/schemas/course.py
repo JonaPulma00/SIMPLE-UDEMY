@@ -1,6 +1,5 @@
 from pydantic import BaseModel, validator
 from typing import Optional
-import uuid
 
 class CourseCreate(BaseModel):
     title: str
@@ -23,5 +22,3 @@ class CourseResponse(BaseModel):
     category_id: Optional[str] = None
     created_at: Optional[str] = None
     
-    class Config:
-        from_attributes = True

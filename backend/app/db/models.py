@@ -26,3 +26,10 @@ class Course(Base):
     description = Column(Text, nullable=True)
     category_id = Column(String(36), ForeignKey('categories.category_id'), nullable=True)
     created_at = Column(TIMESTAMP, server_default=func.now())
+
+class Category(Base):
+    __tablename__ = 'categories'
+    
+    category_id = Column(String(36), primary_key=True)
+    name = Column(String(100), nullable=False)
+    description = Column(Text, nullable=True)
