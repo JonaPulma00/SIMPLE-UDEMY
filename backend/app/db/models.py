@@ -1,6 +1,7 @@
-from sqlalchemy import Column, String, Boolean, TIMESTAMP, ForeignKey, DECIMAL, Integer, Text
+from sqlalchemy import Column, String, Boolean, TIMESTAMP, ForeignKey, UniqueConstraint, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import func
+import uuid
 
 Base = declarative_base()
 
@@ -33,3 +34,13 @@ class Category(Base):
     category_id = Column(String(36), primary_key=True)
     name = Column(String(100), nullable=False)
     description = Column(Text, nullable=True)
+
+class Enrollments(Base):
+    __tablename__ = 'enrollments'
+
+    enrollment_id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4())) 
+    user_id = Column(String(36), ForeignKey('users.user_id', ondelete="CASCADE"), nullable=False)  
+    course_id = Column(String(36), ForeignKey('courses.course_id', ondelete="CASCADE"), nullable=False)  
+    enrolled_at = Column(TIMESTAMP, server_default=func.now())  
+
+    __table_args__ = (UniqueConstraint('user_id', 'course_id', name='uq_user_course'),) 
