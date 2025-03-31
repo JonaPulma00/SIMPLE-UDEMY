@@ -1,12 +1,13 @@
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, field_validator
 from typing import Optional
+from datetime import datetime
 
 class CourseCreate(BaseModel):
     title: str
     description: Optional[str] = None
     category_id: Optional[str] = None
     
-    @validator('title')
+    @field_validator('title', mode='before')
     def validate_title(cls, v):
         if not v.strip():
             raise ValueError('Title cannot be empty')
@@ -20,5 +21,7 @@ class CourseResponse(BaseModel):
     description: Optional[str] = None
     instructor_id: str
     category_id: Optional[str] = None
-    created_at: Optional[str] = None
-    
+    created_at: Optional[datetime]
+
+    class Config:
+        from_attributes = True
