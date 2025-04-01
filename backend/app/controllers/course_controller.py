@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy.sql import func
-from fastapi import HTTPException, status
+from fastapi import HTTPException
 import uuid
 from app.db.models import Course
 from app.schemas.course import CourseCreate
@@ -25,7 +25,7 @@ async def create_course(db: AsyncSession, course_data: CourseCreate, instructor_
 
 
 
-async def get_courses(db: AsyncSession, page: int = 1, limit: int = 10):
+async def get_courses(db: AsyncSession, user_id: str, page: int = 1, limit: int = 10):
     if page < 1 or limit < 1:
         raise HTTPException(status_code=400, detail="Page and limit must be positive integers")
 
