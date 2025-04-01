@@ -1,5 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+from sqlalchemy.sql import func
 from fastapi import HTTPException, status
 from app.db.models import Enrollments, Course
 import uuid
