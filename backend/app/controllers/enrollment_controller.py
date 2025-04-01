@@ -33,3 +33,32 @@ async def enroll_user(db: AsyncSession, user_id: str, course_id: str):
     await db.refresh(enrollment)
 
     return enrollment
+
+async def get_user_enrollments(db: AsyncSession, user_id: str, page: int = 1, limit: int = 10):
+    if page < 1 or limit < 1:
+        raise HTTPException(status_code=400, detail="Page and limit must be positive integers")
+
+    offset = (page - 1) * limit  
+
+    stmt = (
+        select(Enrollments.course_id, Course.title, Course.description)
+        .join(Course, Enrollments.course_id == Course.course_id)
+        .filter(Enrollments.user_id == user_id)
+        .limit(limit)
+        .offset(offset)
+    )
+    
+    result = await db.execute(stmt)
+    enrollments = result.mappings().all() 
+
+    total_count_stmt = select(func.count()).filter(Enrollments.user_id == user_id) 
+    total_count = await db.execute(total_count_stmt)
+    total_count = total_count.scalar()
+
+    return {
+        "page": page,
+        "limit": limit,
+        "total_enrollments": total_count,
+        "total_pages": (total_count // limit) + (1 if total_count % limit else 0),
+        "enrollments": enrollments
+    }
