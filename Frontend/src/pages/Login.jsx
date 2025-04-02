@@ -111,15 +111,17 @@ export const Login = () => {
             </div>
             <button type="submit" className="btn">Log in</button>
 
-            <div className="social-login">
-              <p className="alternative-sing-in">Or sign in with</p>
-              <button
-                type="button"
-                onClick={() => googleLogin()}
-                className="google-btn"
-              >
-                <i className="fab fa-google"></i> Google
-              </button>
+            <div className="social-wrapper">
+              <div className="social-login">
+                <p className="alternative-sing-in">Or sign in with</p>
+                <button
+                  type="button"
+                  onClick={() => googleLogin()}
+                  className="google-btn"
+                >
+                  <i className="fab fa-google"></i> Google
+                </button>
+              </div>
             </div>
 
             <div className="register-link">
