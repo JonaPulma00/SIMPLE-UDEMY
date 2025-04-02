@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../interceptor/authInterceptor";
 import { getToken, deleteTokens } from "./tokenService";
 
 export const logoutUser = async () => {
@@ -9,8 +9,8 @@ export const logoutUser = async () => {
   }
 
   try {
-    const response = await axios.post(
-      `http://127.0.0.1:8000/api/v1/auth/logout`,
+    const response = await api.post(
+      `/auth/logout`,
       {},
       {
         headers: {

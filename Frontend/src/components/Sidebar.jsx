@@ -2,9 +2,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { logoutUser } from "../services/userService";
 import '../styles/dashboard/Sidebar.css'
 import iconTest from '../assets/home/teacher.png'
+import { useUser } from "../context/UserContext";
 
 export const Sidebar = () => {
   const navigate = useNavigate()
+  const { user } = useUser()
 
   const handleLogout = async () => {
     try {
@@ -36,7 +38,7 @@ export const Sidebar = () => {
               </div>
             </NavLink>
             <div className="profile-info">
-              <div className="user-name">Hello, User</div>
+              <div className="user-name">Hello, {user?.username || 'User'}</div>
             </div>
           </div>
 
