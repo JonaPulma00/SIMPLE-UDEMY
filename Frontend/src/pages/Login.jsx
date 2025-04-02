@@ -49,14 +49,14 @@ export const Login = () => {
         const userInfo = await axios.get('https://www.googleapis.com/oauth2/v3/userinfo', {
           headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
         });
-        
+
         const response = await loginUser.googleLogin({
           googleToken: tokenResponse.access_token,
           googleId: userInfo.data.sub,
           email: userInfo.data.email,
           name: userInfo.data.name
         });
-        
+
         navigate('/dashboard');
       } catch (error) {
         console.error('Google login error: ', error);
@@ -110,18 +110,18 @@ export const Login = () => {
               <NavLink to='/' > Forgot Password?</NavLink>
             </div>
             <button type="submit" className="btn">Log in</button>
-            
+
             <div className="social-login">
-              <p>Or sign in with</p>
-              <button 
-                type="button" 
-                onClick={() => googleLogin()} 
+              <p className="alternative-sing-in">Or sign in with</p>
+              <button
+                type="button"
+                onClick={() => googleLogin()}
                 className="google-btn"
               >
                 <i className="fab fa-google"></i> Google
               </button>
             </div>
-            
+
             <div className="register-link">
               <p>Don't have a account?  <NavLink to='/register' >Register</NavLink></p>
             </div>
