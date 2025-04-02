@@ -31,4 +31,6 @@ export const loginUser = {
         return Promise.reject(error.message || "Login failed");
       });
   },
+
+  googleLogin: () => {},
 };
