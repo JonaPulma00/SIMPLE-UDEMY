@@ -32,5 +32,20 @@ export const loginUser = {
       });
   },
 
-  googleLogin: () => {},
+  googleLogin: (googleData) => {
+    return axios
+      .post(`http://127.0.0.1:8000/api/v1/auth/google-login`, googleData)
+      .then((response) => {
+        if (response.data.access_token && response.data.refresh_token) {
+          saveTokens(response.data.access_token, response.data.refresh_token);
+        }
+        return response;
+      })
+      .catch((error) => {
+        if (error.response) {
+          return Promise.reject(error.response.data);
+        }
+        return Promise.reject(error.message || "Google login failed");
+      });
+  },
 };

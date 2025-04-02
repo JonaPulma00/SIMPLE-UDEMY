@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.controllers.auth_controller import register_user, authenticate_user, refresh_access_token, logout_user
+from app.controllers.auth_controller import register_user, authenticate_user, refresh_access_token, logout_user, authenticate_google_user
 from app.db.database import get_db
 from app.schemas.user import UserCreate, UserLogin, Token, RefreshTokenRequest, AccessTokenResponse
 from fastapi.security import OAuth2PasswordBearer
@@ -25,3 +25,7 @@ async def refresh(data: RefreshTokenRequest):
 @router.post("/logout")
 async def logout(token: str = Depends(oauth2_scheme)):
     return await logout_user(token)
+
+@router.post("/google-login", response_model=Token)
+async def google_login(google_data: dict, db: AsyncSession = Depends(get_db)):
+    return await authenticate_google_user(db, google_data)

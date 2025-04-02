@@ -94,3 +94,58 @@ async def logout_user(token: str):
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Invalid token"
         )
+
+async def authenticate_google_user(db: AsyncSession, google_data: dict):
+    google_id = google_data.get("googleId")
+    email = google_data.get("email")
+    name = google_data.get("name")
+    
+    if not google_id or not email:
+        logger.warning("Google login attempt with missing data")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, 
+            detail="Invalid Google authentication data"
+        )
+    
+
+    stmt = select(User).filter(User.email == email)
+    result = await db.execute(stmt)
+    user = result.scalar_one_or_none()
+    
+    if not user:
+        logger.info(f"New user from Google login: {email}")
+        
+ 
+        username = (name.replace(" ", "") if name else email.split("@")[0])
+        
+
+        username_check = select(User).filter(User.username == username)
+        username_result = await db.execute(username_check)
+        if username_result.scalar_one_or_none():
+   
+            username = f"{username}{str(uuid.uuid4())[:8]}"
+        
+ 
+        db_user = User(
+            user_id=str(uuid.uuid4()),
+            username=username,
+            email=email,
+            is_instructor=False,
+            pending_validation=False
+        )
+        
+        db.add(db_user)
+        await db.commit()
+        await db.refresh(db_user)
+        user = db_user
+
+    return {
+        "access_token": create_access_token({
+            "uuid": user.user_id, 
+            "username": user.username, 
+            "email": user.email,
+            "is_instructor": user.is_instructor, 
+            "pending_validation": user.pending_validation
+        }),
+        "refresh_token": create_refresh_token({"uuid": user.user_id})
+    }
