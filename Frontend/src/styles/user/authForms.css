@@ -180,6 +180,11 @@
 .checkbox-text {
     color: #fff;
 }
+.social-login {
+    margin-top: 20px;
+    text-align: center;
+  }
+
 
 /*Responsive design*/
 @media (max-width: 900px) {

@@ -6,6 +6,8 @@ import { useState } from "react"
 import { loginUser } from "../services/authService"
 import "../styles/user/authForms.css"
 import { ParticlesComponent } from "../components/ParticlesComponent"
+import { useGoogleLogin } from '@react-oauth/google'
+import axios from 'axios'
 
 export const Login = () => {
 
@@ -39,6 +41,35 @@ export const Login = () => {
       setTimeout(() => setError(''), 10000);
     }
   }
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+
+        const userInfo = await axios.get('https://www.googleapis.com/oauth2/v3/userinfo', {
+          headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
+        });
+        
+        const response = await loginUser.googleLogin({
+          googleToken: tokenResponse.access_token,
+          googleId: userInfo.data.sub,
+          email: userInfo.data.email,
+          name: userInfo.data.name
+        });
+        
+        navigate('/dashboard');
+      } catch (error) {
+        console.error('Google login error: ', error);
+        setError('Error in Google login, try again');
+        setTimeout(() => setError(''), 10000);
+      }
+    },
+    onError: () => {
+      setError('Google login failed');
+      setTimeout(() => setError(''), 10000);
+    }
+  });
+
   return (
     <div className="page-wrapper">
       <ParticlesComponent id="particles" />
@@ -79,6 +110,18 @@ export const Login = () => {
               <NavLink to='/' > Forgot Password?</NavLink>
             </div>
             <button type="submit" className="btn">Log in</button>
+            
+            <div className="social-login">
+              <p>Or sign in with</p>
+              <button 
+                type="button" 
+                onClick={() => googleLogin()} 
+                className="google-btn"
+              >
+                <i className="fab fa-google"></i> Google
+              </button>
+            </div>
+            
             <div className="register-link">
               <p>Don't have a account?  <NavLink to='/register' >Register</NavLink></p>
             </div>
