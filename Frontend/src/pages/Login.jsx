@@ -47,21 +47,22 @@ export const Login = () => {
       setTimeout(() => setError(''), 10000);
     }
   }
-
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
-
         const userInfo = await axios.get('https://www.googleapis.com/oauth2/v3/userinfo', {
           headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
         });
 
         const response = await loginUser.googleLogin({
-          googleToken: tokenResponse.access_token,
           googleId: userInfo.data.sub,
           email: userInfo.data.email,
           name: userInfo.data.name
         });
+        
+        if (response && response.data && response.data.access_token) {
+          saveTokens(response.data.access_token);
+        }
 
         navigate('/dashboard');
       } catch (error) {

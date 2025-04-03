@@ -26,6 +26,7 @@ async def refresh(request: Request):
 async def logout(token: str = Depends(oauth2_scheme)):
     return await logout_user(token)
 
-@router.post("/google-login", response_model=Token)
+
+@router.post("/google-login")
 async def google_login(google_data: dict, db: AsyncSession = Depends(get_db)):
     return await authenticate_google_user(db, google_data)

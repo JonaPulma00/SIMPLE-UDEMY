@@ -38,10 +38,12 @@ export const loginUser = {
 
   googleLogin: (googleData) => {
     return axios
-      .post(`http://127.0.0.1:8000/api/v1/auth/google-login`, googleData)
+      .post(`http://127.0.0.1:8000/api/v1/auth/google-login`, googleData, {
+        withCredentials: true,
+      })
       .then((response) => {
-        if (response.data.access_token && response.data.refresh_token) {
-          saveTokens(response.data.access_token, response.data.refresh_token);
+        if (response.data && response.data.access_token) {
+          saveTokens(response.data.access_token);
         }
         return response;
       })
