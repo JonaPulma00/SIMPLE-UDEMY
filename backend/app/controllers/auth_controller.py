@@ -1,13 +1,14 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, Request
+from fastapi.responses import JSONResponse
 import uuid
 import jwt
 from app.db.models import User
 from app.schemas.user import UserCreate, UserLogin
 from app.utils.security import get_password_hash, verify_password, create_access_token, create_refresh_token
 import logging
-from app.core.config import SECRET_KEY, JWT_ALGORITHM
+from app.core.config import SECRET_KEY, JWT_ALGORITHM, REFRESH_TOKEN_EXPIRE_MINUTES
 from app.utils.security import add_to_blacklist
 
 logger = logging.getLogger(__name__)
@@ -39,36 +40,62 @@ async def register_user(db: AsyncSession, user: UserCreate):
 
     return db_user
 
+
 async def authenticate_user(db: AsyncSession, username: str, password: str):
     stmt = select(User).filter(User.username == username)
     result = await db.execute(stmt)
     user = result.scalar_one_or_none()
 
     if not user or not verify_password(password, user.password):
-        logger.warning(f"Login attempt failed: {username}")
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+        raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    return {
-        "access_token": create_access_token({"uuid": user.user_id, "username": user.username, "email":user.email, "is_instructor": user.is_instructor, "pending_validation": user.pending_validation}),
-        "refresh_token": create_refresh_token({"uuid": user.user_id})
-    }
+    access_token = create_access_token({
+       "uuid": user.user_id, "username": user.username, "email":user.email, "is_instructor": user.is_instructor, "pending_validation": user.pending_validation
+    })
 
-async def refresh_access_token(refresh_token: str):
+    refresh_token = create_refresh_token({"uuid": user.user_id})
+
+    response = JSONResponse(content={"access_token": access_token})
+    response.set_cookie(
+        key="refresh_token",
+        value=refresh_token,
+        httponly=True,
+        secure=True, 
+        samesite="Strict",
+        max_age=REFRESH_TOKEN_EXPIRE_MINUTES 
+    )
+
+    return response
+
+
+async def refresh_access_token(request: Request):
+    refresh_token = request.cookies.get("refresh_token")
+
     if not refresh_token:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, 
             detail="No refresh token provided"
         )
-    
+
     try:
         payload = jwt.decode(refresh_token, SECRET_KEY, algorithms=[JWT_ALGORITHM])
         user_id = payload.get("uuid")
+
         if user_id is None:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN, 
                 detail="Invalid token"
             )
-        return {"access_token": create_access_token({"uuid": user_id})}
+
+        new_access_token = create_access_token({"uuid": user_id})
+
+        return JSONResponse(content={"access_token": new_access_token})
+    
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, 
+            detail="Refresh token expired"
+        )
     except jwt.PyJWTError:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN, 

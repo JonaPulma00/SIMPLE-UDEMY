@@ -30,7 +30,7 @@ def add_to_blacklist(token: str):
     print(f"Token added to blacklist: {token}") 
 
 def is_token_blacklisted(token: str) -> bool:
-    redis_client.get(token) == 1
+    return redis_client.get(token) == 'blacklisted'
 
 def verify_token(token: str):
     if is_token_blacklisted(token):

@@ -1,10 +1,9 @@
 import axios from "axios";
-import { config } from "../config/appConfig";
-import { getToken } from "../services/tokenService";
-import { getRefreshToken } from "../services/tokenService";
+import { getToken, saveTokens, deleteTokens } from "../services/tokenService";
 
 const api = axios.create({
   baseURL: "http://127.0.0.1:8000/api/v1",
+  withCredentials: true,
 });
 
 api.interceptors.request.use(
@@ -22,24 +21,22 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-
     if (error.response?.status === 403 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
-        const refreshToken = getRefreshToken();
-        if (!refreshToken) throw new Error("No refresh token");
+        const res = await axios.post(
+          `http://127.0.0.1:8000/api/v1/auth/refresh`,
+          {},
+          { withCredentials: true }
+        );
 
-        const res = await axios.post(`${config.BASE_API_URL}/auth/refresh`, {
-          refresh_token: refreshToken,
-        });
+        saveTokens(res.data.access_token);
 
-        sessionStorage.setItem("access_token", res.data.access_token);
         originalRequest.headers.Authorization = `Bearer ${res.data.access_token}`;
         return api(originalRequest);
       } catch (refreshError) {
-        sessionStorage.removeItem("access_token");
-        sessionStorage.removeItem("refresh_token");
+        deleteTokens();
         return Promise.reject(refreshError);
       }
     }

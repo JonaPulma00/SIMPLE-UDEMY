@@ -8,6 +8,7 @@ import "../styles/user/authForms.css"
 import { ParticlesComponent } from "../components/ParticlesComponent"
 import { useGoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
+import { saveTokens } from "../services/tokenService"
 
 export const Login = () => {
 
@@ -26,6 +27,11 @@ export const Login = () => {
         username: formState.username,
         password: formState.password
       });
+
+      if (response && response.data && response.data.access_token) {
+        saveTokens(response.data.access_token);
+      }
+
       navigate('/dashboard');
     } catch (error) {
       console.error('Error: ', error);
