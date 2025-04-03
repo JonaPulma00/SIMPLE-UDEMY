@@ -1,5 +1,5 @@
 import api from "../interceptor/authInterceptor";
-import { getToken, deleteTokens } from "./tokenService";
+import { getToken, deleteToken } from "./tokenService";
 
 export const logoutUser = async () => {
   const token = getToken();
@@ -10,7 +10,7 @@ export const logoutUser = async () => {
 
   try {
     const response = await api.post(
-      `/auth/logout`,
+      `http://127.0.0.1:8000/api/v1/auth/logout`,
       {},
       {
         headers: {
@@ -20,7 +20,7 @@ export const logoutUser = async () => {
     );
 
     if (response) {
-      deleteTokens();
+      deleteToken();
     }
     return response;
   } catch (error) {

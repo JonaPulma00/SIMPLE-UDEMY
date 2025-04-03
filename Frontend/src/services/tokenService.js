@@ -10,7 +10,7 @@ export const getRefreshToken = () => {
   return sessionStorage.getItem("refresh_token");
 };
 
-export const deleteTokens = () => {
+export const deleteToken = () => {
   sessionStorage.removeItem("access_token");
 };
 

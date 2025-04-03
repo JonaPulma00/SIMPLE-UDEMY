@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken, saveTokens, deleteTokens } from "../services/tokenService";
+import { getToken, saveTokens, deleteToken } from "../services/tokenService";
 
 const api = axios.create({
   baseURL: "http://127.0.0.1:8000/api/v1",
@@ -36,7 +36,7 @@ api.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${res.data.access_token}`;
         return api(originalRequest);
       } catch (refreshError) {
-        deleteTokens();
+        deleteToken();
         return Promise.reject(refreshError);
       }
     }
