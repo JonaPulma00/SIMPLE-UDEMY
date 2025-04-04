@@ -1,9 +1,138 @@
 import { Sidebar } from "../../components/Sidebar"
+import "../../styles/dashboard/WelcomePage.css"
+import { useUser } from "../../context/UserContext"
+import iconTeacher from '../../assets/home/teacher.png'
 
 export const WelcomePage = () => {
+  const { user } = useUser()
+  
   return (
     <div className="dashboard-container">
       <Sidebar />
+      <div className="dashboard-content">
+        <div className="dashboard-header">
+          <h1>Welcome back, {user?.username || 'User'}!</h1>
+          <p>Here's an overview of your learning progress</p>
+        </div>
+        
+        <div className="dashboard-overview">
+          <div className="stats-container">
+            <div className="stat-card">
+              <i className="fas fa-book-open"></i>
+              <div className="stat-info">
+                <h3>Current Courses</h3>
+                <p className="stat-number">3</p>
+              </div>
+            </div>
+            
+            <div className="stat-card">
+              <i className="fas fa-graduation-cap"></i>
+              <div className="stat-info">
+                <h3>Completed Courses</h3>
+                <p className="stat-number">7</p>
+              </div>
+            </div>
+            
+            <div className="stat-card">
+              <i className="fas fa-certificate"></i>
+              <div className="stat-info">
+                <h3>Certificates</h3>
+                <p className="stat-number">5</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="featured-teachers">
+            <h2>Featured Teachers</h2>
+            <div className="teachers-grid">
+              <div className="teacher-card">
+                <div className="teacher-avatar">
+                  <img src={iconTeacher} alt="Teacher" />
+                </div>
+                <div className="teacher-info">
+                  <h3>Sarah Johnson</h3>
+                  <p className="teacher-specialty">React & JavaScript Expert</p>
+                  <div className="teacher-meta">
+                    <span><i className="fas fa-graduation-cap"></i> 12 Courses</span>
+                    <span><i className="fas fa-star"></i> 4.9</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="teacher-card">
+                <div className="teacher-avatar">
+                  <img src={iconTeacher} alt="Teacher" />
+                </div>
+                <div className="teacher-info">
+                  <h3>Michael Chen</h3>
+                  <p className="teacher-specialty">Python & Data Science</p>
+                  <div className="teacher-meta">
+                    <span><i className="fas fa-graduation-cap"></i> 8 Courses</span>
+                    <span><i className="fas fa-star"></i> 4.7</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="teacher-card">
+                <div className="teacher-avatar">
+                  <img src={iconTeacher} alt="Teacher" />
+                </div>
+                <div className="teacher-info">
+                  <h3>Elena Rodriguez</h3>
+                  <p className="teacher-specialty">UI/UX Design</p>
+                  <div className="teacher-meta">
+                    <span><i className="fas fa-graduation-cap"></i> 6 Courses</span>
+                    <span><i className="fas fa-star"></i> 4.8</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="teacher-card">
+                <div className="teacher-avatar">
+                  <img src={iconTeacher} alt="Teacher" />
+                </div>
+                <div className="teacher-info">
+                  <h3>David Wilson</h3>
+                  <p className="teacher-specialty">TypeScript & Angular</p>
+                  <div className="teacher-meta">
+                    <span><i className="fas fa-graduation-cap"></i> 10 Courses</span>
+                    <span><i className="fas fa-star"></i> 4.6</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="recommended-courses">
+            <h2>Recommended For You</h2>
+            <div className="courses-grid">
+              <div className="course-card">
+                <div className="course-image"></div>
+                <div className="course-content">
+                  <h3>TypeScript Masterclass</h3>
+                  <p>Learn advanced TypeScript concepts</p>
+                  <div className="course-meta">
+                    <span><i className="fas fa-clock"></i> 6.5 hours</span>
+                    <span><i className="fas fa-star"></i> 4.8</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="course-card">
+                <div className="course-image"></div>
+                <div className="course-content">
+                  <h3>Python for Data Science</h3>
+                  <p>Analyze data with Python</p>
+                  <div className="course-meta">
+                    <span><i className="fas fa-clock"></i> 8 hours</span>
+                    <span><i className="fas fa-star"></i> 4.9</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

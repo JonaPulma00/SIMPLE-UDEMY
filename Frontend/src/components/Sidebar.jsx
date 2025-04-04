@@ -4,6 +4,11 @@ import '../styles/dashboard/Sidebar.css'
 import iconTest from '../assets/home/teacher.png'
 import { useUser } from "../context/UserContext";
 
+const truncateUsername = (username, maxLength = 12) => {
+  if (!username || username.length <= maxLength) return username;
+  return `${username.substring(0, maxLength)}...`;
+}
+
 export const Sidebar = () => {
   const navigate = useNavigate()
   const { user } = useUser()
@@ -38,7 +43,10 @@ export const Sidebar = () => {
               </div>
             </NavLink>
             <div className="profile-info">
-              <div className="user-name">Hello, {user?.username || 'User'}</div>
+              <div className="user-name tooltip" title={user?.username || 'User'}>
+                Hello, {truncateUsername(user?.username) || 'User'}
+                <span className="tooltip-text">{user?.username}</span>
+              </div>
             </div>
           </div>
 

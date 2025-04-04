@@ -6,7 +6,7 @@ import { Register } from "../pages/Register"
 import { WelcomePage } from "../pages/dashboard/WelcomePage"
 import { Reviews } from "../pages/Reviews"
 import { ProtectedRoute } from "../components/ProtectedRoutes"
-
+import { Explore } from "../pages/dashboard/Explore"
 
 
 export const AppRoutes = () => {
@@ -24,7 +24,13 @@ export const AppRoutes = () => {
             <WelcomePage />
           </ProtectedRoute>
         } />
-
+      <Route
+        path="/explore"
+        element={
+          <ProtectedRoute>
+            <Explore />
+          </ProtectedRoute>
+        } />
       <Route path="/*" element={<Navigate to='/' />}></Route>
     </Routes>
   )

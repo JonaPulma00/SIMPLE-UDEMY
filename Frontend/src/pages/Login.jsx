@@ -9,6 +9,7 @@ import { ParticlesComponent } from "../components/ParticlesComponent"
 import { useGoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
 import { saveTokens } from "../services/tokenService"
+import { useUser } from "../context/UserContext"
 
 export const Login = () => {
 
@@ -16,6 +17,7 @@ export const Login = () => {
     username: '',
     password: ''
   }
+  const { loadUserFromToken } = useUser()
   const navigate = useNavigate()
   const { username, password, onInputChange, formState } = useForm(initialForm)
   const [error, setError] = useState('')
@@ -30,6 +32,7 @@ export const Login = () => {
 
       if (response && response.data && response.data.access_token) {
         saveTokens(response.data.access_token);
+        loadUserFromToken();
       }
 
       navigate('/dashboard');
@@ -62,6 +65,7 @@ export const Login = () => {
         
         if (response && response.data && response.data.access_token) {
           saveTokens(response.data.access_token);
+          loadUserFromToken();
         }
 
         navigate('/dashboard');
