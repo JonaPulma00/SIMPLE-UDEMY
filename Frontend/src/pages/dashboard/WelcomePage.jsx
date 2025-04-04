@@ -5,16 +5,16 @@ import iconTeacher from '../../assets/home/teacher.png'
 
 export const WelcomePage = () => {
   const { user } = useUser()
-  
+
   return (
     <div className="dashboard-container">
       <Sidebar />
       <div className="dashboard-content">
         <div className="dashboard-header">
-          <h1>Welcome back, {user?.username || 'User'}!</h1>
+          <h1>Welcome {user?.username || 'User'}!</h1>
           <p>Here's an overview of your learning progress</p>
         </div>
-        
+
         <div className="dashboard-overview">
           <div className="stats-container">
             <div className="stat-card">
@@ -24,7 +24,7 @@ export const WelcomePage = () => {
                 <p className="stat-number">3</p>
               </div>
             </div>
-            
+
             <div className="stat-card">
               <i className="fas fa-graduation-cap"></i>
               <div className="stat-info">
@@ -32,7 +32,7 @@ export const WelcomePage = () => {
                 <p className="stat-number">7</p>
               </div>
             </div>
-            
+
             <div className="stat-card">
               <i className="fas fa-certificate"></i>
               <div className="stat-info">
@@ -41,7 +41,7 @@ export const WelcomePage = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="featured-teachers">
             <h2>Featured Teachers</h2>
             <div className="teachers-grid">
@@ -58,7 +58,7 @@ export const WelcomePage = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="teacher-card">
                 <div className="teacher-avatar">
                   <img src={iconTeacher} alt="Teacher" />
@@ -72,7 +72,7 @@ export const WelcomePage = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="teacher-card">
                 <div className="teacher-avatar">
                   <img src={iconTeacher} alt="Teacher" />
@@ -86,7 +86,7 @@ export const WelcomePage = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="teacher-card">
                 <div className="teacher-avatar">
                   <img src={iconTeacher} alt="Teacher" />
@@ -102,7 +102,7 @@ export const WelcomePage = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="recommended-courses">
             <h2>Recommended For You</h2>
             <div className="courses-grid">
@@ -117,7 +117,7 @@ export const WelcomePage = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="course-card">
                 <div className="course-image"></div>
                 <div className="course-content">
