@@ -4,6 +4,10 @@ import { getToken, saveTokens, deleteToken } from "../services/tokenService";
 const api = axios.create({
   baseURL: "http://127.0.0.1:8000/api/v1",
   withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
 });
 
 api.interceptors.request.use(
@@ -21,22 +25,33 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+
+    if (error.response?.status === 401) {
+      deleteToken();
+      window.location.href = "/login";
+      return Promise.reject(error);
+    }
+
     if (error.response?.status === 403 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
         const res = await axios.post(
-          `http://127.0.0.1:8000/api/v1/auth/refresh`,
+          `${api.defaults.baseURL}/auth/refresh`,
           {},
           { withCredentials: true }
         );
 
-        saveTokens(res.data.access_token);
-
-        originalRequest.headers.Authorization = `Bearer ${res.data.access_token}`;
-        return api(originalRequest);
+        if (res.data.access_token) {
+          saveTokens(res.data.access_token);
+          api.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${res.data.access_token}`;
+          return api(originalRequest);
+        }
       } catch (refreshError) {
         deleteToken();
+        window.location.href = "/login";
         return Promise.reject(refreshError);
       }
     }

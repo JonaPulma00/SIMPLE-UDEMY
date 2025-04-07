@@ -18,5 +18,5 @@ export const isAuth = () => {
   return !!getToken();
 };
 export const logoutApp = () => {
-  deleteTokens();
+  deleteToken();
 };

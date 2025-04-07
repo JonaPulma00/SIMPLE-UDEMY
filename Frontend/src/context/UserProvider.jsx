@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { UserContext } from "./UserContext";
 import { getToken } from "../services/tokenService";
-import { parseJwt } from "../services/jwtUtils";
+import { parseJwt } from "../utils/jwtUtils";
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);

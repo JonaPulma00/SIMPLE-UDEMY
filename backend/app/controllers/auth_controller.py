@@ -41,7 +41,7 @@ async def register_user(db: AsyncSession, user: UserCreate):
     return db_user
 
 
-async def authenticate_user(db: AsyncSession, username: str, password: str):
+async def authenticate_user(db: AsyncSession, username: str, password: str, request: Request):
     stmt = select(User).filter(User.username == username)
     result = await db.execute(stmt)
     user = result.scalar_one_or_none()
@@ -50,23 +50,36 @@ async def authenticate_user(db: AsyncSession, username: str, password: str):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
     access_token = create_access_token({
-       "uuid": user.user_id, "username": user.username, "email":user.email, "is_instructor": user.is_instructor, "pending_validation": user.pending_validation
+       "uuid": user.user_id, "username": user.username, "email": user.email,
+       "is_instructor": user.is_instructor, "pending_validation": user.pending_validation
     })
 
-    refresh_token = create_refresh_token({"uuid": user.user_id})
 
     response = JSONResponse(content={"access_token": access_token})
+
+
+    existing_refresh_token = request.cookies.get("refresh_token")
+    if existing_refresh_token:
+        try:
+            payload = jwt.decode(existing_refresh_token, SECRET_KEY, algorithms=[JWT_ALGORITHM])
+            if payload.get("uuid") == user.user_id:
+
+                return response
+        except jwt.PyJWTError:
+            pass  
+
+
+    refresh_token = create_refresh_token({"uuid": user.user_id})
     response.set_cookie(
         key="refresh_token",
         value=refresh_token,
         httponly=True,
-        secure=True, 
+        secure=True,
         samesite="Strict",
-        max_age=REFRESH_TOKEN_EXPIRE_MINUTES 
+        max_age=REFRESH_TOKEN_EXPIRE_MINUTES
     )
 
     return response
-
 
 async def refresh_access_token(request: Request):
     refresh_token = request.cookies.get("refresh_token")
@@ -101,28 +114,44 @@ async def refresh_access_token(request: Request):
             status_code=status.HTTP_403_FORBIDDEN, 
             detail="Invalid token"
         )
-
-async def logout_user(token: str):
+async def logout_user(request: Request, token: str):
     if not token:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="No token provided"
         )
-    
+
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[JWT_ALGORITHM])
         
         add_to_blacklist(token)
+
+        refresh_token = request.cookies.get("refresh_token")
+        if refresh_token:
+            try:
+                jwt.decode(refresh_token, SECRET_KEY, algorithms=[JWT_ALGORITHM])
+                add_to_blacklist(refresh_token)
+            except jwt.PyJWTError:
+                pass  
+
+        response = JSONResponse(content={"success": True, "message": "Successfully logged out"})
         
-        logger.info(f"User logged out: {payload.get('email', 'unknown')}")
-        return {"success": True, "message": "Successfully logged out"}
+        response.delete_cookie(
+            key="refresh_token",
+            httponly=True,
+            secure=True,
+            samesite="Strict"
+        )
+
+        return response
+
     except jwt.PyJWTError:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Invalid token"
         )
 
-async def authenticate_google_user(db: AsyncSession, google_data: dict):
+async def authenticate_google_user(db: AsyncSession, google_data: dict, request: Request):
     google_id = google_data.get("googleId")
     email = google_data.get("email")
     name = google_data.get("name")
@@ -169,16 +198,29 @@ async def authenticate_google_user(db: AsyncSession, google_data: dict):
         "pending_validation": user.pending_validation
     })
 
-    refresh_token = create_refresh_token({"uuid": user.user_id})
+    existing_refresh_token = request.cookies.get("refresh_token")
+    is_valid_refresh = False
+
+    if existing_refresh_token:
+        try:
+            payload = jwt.decode(existing_refresh_token, SECRET_KEY, algorithms=[JWT_ALGORITHM])
+            if payload.get("uuid") == user.user_id:
+                is_valid_refresh = True
+        except jwt.PyJWTError:
+            pass
 
     response = JSONResponse(content={"access_token": access_token})
-    response.set_cookie(
-        key="refresh_token",
-        value=refresh_token,
-        httponly=True,
-        secure=True, 
-        samesite="Strict",
-        max_age=REFRESH_TOKEN_EXPIRE_MINUTES
-    )
+
+    if not is_valid_refresh:
+        refresh_token = create_refresh_token({"uuid": user.user_id})
+        response.set_cookie(
+            key="refresh_token",
+            value=refresh_token,
+            httponly=True,
+            secure=True, 
+            samesite="Strict",
+            max_age=REFRESH_TOKEN_EXPIRE_MINUTES
+        )
 
     return response
+
