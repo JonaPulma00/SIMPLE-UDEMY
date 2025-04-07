@@ -71,12 +71,14 @@ export const Sidebar = () => {
             </NavLink>
           </div>
 
-          <div className="menu-item">
-            <NavLink to="/teach" className="">
-              <i className="fas fa-chalkboard-teacher"></i>
-              <span>Teach</span>
-            </NavLink>
-          </div>
+          {user?.isInstructor && (
+            <div className="menu-item">
+              <NavLink to="/teach" className="">
+                <i className="fas fa-chalkboard-teacher"></i>
+                <span>Teach</span>
+              </NavLink>
+            </div>
+          )}
 
 
           <div className="menu-item">
