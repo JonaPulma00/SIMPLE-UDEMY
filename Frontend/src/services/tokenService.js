@@ -1,4 +1,4 @@
-export const saveTokens = (access_token) => {
+export const saveToken = (access_token) => {
   sessionStorage.setItem("access_token", access_token);
 };
 

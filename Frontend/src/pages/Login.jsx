@@ -8,7 +8,7 @@ import "../styles/user/authForms.css"
 import { ParticlesComponent } from "../components/ParticlesComponent"
 import { useGoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
-import { saveTokens } from "../services/tokenService"
+import { saveToken } from "../services/tokenService"
 import { useUser } from "../context/UserContext"
 
 export const Login = () => {
@@ -31,7 +31,7 @@ export const Login = () => {
       });
 
       if (response && response.data && response.data.access_token) {
-        saveTokens(response.data.access_token);
+        saveToken(response.data.access_token);
         loadUserFromToken();
       }
 
@@ -62,9 +62,9 @@ export const Login = () => {
           email: userInfo.data.email,
           name: userInfo.data.name
         });
-        
+
         if (response && response.data && response.data.access_token) {
-          saveTokens(response.data.access_token);
+          saveToken(response.data.access_token);
           loadUserFromToken();
         }
 

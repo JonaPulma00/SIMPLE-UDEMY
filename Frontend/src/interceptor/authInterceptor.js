@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken, saveTokens, deleteToken } from "../services/tokenService";
+import { getToken, saveToken, deleteToken } from "../services/tokenService";
 
 const api = axios.create({
   baseURL: "http://127.0.0.1:8000/api/v1",
@@ -28,7 +28,7 @@ api.interceptors.response.use(
 
     if (error.response?.status === 401) {
       deleteToken();
-      window.location.href = "/login";
+      window.location.href = "/";
       return Promise.reject(error);
     }
 
@@ -43,7 +43,7 @@ api.interceptors.response.use(
         );
 
         if (res.data.access_token) {
-          saveTokens(res.data.access_token);
+          saveToken(res.data.access_token);
           api.defaults.headers.common[
             "Authorization"
           ] = `Bearer ${res.data.access_token}`;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { saveTokens } from "./tokenService";
+import { saveToken } from "./tokenService";
 
 export const registerUser = {
   register: (formData) => {
@@ -24,7 +24,7 @@ export const loginUser = {
       })
       .then((response) => {
         if (response.data && response.data.access_token) {
-          saveTokens(response.data.access_token);
+          saveToken(response.data.access_token);
         }
         return response;
       })
@@ -43,7 +43,7 @@ export const loginUser = {
       })
       .then((response) => {
         if (response.data && response.data.access_token) {
-          saveTokens(response.data.access_token);
+          saveToken(response.data.access_token);
         }
         return response;
       })

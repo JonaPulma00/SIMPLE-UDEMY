@@ -16,7 +16,7 @@ export const Explore = () => {
   } = useAsync(() => courseService.getCourses(currentPage, 6), [currentPage]);
 
   const categories = [
-    "All Courses", "JavaScript", "Python", "React", "UI/UX", "TypeScript"
+    "All Courses", "Software Development", "Health", "Business & Finance", "Photography", "Technology"
   ];
 
   const handleSearch = (e) => {
@@ -88,7 +88,7 @@ export const Explore = () => {
                     <div className="course-image"></div>
                     <div className="course-content">
                       <h3>{course.title}</h3>
-                      <p>{course.description || "No description available"}</p>
+                      <p>{course.description && course.description.length > 100 ? course.description.substring(0, 100) + '...' : course.description || 'No description'}</p>
                       <div className="course-footer">
                         <div className="course-meta">
                           <span><i className="fas fa-calendar-alt"></i> {new Date(course.created_at).toLocaleDateString()}</span>
@@ -104,7 +104,7 @@ export const Explore = () => {
                 </div>
               )}
             </div>
-            
+
             {coursesData && coursesData.total_pages > 1 && (
               <div className="pagination">
                 <button
@@ -114,11 +114,11 @@ export const Explore = () => {
                 >
                   <i className="fas fa-chevron-left"></i>
                 </button>
-                
+
                 {Array.from({ length: coursesData.total_pages }, (_, i) => i + 1)
                   .filter(page => (
-                    page === 1 || 
-                    page === coursesData.total_pages || 
+                    page === 1 ||
+                    page === coursesData.total_pages ||
                     Math.abs(page - currentPage) <= 1
                   ))
                   .map((page, index, array) => (
@@ -135,7 +135,7 @@ export const Explore = () => {
                       </button>
                     </>
                   ))}
-                
+
                 <button
                   className="pagination-button"
                   disabled={currentPage === coursesData.total_pages}
