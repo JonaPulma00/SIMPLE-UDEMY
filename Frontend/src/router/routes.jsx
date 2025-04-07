@@ -7,7 +7,7 @@ import { WelcomePage } from "../pages/dashboard/WelcomePage"
 import { Reviews } from "../pages/Reviews"
 import { ProtectedRoute } from "../components/ProtectedRoutes"
 import { Explore } from "../pages/dashboard/Explore"
-
+import { Teach } from "../pages/dashboard/Teach"
 
 export const AppRoutes = () => {
   return (
@@ -29,6 +29,13 @@ export const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <Explore />
+          </ProtectedRoute>
+        } />
+      <Route
+        path="/teach"
+        element={
+          <ProtectedRoute>
+            <Teach />
           </ProtectedRoute>
         } />
       <Route path="/*" element={<Navigate to='/' />}></Route>
