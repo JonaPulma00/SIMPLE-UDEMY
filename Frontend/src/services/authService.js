@@ -1,10 +1,11 @@
 import axios from "axios";
 import { saveToken } from "./tokenService";
 
+const API_URL = import.meta.env.VITE_APP_API_URL;
 export const registerUser = {
   register: (formData) => {
     return axios
-      .post(`http://127.0.0.1:8000/api/v1/auth/register`, formData, {
+      .post(`${API_URL}/auth/register`, formData, {
         withCredentials: true,
       })
       .catch((error) => {
@@ -19,7 +20,7 @@ export const registerUser = {
 export const loginUser = {
   login: (formData) => {
     return axios
-      .post(`http://127.0.0.1:8000/api/v1/auth/login`, formData, {
+      .post(`${API_URL}/auth/login`, formData, {
         withCredentials: true,
       })
       .then((response) => {
@@ -38,7 +39,7 @@ export const loginUser = {
 
   googleLogin: (googleData) => {
     return axios
-      .post(`http://127.0.0.1:8000/api/v1/auth/google-login`, googleData, {
+      .post(`${API_URL}/auth/google-login`, googleData, {
         withCredentials: true,
       })
       .then((response) => {

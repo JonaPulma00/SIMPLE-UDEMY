@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken, saveToken, deleteToken } from "../services/tokenService";
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/v1",
+  baseURL: import.meta.env.VITE_APP_API_URL,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",

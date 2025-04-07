@@ -13,3 +13,5 @@ export const courseService = {
     }
   },
 };
+
+export const createCourse = {};
