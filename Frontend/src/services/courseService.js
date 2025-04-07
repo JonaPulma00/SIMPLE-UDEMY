@@ -14,4 +14,26 @@ export const courseService = {
   },
 };
 
-export const createCourse = {};
+export const createCourse = async (courseData) => {
+  try {
+    const response = await api.post("/courses/create", {
+      title: courseData.title,
+      description: courseData.description,
+      category_id: courseData.category_id,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error creating course:", error);
+    throw error;
+  }
+};
+
+export const getCategories = async () => {
+  try {
+    const response = await api.get("/categories/get-categories");
+    return response.data;
+  } catch (error) {
+    console.error("Error getting categories", error);
+    throw error;
+  }
+};

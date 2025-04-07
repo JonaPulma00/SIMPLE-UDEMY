@@ -8,7 +8,7 @@ from app.schemas.category import CategoryResponse
 
 router = APIRouter()
 
-@router.get("/", response_model=List[CategoryResponse], status_code=status.HTTP_200_OK)
+@router.get("/get-categories", response_model=List[CategoryResponse], status_code=status.HTTP_200_OK)
 async def get_categories_handler(
     db: AsyncSession = Depends(get_db),
     token_payload: dict = Depends(verify_token)
