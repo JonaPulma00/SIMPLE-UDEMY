@@ -41,9 +41,9 @@ export const getCategories = async () => {
   }
 };
 
-export const getInstructorCourses = async () => {
+export const getInstructorCourses = async (page = 1, limit = 10) => {
   try {
-    const response = api.get(`/courses/instructor/${user.uuid}`);
+    const response = api.get(`/courses/instructor/${user.uuid}?page=${page}&limit=${limit}`);
     return (await response).data;
   } catch (error) {
     console.error("Error while getting instructor courses", error);
