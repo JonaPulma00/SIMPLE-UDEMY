@@ -53,3 +53,13 @@ export const getInstructorCourses = async (
     throw error;
   }
 };
+
+export const getCourseById = async (courseId) => {
+  try {
+    const response = await api.get(`/courses/get-course-by-id/${courseId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error while getting course", error);
+    throw error;
+  }
+};

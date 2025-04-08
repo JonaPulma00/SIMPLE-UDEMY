@@ -35,3 +35,34 @@ class InstructorCoursesResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class LessonResponse(BaseModel):
+    lesson_id: str
+    title: str
+    video_url: Optional[str] = None
+    position: int
+    is_free: bool
+
+    class Config:
+        from_attributes = True
+
+class SectionResponse(BaseModel):
+    section_id: str
+    title: str
+    position: int
+    lessons: List[LessonResponse]
+
+    class Config:
+        from_attributes = True
+
+class CourseDetailResponse(BaseModel):
+    course_id: str
+    title: str
+    description: Optional[str] = None
+    instructor_id: str
+    category_id: Optional[str] = None
+    created_at: Optional[datetime]
+    sections: List[SectionResponse]
+
+    class Config:
+        from_attributes = True

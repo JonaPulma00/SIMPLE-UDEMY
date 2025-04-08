@@ -3,9 +3,11 @@ from sqlalchemy.future import select
 from sqlalchemy.sql import func
 from fastapi import HTTPException
 import uuid
-from app.db.models import Course, User
-from app.schemas.course import CourseCreate
+from app.db.models import Course, User, Section, Lesson
+from app.schemas.course import CourseCreate, CourseResponse
 from datetime import datetime
+from sqlalchemy.orm import selectinload
+from fastapi import status
 
 async def create_course(db: AsyncSession, course_data: CourseCreate, instructor_id: str):
     db_course = Course(
@@ -84,4 +86,30 @@ async def get_instructor_courses(db: AsyncSession, instructor_id: str, page: int
         "total_pages": (total_count // limit) + (1 if total_count % limit else 0),
         "courses": courses
     }
+
+async def get_course_by_id(db: AsyncSession, course_id: str, user_id: str):
+    stmt = select(Course).options(
+        selectinload(Course.sections).selectinload(Section.lessons)
+    ).filter(Course.course_id == course_id)
+    
+    result = await db.execute(stmt)
+    course = result.scalar_one_or_none()
+
+    if not course:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Course not found"
+        )
+
+    if course.instructor_id != user_id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You don't have permission to access this course"
+        )
+
+    for section in course.sections:
+        section.lessons.sort(key=lambda x: x.position)
+    course.sections.sort(key=lambda x: x.position)
+
+    return course
 

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.database import get_db
 from app.schemas.course import CourseCreate, CourseResponse
-from app.controllers.course_controller import create_course, get_courses, get_instructor_courses
+from app.controllers.course_controller import create_course, get_courses, get_instructor_courses, get_course_by_id
 from app.middlewares.authorization import verify_instructor
 from app.middlewares.authenticate_token import verify_token
 
@@ -34,3 +34,11 @@ async def get_instructor_courses_handler(
     limit: int = Query(10, alias="limit", ge=1, le=100)
 ):
     return await get_instructor_courses(db, instructor_id, page, limit)
+
+@router.get("/get-course-by-id/{course_id}", status_code=status.HTTP_200_OK)
+async def get_course_handler(
+    course_id: str,
+    db: AsyncSession = Depends(get_db),
+    token_payload: dict = Depends(verify_instructor)
+):
+    return await get_course_by_id(db, course_id, token_payload["uuid"])

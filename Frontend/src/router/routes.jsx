@@ -9,6 +9,7 @@ import { ProtectedRoute } from "../components/ProtectedRoutes"
 import { Explore } from "../pages/dashboard/Explore"
 import { Teach } from "../pages/dashboard/Teach"
 import { InstructorCourses } from "../pages/dashboard/InstructorCourses"
+import { CourseDetail } from "../pages/dashboard/CourseDetail"
 export const AppRoutes = () => {
   return (
     <Routes>
@@ -46,6 +47,14 @@ export const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <InstructorCourses />
+          </ProtectedRoute>
+        } />
+
+      <Route
+        path="/courses/:courseId"
+        element={
+          <ProtectedRoute>
+            <CourseDetail />
           </ProtectedRoute>
         } />
 

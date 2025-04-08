@@ -76,8 +76,7 @@ export const Explore = () => {
         ) : error ? (
           <div className="error-container">
             <i className="fas fa-exclamation-circle"></i>
-            <p>Failed to load courses. Please try again.</p>
-            <button onClick={() => window.location.reload()}>Retry</button>
+            <p>Failed to load courses. Try again</p>
           </div>
         ) : (
           <>

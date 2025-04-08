@@ -59,16 +59,15 @@ export const InstructorCourses = () => {
         ) : error ? (
           <div className="error-container">
             <i className="fas fa-exclamation-circle"></i>
-            <p>Failed to load courses. Please try again.</p>
-            <button onClick={() => window.location.reload()}>Retry</button>
+            <p>Failed to load courses. Try again</p>
           </div>
         ) : (
           <>
             <div className="courses-grid">
               {coursesData?.courses?.length > 0 ? (
                 coursesData.courses.map((course) => (
-                  <div 
-                    key={course.course_id} 
+                  <div
+                    key={course.course_id}
                     className={`course-card ${course.course_id === highlightedCourse ? 'highlight-new' : ''}`}
                   >
                     <div className="course-image"></div>
