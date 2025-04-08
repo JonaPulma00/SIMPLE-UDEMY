@@ -36,10 +36,12 @@ export const Teach = () => {
     setSuccess(false);
 
     try {
-      await createCourse(formState);
+      const newCourse = await createCourse(formState);
       setSuccess(true);
       setTimeout(() => {
-        navigate('/instructor/courses');
+        navigate('/instructor/courses', {
+          state: { newCourseId: newCourse.course_id }
+        });
       }, 1500);
       e.target.reset();
     } catch (err) {

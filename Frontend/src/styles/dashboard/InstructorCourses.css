@@ -74,4 +74,32 @@
   color: #ff3232;
 }
 
+@keyframes highlightPulse {
+  0% {
+    transform: scale(1);
+    border-color: #00ff62;
+    box-shadow: 0 0 20px rgba(0, 255, 98, 0.3);
+  }
+  50% {
+    transform: scale(1.02);
+    border-color: #00ff62;
+    box-shadow: 0 0 30px rgba(0, 255, 98, 0.5);
+  }
+  100% {
+    transform: scale(1);
+    border-color: #00ff62;
+    box-shadow: 0 0 20px rgba(0, 255, 98, 0.3);
+  }
+}
+
+.course-card.highlight-new {
+  animation: highlightPulse 2s ease-in-out infinite;
+  border: 1px solid #00ff62;
+}
+
+.course-card {
+  transition: all 0.3s ease;
+
+}
+
 

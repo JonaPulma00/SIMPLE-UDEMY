@@ -1,19 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useUser } from "../../context/UserContext";
 import { getInstructorCourses } from "../../services/courseService";
 import useAsync from "../../hooks/useAsync";
 import { Sidebar } from "../../components/Sidebar";
 import "../../styles/dashboard/InstructorCourses.css";
+import { useLocation } from "react-router-dom";
 
 export const InstructorCourses = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { user } = useUser();
+  const location = useLocation();
+  const [highlightedCourse, setHighlightedCourse] = useState(null);
 
   const {
     loading,
     error,
     value: coursesData
   } = useAsync(() => getInstructorCourses(user?.uuid, currentPage, 6), [currentPage, user?.uuid]);
+
+  useEffect(() => {
+    if (location.state?.newCourseId) {
+      setHighlightedCourse(location.state.newCourseId);
+      setTimeout(() => {
+        setHighlightedCourse(null);
+      }, 5000);
+    }
+  }, [location]);
 
   if (!user?.isInstructor) {
     return (
@@ -55,7 +67,10 @@ export const InstructorCourses = () => {
             <div className="courses-grid">
               {coursesData?.courses?.length > 0 ? (
                 coursesData.courses.map((course) => (
-                  <div key={course.course_id} className="course-card">
+                  <div 
+                    key={course.course_id} 
+                    className={`course-card ${course.course_id === highlightedCourse ? 'highlight-new' : ''}`}
+                  >
                     <div className="course-image"></div>
                     <div className="course-content">
                       <h3>{course.title}</h3>

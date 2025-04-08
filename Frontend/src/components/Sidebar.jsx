@@ -57,12 +57,23 @@ export const Sidebar = () => {
             </NavLink>
           </div>
 
-          <div className="menu-item">
-            <NavLink to="/my-courses" className="">
-              <i className="fas fa-book"></i>
-              <span>My Courses </span>
-            </NavLink>
-          </div>
+          {!user?.isInstructor && (
+            <div className="menu-item">
+              <NavLink to="/my-courses" className="">
+                <i className="fas fa-book"></i>
+                <span>My Courses </span>
+              </NavLink>
+            </div>
+          )}
+
+          {user?.isInstructor && (
+            <div className="menu-item">
+              <NavLink to="/instructor/courses">
+                <i className="fa-solid fa-brain"></i>
+                <span>Created courses</span>
+              </NavLink>
+            </div>
+          )}
 
           <div className="menu-item">
             <NavLink to="/explore" className="">
@@ -76,15 +87,6 @@ export const Sidebar = () => {
               <NavLink to="/teach" className="">
                 <i className="fas fa-chalkboard-teacher"></i>
                 <span>Teach</span>
-              </NavLink>
-            </div>
-          )}
-
-          {user?.isInstructor && (
-            <div className="menu-item">
-              <NavLink to="/instructor/courses">
-                <i className="fa-solid fa-brain"></i>
-                <span>Created courses</span>
               </NavLink>
             </div>
           )}
