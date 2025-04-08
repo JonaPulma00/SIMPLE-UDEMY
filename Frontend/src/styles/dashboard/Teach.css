@@ -92,7 +92,7 @@
   box-shadow: 0 5px 15px rgba(0, 255, 98, 0.3);
 }
 
-.error-message,
+.error-message-teach,
 .success-message {
   padding: 15px;
   border-radius: 5px;
@@ -102,7 +102,7 @@
   gap: 10px;
 }
 
-.error-message {
+.error-message-teach {
   background-color: rgba(255, 0, 0, 0.1);
   border: 1px solid #ff3232;
   color: #ff3232;

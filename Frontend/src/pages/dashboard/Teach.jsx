@@ -68,12 +68,12 @@ export const Teach = () => {
 
         <form className="course-form" onSubmit={handleSubmit}>
           {error && (
-            <div className="error-message">
+            <div className="error-message-teach">
               <i className="fas fa-exclamation-circle"></i>
               {error}
             </div>
           )}
-          
+
           {success && (
             <div className="success-message">
               <i className="fas fa-check-circle"></i>

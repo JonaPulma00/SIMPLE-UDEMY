@@ -55,29 +55,29 @@ async def authenticate_user(db: AsyncSession, username: str, password: str, requ
     })
 
 
-    response = JSONResponse(content={"access_token": access_token})
-
-
+    needs_new_refresh = True
     existing_refresh_token = request.cookies.get("refresh_token")
+    
     if existing_refresh_token:
         try:
             payload = jwt.decode(existing_refresh_token, SECRET_KEY, algorithms=[JWT_ALGORITHM])
             if payload.get("uuid") == user.user_id:
-
-                return response
+                needs_new_refresh = False
         except jwt.PyJWTError:
-            pass  
+            needs_new_refresh = True
 
+    response = JSONResponse(content={"access_token": access_token})
 
-    refresh_token = create_refresh_token({"uuid": user.user_id})
-    response.set_cookie(
-        key="refresh_token",
-        value=refresh_token,
-        httponly=True,
-        secure=True,
-        samesite="Strict",
-        max_age=REFRESH_TOKEN_EXPIRE_MINUTES
-    )
+    if needs_new_refresh:
+        refresh_token = create_refresh_token({"uuid": user.user_id})
+        response.set_cookie(
+            key="refresh_token",
+            value=refresh_token,
+            httponly=True,
+            secure=True,
+            samesite="Strict",
+            max_age=REFRESH_TOKEN_EXPIRE_MINUTES * 60 
+        )
 
     return response
 
@@ -198,28 +198,29 @@ async def authenticate_google_user(db: AsyncSession, google_data: dict, request:
         "pending_validation": user.pending_validation
     })
 
-    existing_refresh_token = request.cookies.get("refresh_token")
-    is_valid_refresh = False
 
+    needs_new_refresh = True
+    existing_refresh_token = request.cookies.get("refresh_token")
+    
     if existing_refresh_token:
         try:
             payload = jwt.decode(existing_refresh_token, SECRET_KEY, algorithms=[JWT_ALGORITHM])
             if payload.get("uuid") == user.user_id:
-                is_valid_refresh = True
+                needs_new_refresh = False
         except jwt.PyJWTError:
-            pass
+            needs_new_refresh = True
 
     response = JSONResponse(content={"access_token": access_token})
 
-    if not is_valid_refresh:
+    if needs_new_refresh:
         refresh_token = create_refresh_token({"uuid": user.user_id})
         response.set_cookie(
             key="refresh_token",
             value=refresh_token,
             httponly=True,
-            secure=True, 
+            secure=True,
             samesite="Strict",
-            max_age=REFRESH_TOKEN_EXPIRE_MINUTES
+            max_age=REFRESH_TOKEN_EXPIRE_MINUTES * 60 
         )
 
     return response

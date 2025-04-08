@@ -124,9 +124,9 @@
     text-decoration: underline;
 }
 .error-message {
-    color: #ff4d4d; 
-    background: #ffe6e6; 
-    border: 1px solid #ff4d4d;
+    color: #ff3232;
+    background-color: rgba(255, 0, 0, 0.1); 
+    border: 1px solid #ff3232;
     padding: 10px;
     border-radius: 5px;
     font-size: 14px;
