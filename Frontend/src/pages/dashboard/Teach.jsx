@@ -4,8 +4,10 @@ import { useForm } from "../../hooks/useForm";
 import { useUser } from "../../context/UserContext";
 import { createCourse, getCategories } from "../../services/courseService";
 import "../../styles/dashboard/Teach.css";
+import { useNavigate } from "react-router-dom";
 
 export const Teach = () => {
+  const navigate = useNavigate();
   const { user } = useUser();
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
@@ -36,6 +38,9 @@ export const Teach = () => {
     try {
       await createCourse(formState);
       setSuccess(true);
+      setTimeout(() => {
+        navigate('/instructor/courses');
+      }, 1500);
       e.target.reset();
     } catch (err) {
       setError(err.response?.data?.detail || "Failed to create course");

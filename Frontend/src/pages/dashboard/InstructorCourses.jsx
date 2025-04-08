@@ -35,7 +35,7 @@ export const InstructorCourses = () => {
       <Sidebar />
       <div className="instructor-content">
         <div className="instructor-header">
-          <h1>My Courses</h1>
+          <h1>Courses you've made</h1>
           <p>Manage and track your courses</p>
         </div>
 
@@ -59,9 +59,9 @@ export const InstructorCourses = () => {
                     <div className="course-image"></div>
                     <div className="course-content">
                       <h3>{course.title}</h3>
-                      <p>{course.description && course.description.length > 100 
-                          ? course.description.substring(0, 100) + '...' 
-                          : course.description || 'No description'}
+                      <p>{course.description && course.description.length > 100
+                        ? course.description.substring(0, 100) + '...'
+                        : course.description || 'No description'}
                       </p>
                       <div className="course-footer">
                         <div className="course-meta">
