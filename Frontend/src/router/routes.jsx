@@ -8,7 +8,7 @@ import { Reviews } from "../pages/Reviews"
 import { ProtectedRoute } from "../components/ProtectedRoutes"
 import { Explore } from "../pages/dashboard/Explore"
 import { Teach } from "../pages/dashboard/Teach"
-import { IntructorCourses } from "../pages/dashboard/IntructorCourses"
+import { InstructorCourses } from "../pages/dashboard/InstructorCourses"
 export const AppRoutes = () => {
   return (
     <Routes>
@@ -45,7 +45,7 @@ export const AppRoutes = () => {
         path="/instructor/courses"
         element={
           <ProtectedRoute>
-            <IntructorCourses />
+            <InstructorCourses />
           </ProtectedRoute>
         } />
 

@@ -1,8 +1,5 @@
 import api from "../interceptor/authInterceptor";
-import { useUser } from "../context/UserContext";
 
-
-const { user } = useUser()
 export const courseService = {
   async getCourses(page = 1, limit = 10) {
     try {
@@ -41,10 +38,16 @@ export const getCategories = async () => {
   }
 };
 
-export const getInstructorCourses = async (page = 1, limit = 10) => {
+export const getInstructorCourses = async (
+  instructorId,
+  page = 1,
+  limit = 10
+) => {
   try {
-    const response = api.get(`/courses/instructor/${user.uuid}?page=${page}&limit=${limit}`);
-    return (await response).data;
+    const response = await api.get(
+      `/courses/instructor/${instructorId}?page=${page}&limit=${limit}`
+    );
+    return response.data;
   } catch (error) {
     console.error("Error while getting instructor courses", error);
     throw error;
