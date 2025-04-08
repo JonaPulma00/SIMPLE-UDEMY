@@ -60,7 +60,7 @@ export const Sidebar = () => {
           <div className="menu-item">
             <NavLink to="/my-courses" className="">
               <i className="fas fa-book"></i>
-              <span>My Courses</span>
+              <span>My Courses </span>
             </NavLink>
           </div>
 
@@ -80,6 +80,14 @@ export const Sidebar = () => {
             </div>
           )}
 
+          {user?.isInstructor && (
+            <div className="menu-item">
+              <NavLink to="/instructor/courses">
+                <i className="fa-solid fa-brain"></i>
+                <span>Created courses</span>
+              </NavLink>
+            </div>
+          )}
 
           <div className="menu-item">
             <NavLink to="/settings" className="">

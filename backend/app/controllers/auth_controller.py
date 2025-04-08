@@ -74,9 +74,9 @@ async def authenticate_user(db: AsyncSession, username: str, password: str, requ
             key="refresh_token",
             value=refresh_token,
             httponly=True,
-            secure=True,
-            samesite="Strict",
-            max_age=REFRESH_TOKEN_EXPIRE_MINUTES * 60 
+            secure=False,
+            samesite="None",
+            max_age=REFRESH_TOKEN_EXPIRE_MINUTES 
         )
 
     return response
@@ -139,8 +139,8 @@ async def logout_user(request: Request, token: str):
         response.delete_cookie(
             key="refresh_token",
             httponly=True,
-            secure=True,
-            samesite="Strict"
+            secure=False,
+            samesite="None"
         )
 
         return response
@@ -218,9 +218,9 @@ async def authenticate_google_user(db: AsyncSession, google_data: dict, request:
             key="refresh_token",
             value=refresh_token,
             httponly=True,
-            secure=True,
-            samesite="Strict",
-            max_age=REFRESH_TOKEN_EXPIRE_MINUTES * 60 
+            secure=False,
+            samesite="None",
+            max_age=REFRESH_TOKEN_EXPIRE_MINUTES
         )
 
     return response

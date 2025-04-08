@@ -33,9 +33,8 @@ export const Login = () => {
       if (response && response.data && response.data.access_token) {
         saveToken(response.data.access_token);
         loadUserFromToken();
+        navigate('/dashboard');
       }
-
-      navigate('/dashboard');
     } catch (error) {
       console.error('Error: ', error);
       if (error.detail) {
@@ -66,9 +65,8 @@ export const Login = () => {
         if (response && response.data && response.data.access_token) {
           saveToken(response.data.access_token);
           loadUserFromToken();
+          navigate('/dashboard');
         }
-
-        navigate('/dashboard');
       } catch (error) {
         console.error('Google login error: ', error);
         setError('Error in Google login, try again');

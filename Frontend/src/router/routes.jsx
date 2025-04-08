@@ -8,7 +8,7 @@ import { Reviews } from "../pages/Reviews"
 import { ProtectedRoute } from "../components/ProtectedRoutes"
 import { Explore } from "../pages/dashboard/Explore"
 import { Teach } from "../pages/dashboard/Teach"
-
+import { IntructorCourses } from "../pages/dashboard/IntructorCourses"
 export const AppRoutes = () => {
   return (
     <Routes>
@@ -24,6 +24,7 @@ export const AppRoutes = () => {
             <WelcomePage />
           </ProtectedRoute>
         } />
+
       <Route
         path="/explore"
         element={
@@ -31,6 +32,7 @@ export const AppRoutes = () => {
             <Explore />
           </ProtectedRoute>
         } />
+
       <Route
         path="/teach"
         element={
@@ -38,6 +40,15 @@ export const AppRoutes = () => {
             <Teach />
           </ProtectedRoute>
         } />
+
+      <Route
+        path="/instructor/courses"
+        element={
+          <ProtectedRoute>
+            <IntructorCourses />
+          </ProtectedRoute>
+        } />
+
       <Route path="/*" element={<Navigate to='/' />}></Route>
     </Routes>
   )

@@ -3,7 +3,7 @@ from sqlalchemy.future import select
 from sqlalchemy.sql import func
 from fastapi import HTTPException
 import uuid
-from app.db.models import Course
+from app.db.models import Course, User
 from app.schemas.course import CourseCreate
 from datetime import datetime
 
@@ -46,3 +46,42 @@ async def get_courses(db: AsyncSession, user_id: str, page: int = 1, limit: int 
         "total_pages": (total_count // limit) + (1 if total_count % limit else 0),
         "courses": courses
     }
+
+async def get_instructor_courses(db: AsyncSession, instructor_id: str, page: int = 1, limit: int = 10):
+    if page < 1 or limit < 1:
+        raise HTTPException(status_code=400, detail="Page and limit must be positive integers")
+
+    offset = (page - 1) * limit
+
+    stmt = select(Course).filter(Course.instructor_id == instructor_id)\
+        .order_by(Course.created_at.desc())\
+        .limit(limit).offset(offset)
+    
+    result = await db.execute(stmt)
+    courses = result.scalars().all()
+
+    total_count_stmt = select(func.count()).select_from(Course)\
+        .filter(Course.instructor_id == instructor_id)
+    total_count = await db.execute(total_count_stmt)
+    total_count = total_count.scalar()
+
+    if total_count == 0:
+
+        instructor_stmt = select(User).filter(User.user_id == instructor_id)
+        instructor_result = await db.execute(instructor_stmt)
+        instructor = instructor_result.scalar_one_or_none()
+        
+        if not instructor:
+            raise HTTPException(
+                status_code=404,
+                detail="Instructor not found"
+            )
+
+    return {
+        "page": page,
+        "limit": limit,
+        "total_courses": total_count,
+        "total_pages": (total_count // limit) + (1 if total_count % limit else 0),
+        "courses": courses
+    }
+

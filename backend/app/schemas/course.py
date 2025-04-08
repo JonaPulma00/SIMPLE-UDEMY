@@ -1,5 +1,5 @@
 from pydantic import BaseModel, field_validator
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
 
 class CourseCreate(BaseModel):
@@ -22,6 +22,16 @@ class CourseResponse(BaseModel):
     instructor_id: str
     category_id: Optional[str] = None
     created_at: Optional[datetime]
+
+    class Config:
+        from_attributes = True
+
+class InstructorCoursesResponse(BaseModel):
+    page: int
+    limit: int
+    total_courses: int
+    total_pages: int
+    courses: List[CourseResponse]
 
     class Config:
         from_attributes = True

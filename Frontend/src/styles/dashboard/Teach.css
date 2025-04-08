@@ -58,7 +58,7 @@
 
 .form-group textarea {
   min-height: 150px;
-  resize: vertical;
+  resize: none;
 }
 
 .form-group select {
