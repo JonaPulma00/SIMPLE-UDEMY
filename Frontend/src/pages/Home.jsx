@@ -48,7 +48,6 @@ export const Home = () => {
           </div>
         </section>
 
-        {/* Popular Topics Section */}
         <section className="topics-section">
           <h2>Popular Topics</h2>
           <div className="topics-container">

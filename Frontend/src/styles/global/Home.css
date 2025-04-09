@@ -1,4 +1,4 @@
-/* General Styles */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -18,7 +18,7 @@ section {
   z-index: 2;
 }
 
-/* Particles Background */
+
 #particles {
   position: absolute;
   width: 100%;
@@ -28,7 +28,7 @@ section {
   background-size: cover;
   background-position: 50% 50%;
 }
-/* Page Structure */
+
 .page-wrapper {
   position: relative;
   min-height: 100vh;
@@ -39,7 +39,7 @@ section {
   z-index: 2;
 }
 
-/* Hero Section */
+
 .hero-section {
   padding: 6rem 2rem 4rem;
   text-align: center;
@@ -81,7 +81,6 @@ section {
   color: #b8b8b8;
 }
 
-/* Search Bar */
 .search-container {
   display: flex;
   max-width: 600px;
@@ -114,7 +113,7 @@ section {
   box-shadow: 0 0 10px rgba(0, 255, 98, 0.5);
 }
 
-/* Topics Section */
+
 .topics-section {
   max-width: 1200px;
   margin: 0 auto;
@@ -153,7 +152,7 @@ section {
   transform: translateY(-2px);
 }
 
-/* Benefits Section */
+
 .benefits-section {
   background-color: rgba(10, 10, 10, 0.7);
   text-align: center;
@@ -253,7 +252,7 @@ section {
   box-shadow: 0 5px 15px rgba(0, 255, 98, 0.5);
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
   .hero-content h1 {
     font-size: 2rem;

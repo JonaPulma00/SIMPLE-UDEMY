@@ -1,4 +1,4 @@
-/* Explore Content */
+
 .explore-content {
   flex: 1;
   padding: 30px;
@@ -8,7 +8,7 @@
   color: #f8f9fa;
 }
 
-/* Explore Header */
+
 .explore-header {
   margin-bottom: 30px;
 }
@@ -28,7 +28,7 @@
   font-size: 1.1rem;
 }
 
-/* Search Container */
+
 .explore-search-container {
   margin-bottom: 25px;
 }
@@ -65,7 +65,7 @@
   cursor: pointer;
 }
 
-/* Categories Filter */
+
 .categories-filter {
   margin-bottom: 25px;
 }
@@ -91,7 +91,7 @@
   color: #fff;
 }
 
-/* Courses Grid */
+
 .courses-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -157,7 +157,7 @@
   color: #00ff62;
 }
 
-/* Responsive Adjustments */
+
 @media (max-width: 768px) {
   .explore-content {
     padding: 20px 15px;
@@ -168,7 +168,7 @@
   }
 }
 
-/* Loading and Error States */
+
 .error-container,
 .no-courses-message {
   display: flex;
@@ -215,7 +215,7 @@
   background-color: rgba(255, 50, 50, 0.3);
 }
 
-/* Pagination */
+
 .pagination {
   display: flex;
   justify-content: center;
@@ -258,7 +258,7 @@
   color: #b8b8b8;
 }
 
-/* Course Meta */
+
 .course-meta {
   font-size: 0.85rem;
   color: #777;

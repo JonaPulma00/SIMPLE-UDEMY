@@ -190,7 +190,7 @@
   transform: translateY(6px);
 }
 
-/* Overlay */
+
 .sidebar-overlay {
   display: none;
   position: fixed;
@@ -245,7 +245,6 @@
   }
 }
 
-/* Custom tooltip styling */
 .tooltip {
   position: relative;
   cursor: pointer;
