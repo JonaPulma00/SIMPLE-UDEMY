@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.database import get_db
-from app.schemas.course import CourseCreate, CourseResponse
-from app.controllers.course_controller import create_course, get_courses, get_instructor_courses, get_course_by_id
+from app.schemas.course import CourseCreate, CourseResponse, CourseUpdate
+from app.controllers.course_controller import create_course, get_courses, get_instructor_courses, get_course_by_id, delete_course, update_course
 from app.middlewares.authorization import verify_instructor
 from app.middlewares.authenticate_token import verify_token
 
@@ -42,3 +42,20 @@ async def get_course_handler(
     token_payload: dict = Depends(verify_instructor)
 ):
     return await get_course_by_id(db, course_id, token_payload["uuid"])
+
+@router.delete("/{course_id}", status_code=status.HTTP_200_OK)
+async def delete_course_handler(
+    course_id: str,
+    db: AsyncSession = Depends(get_db),
+    token_payload: dict = Depends(verify_instructor)
+):
+    return await delete_course(db, course_id, token_payload["uuid"])
+
+@router.put("/update/{course_id}", response_model=CourseResponse, status_code=status.HTTP_200_OK)
+async def update_course_handler(
+    course_id: str,
+    course_data: CourseUpdate,
+    db: AsyncSession = Depends(get_db),
+    token_payload: dict = Depends(verify_instructor)
+):
+    return await update_course(db, course_id, token_payload["uuid"], course_data)

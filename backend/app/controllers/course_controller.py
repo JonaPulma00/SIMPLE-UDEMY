@@ -4,7 +4,7 @@ from sqlalchemy.sql import func
 from fastapi import HTTPException
 import uuid
 from app.db.models import Course, User, Section, Lesson
-from app.schemas.course import CourseCreate, CourseResponse
+from app.schemas.course import CourseCreate, CourseResponse, CourseUpdate
 from datetime import datetime
 from sqlalchemy.orm import selectinload
 from fastapi import status
@@ -110,6 +110,57 @@ async def get_course_by_id(db: AsyncSession, course_id: str, user_id: str):
     for section in course.sections:
         section.lessons.sort(key=lambda x: x.position)
     course.sections.sort(key=lambda x: x.position)
+
+    return course
+
+async def delete_course(db: AsyncSession, course_id: str, user_id: str):
+    stmt = select(Course).filter(Course.course_id == course_id)
+    result = await db.execute(stmt)
+    course = result.scalar_one_or_none()
+
+    if not course:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Course not found"
+        )
+
+    if course.instructor_id != user_id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You don't have permission to delete this course"
+        )
+
+    await db.delete(course)
+    await db.commit()
+
+    return {"message": "Course deleted successfully"}
+
+async def update_course(db: AsyncSession, course_id: str, user_id: str, course_data: CourseUpdate):
+    stmt = select(Course).filter(Course.course_id == course_id)
+    result = await db.execute(stmt)
+    course = result.scalar_one_or_none()
+
+    if not course:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Course not found"
+        )
+
+    if course.instructor_id != user_id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You don't have permission to update this course"
+        )
+
+    if course_data.title is not None:
+        course.title = course_data.title
+    if course_data.description is not None:
+        course.description = course_data.description
+    if course_data.category_id is not None:
+        course.category_id = course_data.category_id
+
+    await db.commit()
+    await db.refresh(course)
 
     return course
 

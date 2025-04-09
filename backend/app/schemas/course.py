@@ -66,3 +66,8 @@ class CourseDetailResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class CourseUpdate(BaseModel):
+    title: str | None = None
+    description: str | None = None
+    category_id: str | None = None
