@@ -169,7 +169,6 @@
 }
 
 /* Loading and Error States */
-.loading-container,
 .error-container,
 .no-courses-message {
   display: flex;
@@ -183,7 +182,7 @@
   border: 1px solid #222;
 }
 
-.loading-container i,
+
 .error-container i,
 .no-courses-message i {
   font-size: 2.5rem;
@@ -195,7 +194,7 @@
   color: #ff3232;
 }
 
-.loading-container p,
+
 .error-container p,
 .no-courses-message p {
   color: #b8b8b8;

@@ -6,9 +6,7 @@ import { Sidebar } from "../../components/Sidebar";
 import "../../styles/dashboard/InstructorCourses.css";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
 export const InstructorCourses = () => {
-
   const navigate = useNavigate()
   const [currentPage, setCurrentPage] = useState(1);
   const { user } = useUser();
@@ -56,8 +54,8 @@ export const InstructorCourses = () => {
 
         {loading ? (
           <div className="loading-container">
-            <i className="fas fa-spinner fa-spin"></i>
-            <p>Loading courses...</p>
+            <div className="loading-spinner"></div>
+            <p className="loading-text">Loading...</p>
           </div>
         ) : error ? (
           <div className="error-container">
@@ -88,9 +86,7 @@ export const InstructorCourses = () => {
                           </span>
                         </div>
                         <div className="course-actions">
-                          <button
-                            className="edit-button"
-                            onClick={() => navigate(`/courses/${course.course_id}`)}>
+                          <button className="edit-button" onClick={() => navigate(`/course/${course.course_id}`)}>
                             <i className="fas fa-edit"></i> Edit
                           </button>
                         </div>

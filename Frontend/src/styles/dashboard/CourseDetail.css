@@ -1,3 +1,9 @@
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #0a0a0a;
+}
+
 .course-detail-content {
   flex: 1;
   padding: 30px;
@@ -18,4 +24,84 @@
 .course-detail-content p {
   color: #b8b8b8;
   font-size: 1.1rem;
+}
+
+/* Loading state styles */
+.loading-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  background-color: #0a0a0a;
+  color: #f8f9fa;
+  height: 100vh;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(0, 255, 98, 0.1);
+  border-radius: 50%;
+  border-top-color: #00ff62;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  margin-top: 15px;
+  font-size: 1.2rem;
+  background: linear-gradient(90deg, #ffffff, #00ff62);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+
+.error-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  background-color: #0a0a0a;
+  color: #f8f9fa;
+  padding: 30px;
+  height: 100vh;
+}
+
+.error-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  color: #ff3d3d;
+}
+
+.error-message {
+  font-size: 1.3rem;
+  text-align: center;
+  color: #ff3d3d;
+  margin-bottom: 20px;
+}
+
+.error-action {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: linear-gradient(90deg, #00ff62, #00b347);
+  border: none;
+  border-radius: 5px;
+  color: #0a0a0a;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.error-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 255, 98, 0.3);
 }

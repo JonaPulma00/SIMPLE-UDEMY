@@ -51,7 +51,7 @@ export const AppRoutes = () => {
         } />
 
       <Route
-        path="/courses/:courseId"
+        path="/course/:courseId"
         element={
           <ProtectedRoute>
             <CourseDetail />

@@ -62,7 +62,16 @@
   border: 1px solid #222;
 }
 
-.loading-container i,
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(0, 255, 98, 0.1);
+  border-radius: 50%;
+  border-top-color: #00ff62;
+  animation: spin 1s ease-in-out infinite;
+}
+
 .error-container i,
 .no-courses-message i {
   font-size: 2.5rem;
@@ -72,34 +81,6 @@
 
 .error-container i {
   color: #ff3232;
-}
-
-@keyframes highlightPulse {
-  0% {
-    transform: scale(1);
-    border-color: #00ff62;
-    box-shadow: 0 0 20px rgba(0, 255, 98, 0.3);
-  }
-  50% {
-    transform: scale(1.02);
-    border-color: #00ff62;
-    box-shadow: 0 0 30px rgba(0, 255, 98, 0.5);
-  }
-  100% {
-    transform: scale(1);
-    border-color: #00ff62;
-    box-shadow: 0 0 20px rgba(0, 255, 98, 0.3);
-  }
-}
-
-.course-card.highlight-new {
-  animation: highlightPulse 2s ease-in-out infinite;
-  border: 1px solid #00ff62;
-}
-
-.course-card {
-  transition: all 0.3s ease;
-
 }
 
 

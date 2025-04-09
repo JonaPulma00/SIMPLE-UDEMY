@@ -70,8 +70,8 @@ export const Explore = () => {
 
         {loading ? (
           <div className="loading-container">
-            <i className="fas fa-spinner fa-spin"></i>
-            <p>Loading courses...</p>
+            <div className="loading-spinner"></div>
+            <p className="loading-text">Loading...</p>
           </div>
         ) : error ? (
           <div className="error-container">
