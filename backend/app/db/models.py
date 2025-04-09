@@ -68,6 +68,5 @@ class Lesson(Base):
     title = Column(String(100), nullable=False)
     video_url = Column(String(255), nullable=True)
     position = Column(Integer, nullable=False)
-    is_free = Column(Boolean, default=False)
 
     section = relationship("Section", back_populates="lessons")

@@ -4,7 +4,7 @@ from sqlalchemy.sql import func
 from fastapi import HTTPException
 import uuid
 from app.db.models import Course, User, Section, Lesson
-from app.schemas.course import CourseCreate, CourseResponse, CourseUpdate
+from app.schemas.course import CourseCreate, CourseResponse, CourseUpdate, SectionCreate, LessonCreate
 from datetime import datetime
 from sqlalchemy.orm import selectinload
 from fastapi import status
@@ -163,4 +163,98 @@ async def update_course(db: AsyncSession, course_id: str, user_id: str, course_d
     await db.refresh(course)
 
     return course
+
+async def add_section_to_course(db: AsyncSession, course_id: str, user_id: str, section_data: SectionCreate):
+
+    course = await get_course_by_id(db, course_id, user_id)
+    
+    new_section = Section(
+        section_id=str(uuid.uuid4()),
+        course_id=course_id,
+        title=section_data.title,
+        position=section_data.position
+    )
+    
+    db.add(new_section)
+    await db.commit()
+    await db.refresh(new_section)
+    
+    return new_section
+
+async def add_lesson_to_section(db: AsyncSession, course_id: str, section_id: str, user_id: str, lesson_data: LessonCreate):
+
+    course = await get_course_by_id(db, course_id, user_id)
+    
+  
+    stmt = select(Section).filter(Section.section_id == section_id, Section.course_id == course_id)
+    result = await db.execute(stmt)
+    section = result.scalar_one_or_none()
+    
+    if not section:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Section not found or doesn't belong to this course"
+        )
+    
+    new_lesson = Lesson(
+        lesson_id=str(uuid.uuid4()),
+        section_id=section_id,
+        title=lesson_data.title,
+        video_url=lesson_data.video_url,
+        position=lesson_data.position,
+        is_free=lesson_data.is_free
+    )
+    
+    db.add(new_lesson)
+    await db.commit()
+    await db.refresh(new_lesson)
+    
+    return new_lesson
+
+# async def get_course_structure(db: AsyncSession, course_id: str, user_id: str):
+#     stmt = select(Course).options(
+#         selectinload(Course.sections).selectinload(Section.lessons)
+#     ).filter(Course.course_id == course_id)
+    
+#     result = await db.execute(stmt)
+#     course = result.scalar_one_or_none()
+
+#     if not course:
+#         raise HTTPException(
+#             status_code=status.HTTP_404_NOT_FOUND,
+#             detail="Course not found"
+#         )
+
+#     if course.instructor_id != user_id:
+#         raise HTTPException(
+#             status_code=status.HTTP_403_FORBIDDEN,
+#             detail="You don't have permission to access this course"
+#         )
+
+#     for section in course.sections:
+#         section.lessons.sort(key=lambda x: x.position)
+#     course.sections.sort(key=lambda x: x.position)
+
+#     return {
+#         "course_id": course.course_id,
+#         "title": course.title,
+#         "sections": [
+#             {
+#                 "section_id": section.section_id,
+#                 "title": section.title,
+#                 "position": section.position,
+#                 "lessons": [
+#                     {
+#                         "lesson_id": lesson.lesson_id,
+#                         "title": lesson.title,
+#                         "video_url": lesson.video_url,
+#                         "position": lesson.position,
+#                         "is_free": lesson.is_free
+#                     }
+#                     for lesson in section.lessons
+#                 ]
+#             }
+#             for section in course.sections
+#         ]
+#     }
 

@@ -71,3 +71,29 @@ class CourseUpdate(BaseModel):
     title: str | None = None
     description: str | None = None
     category_id: str | None = None
+
+class SectionCreate(BaseModel):
+    title: str
+    position: int
+
+    @field_validator('title', mode='before')
+    def validate_title(cls, v):
+        if not v.strip():
+            raise ValueError('Title cannot be empty')
+        if len(v) > 100:
+            raise ValueError('Title must be less than 100 characters')
+        return v.strip()
+
+class LessonCreate(BaseModel):
+    title: str
+    video_url: Optional[str] = None
+    position: int
+    is_free: bool = False
+
+    @field_validator('title', mode='before')
+    def validate_title(cls, v):
+        if not v.strip():
+            raise ValueError('Title cannot be empty')
+        if len(v) > 100:
+            raise ValueError('Title must be less than 100 characters')
+        return v.strip()
