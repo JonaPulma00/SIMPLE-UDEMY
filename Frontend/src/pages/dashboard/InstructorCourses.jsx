@@ -5,8 +5,11 @@ import useAsync from "../../hooks/useAsync";
 import { Sidebar } from "../../components/Sidebar";
 import "../../styles/dashboard/InstructorCourses.css";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const InstructorCourses = () => {
+
+  const navigate = useNavigate()
   const [currentPage, setCurrentPage] = useState(1);
   const { user } = useUser();
   const location = useLocation();
@@ -85,7 +88,9 @@ export const InstructorCourses = () => {
                           </span>
                         </div>
                         <div className="course-actions">
-                          <button className="edit-button">
+                          <button
+                            className="edit-button"
+                            onClick={() => navigate(`/courses/${course.course_id}`)}>
                             <i className="fas fa-edit"></i> Edit
                           </button>
                         </div>

@@ -1,0 +1,21 @@
+.course-detail-content {
+  flex: 1;
+  padding: 30px;
+  background-color: #0a0a0a;
+  color: #f8f9fa;
+}
+
+.course-detail-content h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, #ffffff, #00ff62);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 5px rgba(0, 255, 98, 0.3);
+}
+
+.course-detail-content p {
+  color: #b8b8b8;
+  font-size: 1.1rem;
+}
