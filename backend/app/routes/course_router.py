@@ -43,7 +43,7 @@ async def get_course_handler(
 ):
     return await get_course_by_id(db, course_id, token_payload["uuid"])
 
-@router.delete("/{course_id}", status_code=status.HTTP_200_OK)
+@router.delete("/delete/{course_id}", status_code=status.HTTP_200_OK)
 async def delete_course_handler(
     course_id: str,
     db: AsyncSession = Depends(get_db),

@@ -5,7 +5,7 @@ from fastapi import HTTPException
 import uuid
 from app.db.models import Course, User, Section, Lesson
 from app.schemas.course import CourseCreate, CourseResponse, CourseUpdate, SectionCreate, LessonCreate
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy.orm import selectinload
 from fastapi import status
 
@@ -16,7 +16,7 @@ async def create_course(db: AsyncSession, course_data: CourseCreate, instructor_
         title=course_data.title,
         description=course_data.description,
         category_id=course_data.category_id,
-        created_at=datetime.now()
+        created_at=datetime.now(timezone.utc)
 )
 
     db.add(db_course)
@@ -202,7 +202,6 @@ async def add_lesson_to_section(db: AsyncSession, course_id: str, section_id: st
         title=lesson_data.title,
         video_url=lesson_data.video_url,
         position=lesson_data.position,
-        is_free=lesson_data.is_free
     )
     
     db.add(new_lesson)

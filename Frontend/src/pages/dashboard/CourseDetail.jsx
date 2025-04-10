@@ -12,7 +12,7 @@ export const CourseDetail = () => {
   return (
     <>
       {loading ? (
-        <div className="loading-container">
+        <div className="loading-container-detail">
           <div className="loading-spinner"></div>
           <p className="loading-text">Loading...</p>
         </div>

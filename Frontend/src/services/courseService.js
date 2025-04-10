@@ -63,3 +63,49 @@ export const getCourseById = async (courseId) => {
     throw error;
   }
 };
+
+export const deleteCourse = async (courseId) => {
+  try {
+    const response = await api.delete(`/courses/delete/${courseId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error while deleting course", error);
+    throw error;
+  }
+};
+
+export const updateCourse = async (courseId, updatedData) => {
+  try {
+    const response = await api.put(`/courses/update/${courseId}`, updatedData);
+    return response.data;
+  } catch (error) {
+    console.error("Error while updating course:", error);
+    throw error;
+  }
+};
+
+export const addSectionToCourse = async (courseId, sectionData) => {
+  try {
+    const response = await api.post(
+      `/courses/${courseId}/sections`,
+      sectionData
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error while adding section to course:", error);
+    throw error;
+  }
+};
+
+export const addLessonToSection = async (courseId, sectionId, lessonData) => {
+  try {
+    const response = await api.post(
+      `/courses/${courseId}/sections/${sectionId}/lessons`,
+      lessonData
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error while adding lesson to section:", error);
+    throw error;
+  }
+};
