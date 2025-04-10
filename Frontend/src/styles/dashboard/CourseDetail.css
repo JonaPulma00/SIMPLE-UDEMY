@@ -1,8 +1,16 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
 .course-detail-content {
   flex: 1;
   padding: 30px;
   background-color: #0a0a0a;
   color: #f8f9fa;
+  overflow-y: auto;
+  height: 100%;
 }
 
 .course-detail-content h1 {
@@ -30,7 +38,6 @@
   min-height: 60vh;
   background-color: #0a0a0a;
   color: #f8f9fa;
-  height: 100vh;
 }
 
 .loading-spinner {
@@ -68,7 +75,6 @@
   background-color: #0a0a0a;
   color: #f8f9fa;
   padding: 30px;
-  height: 100vh;
 }
 
 .error-icon {
