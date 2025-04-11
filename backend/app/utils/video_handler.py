@@ -6,12 +6,12 @@ from typing import Optional
 class VideoUploader:
     def __init__(self):
         self.ec2_host = os.getenv("EC2_HOST")
-        self.ec2_user = os.getenv("EC2_USER", "ubuntu")
+        self.ec2_user = os.getenv("EC2_USER")
         self.ec2_key_path = os.getenv("EC2_KEY_PATH")
-        self.base_video_path = "/home/ubuntu/course_videos"
+        self.base_video_path = "/home/ec2-user/course_videos"
 
     def get_video_path(self, course_id: int, section_id: int, lesson_id: int) -> str:
-        """Genera la ruta relativa del video"""
+
         return f"course_{course_id}/section_{section_id}/lesson_{lesson_id}/video.mp4"
 
     async def upload_to_ec2(self, 
