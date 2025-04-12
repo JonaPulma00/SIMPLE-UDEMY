@@ -17,7 +17,6 @@ function App() {
           closeOnClick
           rtl={false}
           pauseOnFocusLoss
-          draggable
           pauseOnHover
           theme="dark"
           toastClassName="custom-toast"
