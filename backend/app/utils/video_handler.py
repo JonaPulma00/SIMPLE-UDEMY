@@ -9,6 +9,7 @@ class VideoUploader:
         self.ec2_user = os.getenv("EC2_USER")
         self.ec2_key_path = os.getenv("EC2_KEY_PATH")
         self.base_video_path = "/home/ec2-user/course_videos"
+        self.known_hosts_path = os.getenv("KNOWN_HOSTS_PATH")
 
     def get_video_path(self, course_id: int, section_id: int, lesson_id: int) -> str:
 
@@ -23,7 +24,7 @@ class VideoUploader:
         try:
 
             ssh = paramiko.SSHClient()
-            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            ssh.load_host_keys(os.path.expanduser(self.known_hosts_path))
             
         
             private_key = paramiko.RSAKey.from_private_key_file(self.ec2_key_path)

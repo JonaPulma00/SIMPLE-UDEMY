@@ -206,7 +206,6 @@ async def add_lesson_to_section(db: AsyncSession, course_id: str, section_id: st
     
     db.add(new_lesson)
     await db.commit()
-    await db.refresh(new_lesson)
     
     return new_lesson
 
@@ -256,4 +255,3 @@ async def add_lesson_to_section(db: AsyncSession, course_id: str, section_id: st
 #             for section in course.sections
 #         ]
 #     }
-

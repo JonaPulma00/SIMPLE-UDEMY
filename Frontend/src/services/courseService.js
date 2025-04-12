@@ -109,3 +109,29 @@ export const addLessonToSection = async (courseId, sectionId, lessonData) => {
     throw error;
   }
 };
+
+export const uploadLessonVideo = async (
+  courseId,
+  sectionId,
+  lessonId,
+  videoFile
+) => {
+  try {
+    const formData = new FormData();
+    formData.append("video", videoFile);
+
+    const response = await api.post(
+      `/videos/courses/${courseId}/sections/${sectionId}/lessons/${lessonId}/upload`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error uploading video:", error);
+    throw error;
+  }
+};
