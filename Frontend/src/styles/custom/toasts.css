@@ -1,3 +1,20 @@
+#toast-container {
+  position: fixed !important;
+  pointer-events: none; 
+  width: auto !important;
+  overflow: visible !important;
+}
+
+
+.Toastify__toast {
+  pointer-events: auto;
+}
+
+body .Toastify__toast-container {
+  width: auto;
+  max-width: 420px;
+}
+
 .custom-toast {
   background-color: #111 !important;
   border-left: 4px solid #00ff62;

@@ -5,13 +5,12 @@ import { useUser } from "../../context/UserContext";
 import { createCourse, getCategories } from "../../services/courseService";
 import "../../styles/dashboard/Teach.css";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify'
 
 export const Teach = () => {
   const navigate = useNavigate();
   const { user } = useUser();
   const [categories, setCategories] = useState([]);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
   const { formState, onInputChange } = useForm({
     title: "",
     description: "",
@@ -24,7 +23,7 @@ export const Teach = () => {
         const data = await getCategories();
         setCategories(data);
       } catch (err) {
-        setError("Failed to load categories");
+        toast.error("Failed to load categories");
       }
     };
     fetchCategories();
@@ -32,12 +31,11 @@ export const Teach = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
-    setSuccess(false);
 
     try {
       const newCourse = await createCourse(formState);
-      setSuccess(true);
+      toast.success("Course created successfully!");
+      
       setTimeout(() => {
         navigate('/instructor/courses', {
           state: { newCourseId: newCourse.course_id }
@@ -45,7 +43,7 @@ export const Teach = () => {
       }, 1500);
       e.target.reset();
     } catch (err) {
-      setError(err.response?.data?.detail || "Failed to create course");
+      toast.error("Failed to create course");
     }
   };
 
@@ -74,20 +72,6 @@ export const Teach = () => {
         </div>
 
         <form className="course-form" onSubmit={handleSubmit}>
-          {error && (
-            <div className="error-message-teach">
-              <i className="fas fa-exclamation-circle"></i>
-              {error}
-            </div>
-          )}
-
-          {success && (
-            <div className="success-message">
-              <i className="fas fa-check-circle"></i>
-              Course created successfully!
-            </div>
-          )}
-
           <div className="form-group">
             <label htmlFor="title">Course Title</label>
             <input

@@ -1,3 +1,9 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
 .teach-content {
   flex: 1;
   padding: 30px;
@@ -90,28 +96,6 @@
   background-color: #00cc4e;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 255, 98, 0.3);
-}
-
-.error-message-teach,
-.success-message {
-  padding: 15px;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.error-message-teach {
-  background-color: rgba(255, 0, 0, 0.1);
-  border: 1px solid #ff3232;
-  color: #ff3232;
-}
-
-.success-message {
-  background-color: rgba(0, 255, 98, 0.1);
-  border: 1px solid #00ff62;
-  color: #00ff62;
 }
 
 .unauthorized-message {
