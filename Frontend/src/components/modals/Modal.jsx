@@ -1,6 +1,3 @@
-import React from 'react';
-import '../../styles/components/Modal.css';
-
 export const Modal = ({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;
 
@@ -17,4 +14,4 @@ export const Modal = ({ isOpen, onClose, title, children }) => {
       </div>
     </div>
   );
-}; 
+};
