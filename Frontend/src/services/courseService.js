@@ -86,10 +86,10 @@ export const updateCourse = async (courseId, updatedData) => {
 
 export const addSectionToCourse = async (courseId, sectionData) => {
   try {
-    const response = await api.post(
-      `/courses/${courseId}/sections`,
-      sectionData
-    );
+    const response = await api.post(`/courses/${courseId}/sections`, {
+      title: sectionData.title,
+      position: sectionData.position,
+    });
     return response.data;
   } catch (error) {
     console.error("Error while adding section to course:", error);

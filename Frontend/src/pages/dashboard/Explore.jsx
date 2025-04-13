@@ -21,8 +21,6 @@ export const Explore = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-
-    console.log("Searching for:", searchTerm);
   };
 
   const handleCategoryClick = (category) => {

@@ -106,3 +106,98 @@
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 255, 98, 0.3);
 }
+
+.course-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.add-section-btn {
+  padding: 12px 24px;
+  background: linear-gradient(90deg, #00ff62, #00b347);
+  color: #0a0a0a;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-section-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 255, 98, 0.3);
+}
+
+.add-section-btn:active {
+  transform: translateY(0);
+}
+
+.sections-container {
+  margin-top: 30px;
+  display: grid;
+  gap: 20px;
+}
+
+.section-card {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.section-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border-color: #333;
+}
+
+.section-card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.section-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.section-btn {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.section-btn.edit:hover {
+  color: #00ff62;
+  background: rgba(0, 255, 98, 0.1);
+}
+
+.section-btn.delete:hover {
+  color: #ff3d3d;
+  background: rgba(255, 61, 61, 0.1);
+}
+
+.no-sections {
+  text-align: center;
+  padding: 40px;
+  background: #111;
+  border-radius: 8px;
+  border: 1px dashed #333;
+}
+
+.no-sections p {
+  margin-bottom: 20px;
+  color: #666;
+}

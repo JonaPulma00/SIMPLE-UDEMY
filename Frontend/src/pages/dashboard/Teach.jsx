@@ -35,12 +35,12 @@ export const Teach = () => {
     try {
       const newCourse = await createCourse(formState);
       toast.success("Course created successfully!");
-      
+
       setTimeout(() => {
         navigate('/instructor/courses', {
           state: { newCourseId: newCourse.course_id }
         });
-      }, 1500);
+      }, 1000);
       e.target.reset();
     } catch (err) {
       toast.error("Failed to create course");
