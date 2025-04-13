@@ -2,10 +2,16 @@ import { useParams } from "react-router-dom";
 import { getCourseById } from "../../services/courseService";
 import { Sidebar } from "../../components/Sidebar";
 import useAsync from "../../hooks/useAsync";
+import { Modal } from "../../components/modals/Modal";
+import { useState } from "react";
 import '../../styles/dashboard/CourseDetail.css';
 
 export const CourseDetail = () => {
   const { courseId } = useParams();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true)
+  const closeModal = () => setIsModalOpen(false)
 
   const { loading, error, value: course } = useAsync(() => getCourseById(courseId), [courseId]);
 
@@ -27,6 +33,9 @@ export const CourseDetail = () => {
           <div className="course-detail-content">
             <h1>{course.title}</h1>
             <p>{course.description}</p>
+          </div>
+          <div>
+            <button onClick={openModal}>Open the modal</button>
           </div>
         </div>
       )}
