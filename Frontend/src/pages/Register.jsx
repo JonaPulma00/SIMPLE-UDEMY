@@ -39,7 +39,7 @@ export const Register = () => {
       });
       navigate('/dashboard');
     } catch (error) {
-      console.error("Registration error", error);
+      toast.error("Registration error", error);
       if (error.detail) {
         if (Array.isArray(error.detail)) {
           setError(error.detail.map(err => err.msg).join(', '));

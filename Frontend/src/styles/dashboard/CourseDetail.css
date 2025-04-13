@@ -147,8 +147,8 @@
   border-radius: 8px;
   padding: 20px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 15px;
   transition: all 0.3s ease;
 }
 
@@ -156,6 +156,14 @@
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   border-color: #333;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #222;
 }
 
 .section-card h3 {
@@ -189,15 +197,121 @@
   background: rgba(255, 61, 61, 0.1);
 }
 
-.no-sections {
-  text-align: center;
-  padding: 40px;
-  background: #111;
-  border-radius: 8px;
-  border: 1px dashed #333;
+.lessons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.no-sections p {
-  margin-bottom: 20px;
+.lesson-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.lesson-item:hover {
+  background: rgba(0, 0, 0, 0.3);
+  transform: translateX(5px);
+}
+
+.lesson-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lesson-info i {
+  color: #00ff62;
+  font-size: 1.1rem;
+}
+
+.lesson-info span {
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+.lesson-actions {
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.lesson-item:hover .lesson-actions {
+  opacity: 1;
+}
+
+.lesson-btn {
+  background: none;
+  border: none;
   color: #666;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.lesson-btn.edit:hover {
+  color: #00ff62;
+  background: rgba(0, 255, 98, 0.1);
+}
+
+.lesson-btn.delete:hover {
+  color: #ff3d3d;
+  background: rgba(255, 61, 61, 0.1);
+}
+
+.no-lessons {
+  color: #666;
+  text-align: center;
+  padding: 15px;
+  font-style: italic;
+}
+
+.add-lesson-btn {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid #00ff62;
+  border-radius: 4px;
+  color: #00ff62;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.add-lesson-btn:hover {
+  background: rgba(0, 255, 98, 0.1);
+  transform: translateY(-2px);
+}
+
+.add-lesson-btn i {
+  font-size: 0.8rem;
+}
+
+
+input[type="file"] {
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+  background: #00ff62;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  color: #000;
+  cursor: pointer;
+  margin-right: 10px;
 }

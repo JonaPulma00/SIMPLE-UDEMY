@@ -165,14 +165,18 @@ async def update_course(db: AsyncSession, course_id: str, user_id: str, course_d
     return course
 
 async def add_section_to_course(db: AsyncSession, course_id: str, user_id: str, section_data: SectionCreate):
-
     course = await get_course_by_id(db, course_id, user_id)
+    
+
+    stmt = select(func.count()).select_from(Section).where(Section.course_id == course_id)
+    result = await db.execute(stmt)
+    position = result.scalar() + 1  
     
     new_section = Section(
         section_id=str(uuid.uuid4()),
         course_id=course_id,
         title=section_data.title,
-        position=section_data.position
+        position=position  
     )
     
     db.add(new_section)
@@ -182,10 +186,8 @@ async def add_section_to_course(db: AsyncSession, course_id: str, user_id: str, 
     return new_section
 
 async def add_lesson_to_section(db: AsyncSession, course_id: str, section_id: str, user_id: str, lesson_data: LessonCreate):
-
     course = await get_course_by_id(db, course_id, user_id)
     
-  
     stmt = select(Section).filter(Section.section_id == section_id, Section.course_id == course_id)
     result = await db.execute(stmt)
     section = result.scalar_one_or_none()
@@ -196,12 +198,17 @@ async def add_lesson_to_section(db: AsyncSession, course_id: str, section_id: st
             detail="Section not found or doesn't belong to this course"
         )
     
+
+    lessons_count_stmt = select(func.count()).select_from(Lesson).where(Lesson.section_id == section_id)
+    result = await db.execute(lessons_count_stmt)
+    position = result.scalar() + 1  
+    
     new_lesson = Lesson(
         lesson_id=str(uuid.uuid4()),
         section_id=section_id,
         title=lesson_data.title,
         video_url=lesson_data.video_url,
-        position=lesson_data.position,
+        position=position,  
     )
     
     db.add(new_lesson)

@@ -10,6 +10,7 @@ import { useGoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
 import { saveToken } from "../services/tokenService"
 import { useUser } from "../context/UserContext"
+import { toast } from 'react-toastify'
 
 export const Login = () => {
 
@@ -36,7 +37,7 @@ export const Login = () => {
         navigate('/dashboard');
       }
     } catch (error) {
-      console.error('Error: ', error);
+      toast.error('Error while trying to log in');
       if (error.detail) {
         if (Array.isArray(error.detail)) {
           setError(error.detail.map(err => err.msg).join(', '));
@@ -68,7 +69,7 @@ export const Login = () => {
           navigate('/dashboard');
         }
       } catch (error) {
-        console.error('Google login error: ', error);
+        toast.error('Google login error: ', error);
         setError('Error in Google login, try again');
         setTimeout(() => setError(''), 10000);
       }
