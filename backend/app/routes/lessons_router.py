@@ -4,59 +4,44 @@ from app.utils.video_handler import VideoUploader
 from app.utils.security import verify_token
 from typing import Dict
 from fastapi.security import OAuth2PasswordBearer
+from sqlalchemy.ext.asyncio import AsyncSession
+from app.db.database import get_db
+from app.middlewares.authorization import verify_instructor
+from app.controllers.lesson_controller import add_lesson_to_section, update_lesson_video, get_lesson_video
 
 router = APIRouter()
 video_uploader = VideoUploader()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
-@router.post("/{course_id}/{section_id}/{lesson_id}/upload-video")
-async def upload_lesson_video(
-    course_id: int,
-    section_id: int,
-    lesson_id: int,
+@router.post("/{course_id}/sections/{section_id}")
+async def create_lesson(
+    course_id: str,
+    section_id: str,
+    lesson_data: dict,
+    db: AsyncSession = Depends(get_db),
+    token_payload: dict = Depends(verify_instructor)
+):
+    return await add_lesson_to_section(db, course_id, section_id, token_payload["uuid"], lesson_data)
+
+@router.post("/{course_id}/sections/{section_id}/lessons/{lesson_id}/video")
+async def upload_video(
+    course_id: str,
+    section_id: str,
+    lesson_id: str,
     video: UploadFile = File(...),
-    token: str = Depends(oauth2_scheme)
+    db: AsyncSession = Depends(get_db),
+    token_payload: dict = Depends(verify_instructor)
 ):
-
-    user_data = verify_token(token)
-    
-
-    
     if not video.content_type.startswith("video/"):
-        raise HTTPException(
-            status_code=400,
-            detail="File must be a video"
-        )
+        raise HTTPException(status_code=400, detail="File must be a video")
     
-    video_path = await video_uploader.upload_to_ec2(
-        video_file=video,
-        course_id=course_id,
-        section_id=section_id,
-        lesson_id=lesson_id
-    )
-    
-    if not video_path:
-        raise HTTPException(
-            status_code=500,
-            detail="Error uploading video"
-        )
+    return await update_lesson_video(db, lesson_id, video, course_id, section_id)
 
-    return {
-        "message": "Video uploaded successfully",
-        "path": video_path
-    }
 
-@router.get("/{course_id}/{section_id}/{lesson_id}/video")
-async def get_lesson_video(
-    course_id: int,
-    section_id: int,
-    lesson_id: int,
-    token: str = Depends(oauth2_scheme)
+@router.get("/{lesson_id}/video")
+async def get_lesson_video_route(
+    lesson_id: str,
+    db: AsyncSession = Depends(get_db),
+    token_payload: dict = Depends(verify_instructor)
 ):
-
-    user_data = verify_token(token)
-    
-
-    video_path = video_uploader.get_video_path(course_id, section_id, lesson_id)
-
-    return {"video_path": video_path} 
+    return await get_lesson_video(db, lesson_id) 

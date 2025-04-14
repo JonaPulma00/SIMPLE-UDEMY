@@ -3,7 +3,7 @@ from app.routes.auth import router as auth_router
 from app.routes.course_router import router as course_router
 from app.routes.enrollments_router import router as enrollments_router
 from app.routes.category_router import router as category_router
-from app.routes.video_router import router as video_router
+from app.routes.lessons_router import router as lessons_router
 
 router = APIRouter()
 
@@ -19,5 +19,5 @@ router.include_router(enrollments_router, prefix="/enrollments", tags=["Enrollme
 # Category routes
 router.include_router(category_router, prefix="/categories", tags=["Categories"])
 
-# Video routes
-router.include_router(video_router, prefix="/videos", tags=["Videos"])
+# Lessons routes
+router.include_router(lessons_router, prefix="/lessons", tags=["Lessons"])
