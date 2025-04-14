@@ -32,6 +32,7 @@ export const CourseDetail = () => {
     try {
       await addSectionToCourse(courseId, {
         title: sectionTitle,
+        position: 0
       });
       toast.success("Section added successfully");
       setIsModalOpen(false);
@@ -50,7 +51,7 @@ export const CourseDetail = () => {
     try {
       const newLesson = await addLessonToSection(courseId, currentSectionId, {
         title: lessonData.title,
-        video_url: ""
+        position: 0
       });
 
       if (lessonData.video) {
@@ -68,6 +69,7 @@ export const CourseDetail = () => {
       refreshData(setRefreshKey)();
     } catch (error) {
       toast.error("Failed to add lesson");
+      console.error("Error:", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -103,7 +105,7 @@ export const CourseDetail = () => {
               </button>
             </div>
             <p>{course.description}</p>
-            
+
             <div className="sections-container">
               {course.sections?.length > 0 ? (
                 course.sections.map((section) => (
@@ -119,33 +121,33 @@ export const CourseDetail = () => {
                         </button>
                       </div>
                     </div>
-                    
+
                     <div className="lessons-container">
                       {section.lessons?.length > 0 ? (
                         [...section.lessons]
                           .sort((a, b) => a.position - b.position)
                           .map((lesson) => (
-                          <div key={lesson.lesson_id} className="lesson-item">
-                            <div className="lesson-info">
-                              <i className="fas fa-play-circle"></i>
-                              <span>{lesson.title}</span>
+                            <div key={lesson.lesson_id} className="lesson-item">
+                              <div className="lesson-info">
+                                <i className="fas fa-play-circle"></i>
+                                <span>{lesson.title}</span>
+                              </div>
+                              <div className="lesson-actions">
+                                <button className="lesson-btn edit">
+                                  <i className="fas fa-edit"></i>
+                                </button>
+                                <button className="lesson-btn delete">
+                                  <i className="fas fa-trash"></i>
+                                </button>
+                              </div>
                             </div>
-                            <div className="lesson-actions">
-                              <button className="lesson-btn edit">
-                                <i className="fas fa-edit"></i>
-                              </button>
-                              <button className="lesson-btn delete">
-                                <i className="fas fa-trash"></i>
-                              </button>
-                            </div>
-                          </div>
-                        ))
+                          ))
                       ) : (
                         <p className="no-lessons">No lessons in this section</p>
                       )}
                     </div>
-                    
-                    <button 
+
+                    <button
                       className="add-lesson-btn"
                       onClick={() => openLessonModal(section.section_id)}
                     >
@@ -191,9 +193,9 @@ export const CourseDetail = () => {
         </form>
       </Modal>
 
-      <Modal 
-        isOpen={isLessonModalOpen} 
-        onClose={() => setIsLessonModalOpen(false)} 
+      <Modal
+        isOpen={isLessonModalOpen}
+        onClose={() => setIsLessonModalOpen(false)}
         title="Add New Lesson"
       >
         <form onSubmit={handleAddLesson} className="modal-form">
@@ -204,32 +206,32 @@ export const CourseDetail = () => {
               id="lessonTitle"
               className="form-control"
               value={lessonData.title}
-              onChange={(e) => setLessonData({...lessonData, title: e.target.value})}
+              onChange={(e) => setLessonData({ ...lessonData, title: e.target.value })}
               placeholder="Enter lesson title"
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="lessonVideo">Video</label>
+            <label htmlFor="lessonVideo">Video (Optional)</label>
             <input
               type="file"
               id="lessonVideo"
               className="form-control"
               accept="video/*"
-              onChange={(e) => setLessonData({...lessonData, video: e.target.files[0]})}
+              onChange={(e) => setLessonData({ ...lessonData, video: e.target.files[0] })}
             />
           </div>
           <div className="form-actions">
-            <button 
-              type="button" 
-              className="cancel-btn" 
+            <button
+              type="button"
+              className="cancel-btn"
               onClick={() => setIsLessonModalOpen(false)}
             >
               Cancel
             </button>
-            <button 
-              type="submit" 
-              className="action-btn" 
+            <button
+              type="submit"
+              className="action-btn"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Adding..." : "Add Lesson"}

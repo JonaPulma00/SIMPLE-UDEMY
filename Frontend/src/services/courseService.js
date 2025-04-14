@@ -100,8 +100,11 @@ export const addSectionToCourse = async (courseId, sectionData) => {
 export const addLessonToSection = async (courseId, sectionId, lessonData) => {
   try {
     const response = await api.post(
-      `/courses/${courseId}/sections/${sectionId}/lessons`,
-      lessonData
+      `/lessons/${courseId}/sections/${sectionId}`,
+      {
+        title: lessonData.title,
+        position: lessonData.position || 1,
+      }
     );
     return response.data;
   } catch (error) {
@@ -121,7 +124,7 @@ export const uploadLessonVideo = async (
     formData.append("video", videoFile);
 
     const response = await api.post(
-      `/videos/courses/${courseId}/sections/${sectionId}/lessons/${lessonId}/upload`,
+      `/lessons/${courseId}/sections/${sectionId}/lessons/${lessonId}/video`,
       formData,
       {
         headers: {
