@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.database import get_db
 from app.schemas.course import CourseCreate, CourseResponse, CourseUpdate, SectionCreate, LessonCreate
-from app.controllers.course_controller import create_course, get_courses, get_instructor_courses, get_course_by_id, delete_course, update_course, add_section_to_course, add_lesson_to_section
+from app.controllers.course_controller import create_course, get_courses, get_instructor_courses, get_course_by_id, delete_course, update_course, add_section_to_course
 from app.middlewares.authorization import verify_instructor
 from app.middlewares.authenticate_token import verify_token
 
@@ -69,20 +69,3 @@ async def add_section_handler(
 ):
     return await add_section_to_course(db, course_id, token_payload["uuid"], section_data)
 
-@router.post("/{course_id}/sections/{section_id}/lessons", status_code=status.HTTP_201_CREATED)
-async def add_lesson_handler(
-    course_id: str,
-    section_id: str,
-    lesson_data: LessonCreate,
-    db: AsyncSession = Depends(get_db),
-    token_payload: dict = Depends(verify_instructor)
-):
-    return await add_lesson_to_section(db, course_id, section_id, token_payload["uuid"], lesson_data)
-
-# @router.get("/{course_id}/structure", status_code=status.HTTP_200_OK)
-# async def get_course_structure_handler(
-#     course_id: str,
-#     db: AsyncSession = Depends(get_db),
-#     token_payload: dict = Depends(verify_instructor)
-# ):
-#     return await get_course_structure(db, course_id, token_payload["uuid"])

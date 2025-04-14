@@ -86,9 +86,7 @@ class SectionCreate(BaseModel):
 
 class LessonCreate(BaseModel):
     title: str
-    video_url: Optional[str] = None
     position: int
-    is_free: bool = False
 
     @field_validator('title', mode='before')
     def validate_title(cls, v):

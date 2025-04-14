@@ -8,6 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.database import get_db
 from app.middlewares.authorization import verify_instructor
 from app.controllers.lesson_controller import add_lesson_to_section, update_lesson_video, get_lesson_video
+from app.schemas.course import LessonCreate
 
 router = APIRouter()
 video_uploader = VideoUploader()
@@ -17,11 +18,11 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 async def create_lesson(
     course_id: str,
     section_id: str,
-    lesson_data: dict,
+    lesson_data: LessonCreate,
     db: AsyncSession = Depends(get_db),
     token_payload: dict = Depends(verify_instructor)
 ):
-    return await add_lesson_to_section(db, course_id, section_id, token_payload["uuid"], lesson_data)
+    return await add_lesson_to_section(db, course_id, section_id, token_payload["uuid"], lesson_data.model_dump())
 
 @router.post("/{course_id}/sections/{section_id}/lessons/{lesson_id}/video")
 async def upload_video(
