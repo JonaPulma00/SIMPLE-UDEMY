@@ -8,6 +8,7 @@ from app.utils.video_handler import VideoUploader
 from app.controllers.course_controller import get_course_by_id
 from fastapi.responses import StreamingResponse
 import os
+import paramiko
 
 video_uploader = VideoUploader()
 
@@ -72,7 +73,6 @@ async def update_lesson_video(db: AsyncSession, lesson_id: str, video_file, cour
     return lesson 
 
 async def get_lesson_video(db: AsyncSession, lesson_id: str):
-
     stmt = select(Lesson).filter(Lesson.lesson_id == lesson_id)
     result = await db.execute(stmt)
     lesson = result.scalar_one_or_none()
@@ -80,21 +80,26 @@ async def get_lesson_video(db: AsyncSession, lesson_id: str):
     if not lesson or not lesson.video_url:
         raise HTTPException(status_code=404, detail="Video not found")
 
+    try:
+        temp_path = await video_uploader.retrieve_video_from_ec2(lesson.video_url, lesson_id)
 
-    video_path = f"/home/ec2-user/course_videos/{lesson.video_url}"
+        def cleanup_and_stream():
+            try:
+                with open(temp_path, "rb") as file:
+                    yield from file
+            finally:
+                if os.path.exists(temp_path):
+                    os.remove(temp_path)
 
-    if not os.path.exists(video_path):
-        raise HTTPException(status_code=404, detail="Video file not found")
+        return StreamingResponse(
+            cleanup_and_stream(),
+            media_type="video/mp4",
+            headers={
+                "Accept-Ranges": "bytes",
+                "Content-Disposition": f"inline; filename=video.mp4"
+            }
+        )
 
-    def iterfile():
-        with open(video_path, mode="rb") as file:
-            yield from file
-
-    return StreamingResponse(
-        iterfile(),
-        media_type="video/mp4",
-        headers={
-            "Accept-Ranges": "bytes",
-            "Content-Disposition": f"inline; filename=video.mp4"
-        }
-    ) 
+    except Exception as e:
+        print(f"Error retrieving video: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to retrieve video") 

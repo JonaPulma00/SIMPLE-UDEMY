@@ -14,7 +14,7 @@ router = APIRouter()
 video_uploader = VideoUploader()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
-@router.post("/{course_id}/sections/{section_id}")
+@router.post("/create-lesson/{course_id}/sections/{section_id}")
 async def create_lesson(
     course_id: str,
     section_id: str,
@@ -24,7 +24,7 @@ async def create_lesson(
 ):
     return await add_lesson_to_section(db, course_id, section_id, token_payload["uuid"], lesson_data.model_dump())
 
-@router.post("/{course_id}/sections/{section_id}/lessons/{lesson_id}/video")
+@router.post("/upload-video/{course_id}/sections/{section_id}/lessons/{lesson_id}/video")
 async def upload_video(
     course_id: str,
     section_id: str,
@@ -39,7 +39,7 @@ async def upload_video(
     return await update_lesson_video(db, lesson_id, video, course_id, section_id)
 
 
-@router.get("/{lesson_id}/video")
+@router.get("/get-video/{lesson_id}/video")
 async def get_lesson_video_route(
     lesson_id: str,
     db: AsyncSession = Depends(get_db),
