@@ -62,10 +62,7 @@ class VideoUploader:
                 sftp.mkdir(current) 
 
     async def retrieve_video_from_ec2(self, video_url: str, video_id: str) -> str:
-        """
-        Retrieves a video from EC2 and stores it temporarily.
-        Returns the path to the temporary file.
-        """
+
         try:
             ssh = paramiko.SSHClient()
             ssh.load_host_keys(os.path.expanduser(self.known_hosts_path))

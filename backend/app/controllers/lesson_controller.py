@@ -102,4 +102,4 @@ async def get_lesson_video(db: AsyncSession, lesson_id: str):
 
     except Exception as e:
         print(f"Error retrieving video: {str(e)}")
-        raise HTTPException(status_code=500, detail="Failed to retrieve video") 
+        raise HTTPException(status_code=500, detail="Failed to retrieve video")
