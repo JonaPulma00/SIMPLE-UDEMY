@@ -1,6 +1,6 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException, Depends
 from fastapi.responses import StreamingResponse
-from app.utils.video_handler import VideoUploader
+from app.utils.video_handler import VideoHandler
 from app.utils.security import verify_token
 from typing import Dict
 from fastapi.security import OAuth2PasswordBearer
@@ -11,7 +11,7 @@ from app.controllers.lesson_controller import add_lesson_to_section, update_less
 from app.schemas.course import LessonCreate
 
 router = APIRouter()
-video_uploader = VideoUploader()
+video_handler = VideoHandler()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
 @router.post("/create-lesson/{course_id}/sections/{section_id}")

@@ -4,13 +4,13 @@ from sqlalchemy.sql import func
 from fastapi import HTTPException, status
 import uuid
 from app.db.models import Lesson, Section
-from app.utils.video_handler import VideoUploader
+from app.utils.video_handler import VideoHandler
 from app.controllers.course_controller import get_course_by_id
 from fastapi.responses import StreamingResponse
 import os
 import paramiko
 
-video_uploader = VideoUploader()
+video_handler = VideoHandler()
 
 async def add_lesson_to_section(db: AsyncSession, course_id: str, section_id: str, user_id: str, lesson_data: dict):
 
@@ -52,21 +52,21 @@ async def update_lesson_video(db: AsyncSession, lesson_id: str, video_file, cour
         raise HTTPException(status_code=404, detail="Lesson not found")
     
 
-    video_path = await video_uploader.upload_to_ec2(
+    video_url = await video_handler.upload_video(
         video_file=video_file,
         course_id=course_id,
         section_id=section_id,
         lesson_id=lesson_id
     )
     
-    if not video_path:
+    if not video_url:
         raise HTTPException(
             status_code=500,
             detail="Failed to upload video"
         )
 
 
-    lesson.video_url = video_path
+    lesson.video_url = video_url
     await db.commit()
     await db.refresh(lesson)
     
@@ -81,25 +81,12 @@ async def get_lesson_video(db: AsyncSession, lesson_id: str):
         raise HTTPException(status_code=404, detail="Video not found")
 
     try:
-        temp_path = await video_uploader.retrieve_video_from_ec2(lesson.video_url, lesson_id)
-
-        def cleanup_and_stream():
-            try:
-                with open(temp_path, "rb") as file:
-                    yield from file
-            finally:
-                if os.path.exists(temp_path):
-                    os.remove(temp_path)
-
-        return StreamingResponse(
-            cleanup_and_stream(),
-            media_type="video/mp4",
-            headers={
-                "Accept-Ranges": "bytes",
-                "Content-Disposition": f"inline; filename=video.mp4"
-            }
-        )
-
+        # Get a presigned URL for the video
+        presigned_url = video_handler.get_presigned_url(lesson.video_url)
+        if not presigned_url:
+            raise HTTPException(status_code=500, detail="Failed to generate video URL")
+        
+        return {"url": presigned_url}
     except Exception as e:
         print(f"Error retrieving video: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to retrieve video")

@@ -1,89 +1,60 @@
 import os
-import paramiko
+import boto3
+from botocore.exceptions import ClientError
 from fastapi import UploadFile
 from typing import Optional
 
-class VideoUploader:
+class VideoHandler:
     def __init__(self):
-        self.ec2_host = os.getenv("EC2_HOST")
-        self.ec2_user = os.getenv("EC2_USER")
-        self.ec2_key_path = os.getenv("EC2_KEY_PATH")
-        self.base_video_path = "/home/ec2-user/course_videos"
-        self.known_hosts_path = os.getenv("KNOWN_HOSTS_PATH")
+        self.s3_client = boto3.client(
+            's3',
+            aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+            aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
+            aws_session_token=os.getenv('AWS_SESSION_TOKEN'),  
+            region_name=os.getenv('AWS_REGION')
+        )
+        self.bucket_name = os.getenv('AWS_BUCKET_NAME')
 
     def get_video_path(self, course_id: str, section_id: str, lesson_id: str) -> str:
         return f"course_{course_id}/section_{section_id}/lesson_{lesson_id}/video.mp4"
 
-    async def upload_to_ec2(self, 
-                           video_file: UploadFile,
-                           course_id: str,
-                           section_id: str,
-                           lesson_id: str) -> Optional[str]:
-
+    async def upload_video(self, 
+                         video_file: UploadFile,
+                         course_id: str,
+                         section_id: str,
+                         lesson_id: str) -> Optional[str]:
         try:
-
-            ssh = paramiko.SSHClient()
-            ssh.load_host_keys(os.path.expanduser(self.known_hosts_path))
+            video_path = self.get_video_path(course_id, section_id, lesson_id)
             
-        
-            private_key = paramiko.RSAKey.from_private_key_file(self.ec2_key_path)
-            ssh.connect(self.ec2_host, username=self.ec2_user, pkey=private_key)
+            content_type = video_file.content_type or 'video/mp4'
             
-
-            sftp = ssh.open_sftp()
+            self.s3_client.upload_fileobj(
+                video_file.file,
+                self.bucket_name,
+                video_path,
+                ExtraArgs={
+                    'ContentType': content_type
+                }
+            )
             
-
-            relative_path = self.get_video_path(course_id, section_id, lesson_id)
-            full_path = f"{self.base_video_path}/{relative_path}"
-            
-     
-            self._create_directories(sftp, full_path)
-            
-         
-            sftp.putfo(video_file.file, full_path)
-            
-            sftp.close()
-            ssh.close()
-            
-            return relative_path
-            
+            url = f"https://{self.bucket_name}.s3.{os.getenv('AWS_REGION')}.amazonaws.com/{video_path}"
+            return url
         except Exception as e:
-            print(f"Error uploading video: {str(e)}")
+            print(f"Error uploading video to S3: {str(e)}")
             return None
 
-    def _create_directories(self, sftp, path: str):
-  
-        current = "/"
-        for part in path.split("/")[1:-1]:
-            current = current + part + "/"
-            try:
-                sftp.stat(current)
-            except:
-                sftp.mkdir(current) 
-
-    async def retrieve_video_from_ec2(self, video_url: str, video_id: str) -> str:
-
+    def get_presigned_url(self, video_path: str, expires_in: int = 3600) -> Optional[str]:
+        """Generate a presigned URL for video access"""
         try:
-            ssh = paramiko.SSHClient()
-            ssh.load_host_keys(os.path.expanduser(self.known_hosts_path))
-            private_key = paramiko.RSAKey.from_private_key_file(self.ec2_key_path)
-            ssh.connect(self.ec2_host, username=self.ec2_user, pkey=private_key)
-
-            sftp = ssh.open_sftp()
-
-            remote_path = f"{self.base_video_path}/{video_url}"
-
-            temp_dir = os.path.join(os.getcwd(), "temp")
-            os.makedirs(temp_dir, exist_ok=True)
-            temp_path = os.path.join(temp_dir, f"temp_video_{video_id}.mp4")
-
-            sftp.get(remote_path, temp_path)
-
-            sftp.close()
-            ssh.close()
-
-            return temp_path
-
+            url = self.s3_client.generate_presigned_url(
+                'get_object',
+                Params={
+                    'Bucket': self.bucket_name,
+                    'Key': video_path
+                },
+                ExpiresIn=expires_in
+            )
+            return url
         except Exception as e:
-            print(f"Error retrieving video from EC2: {str(e)}")
-            raise Exception("Failed to retrieve video from EC2") 
+            print(f"Error generating presigned URL: {str(e)}")
+            return None
