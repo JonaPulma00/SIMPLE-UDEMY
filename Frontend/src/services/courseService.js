@@ -138,3 +138,15 @@ export const uploadLessonVideo = async (
     throw error;
   }
 };
+
+export const getLessonVideo = async (lessonId) => {
+  try {
+    const response = await api.get(`/lessons/get-video/${lessonId}/video`, {
+      responseType: "blob",
+    });
+    return URL.createObjectURL(response.data);
+  } catch (error) {
+    console.error("Error retrieving video:", error);
+    throw error;
+  }
+};

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { getCourseById, addSectionToCourse, addLessonToSection, uploadLessonVideo } from "../../services/courseService";
+import { getCourseById, addSectionToCourse, addLessonToSection, uploadLessonVideo, getLessonVideo } from "../../services/courseService";
 import { Sidebar } from "../../components/Sidebar";
 import useAsync from "../../hooks/useAsync";
 import { Modal } from "../../components/modals/Modal";
@@ -17,6 +17,10 @@ export const CourseDetail = () => {
   const [refreshKey, setRefreshKey] = useState(0);
   const [isLessonModalOpen, setIsLessonModalOpen] = useState(false);
   const [currentSectionId, setCurrentSectionId] = useState(null);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+const [currentVideoUrl, setCurrentVideoUrl] = useState(null);
+const [currentVideoTitle, setCurrentVideoTitle] = useState("");
+
   const [lessonData, setLessonData] = useState({
     title: "",
     video: null
@@ -75,6 +79,17 @@ export const CourseDetail = () => {
     }
   };
 
+  const handlePlayVideo = async (lessonId, lessonTitle) => {
+    try {
+      const videoUrl = await getLessonVideo(lessonId);
+      setCurrentVideoUrl(videoUrl);
+      setCurrentVideoTitle(lessonTitle);
+      setIsVideoModalOpen(true);
+    } catch (error) {
+      toast.error("Failed to load video");
+      console.error("Error loading video:", error);
+    }
+  };
   const openLessonModal = (sectionId) => {
     setCurrentSectionId(sectionId);
     setIsLessonModalOpen(true);
@@ -82,6 +97,13 @@ export const CourseDetail = () => {
 
   const { loading, error, value: course } = useAsync(() => getCourseById(courseId), [courseId, refreshKey]);
 
+  const closeVideoModal = () => {
+    setIsVideoModalOpen(false);
+    if (currentVideoUrl) {
+      URL.revokeObjectURL(currentVideoUrl);
+      setCurrentVideoUrl(null);
+    }
+  };
   return (
     <>
       {loading ? (
@@ -129,9 +151,13 @@ export const CourseDetail = () => {
                           .map((lesson) => (
                             <div key={lesson.lesson_id} className="lesson-item">
                               <div className="lesson-info">
-                                <i className="fas fa-play-circle"></i>
-                                <span>{lesson.title}</span>
-                              </div>
+                              <i 
+                                className="fas fa-play-circle"
+                                onClick={() => handlePlayVideo(lesson.lesson_id, lesson.title)}
+                                style={{ cursor: 'pointer' }}
+                              ></i>
+                              <span>{lesson.title}</span>
+                            </div>
                               <div className="lesson-actions">
                                 <button className="lesson-btn edit">
                                   <i className="fas fa-edit"></i>
@@ -238,6 +264,25 @@ export const CourseDetail = () => {
             </button>
           </div>
         </form>
+      </Modal>
+
+      <Modal
+          isOpen={isVideoModalOpen}
+          onClose={closeVideoModal}
+          title={currentVideoTitle}
+        >
+          <div className="video-player-container">
+            {currentVideoUrl && (
+              <video
+                controls
+                autoPlay
+                style={{ width: '100%', maxHeight: '70vh' }}
+              >
+                <source src={currentVideoUrl} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            )}
+        </div>
       </Modal>
     </>
   );
