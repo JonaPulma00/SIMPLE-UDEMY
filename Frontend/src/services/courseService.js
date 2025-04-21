@@ -160,3 +160,15 @@ export const getLessonVideo = async (lessonId) => {
     throw error;
   }
 };
+
+export const deleteSection = async (courseId, sectionId) => {
+  try {
+    const response = await api.delete(
+      `/courses/${courseId}/sections/${sectionId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting section:", error);
+    throw error;
+  }
+};

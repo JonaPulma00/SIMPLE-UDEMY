@@ -15,8 +15,8 @@
 }
 
 .modal-content {
-  width: 90%;
-  max-width: 500px;
+  width: 100%;
+  max-width: 800px;
   background-color: #111;
   border-radius: 8px;
   border: 1px solid #222;

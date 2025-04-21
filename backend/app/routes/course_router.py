@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.database import get_db
 from app.schemas.course import CourseCreate, CourseResponse, CourseUpdate, SectionCreate, LessonCreate
-from app.controllers.course_controller import create_course, get_courses, get_instructor_courses, get_course_by_id, delete_course, update_course, add_section_to_course
+from app.controllers.course_controller import create_course, get_courses, get_instructor_courses, get_course_by_id, delete_course, update_course, add_section_to_course, delete_section
 from app.middlewares.authorization import verify_instructor
 from app.middlewares.authenticate_token import verify_token
 
@@ -68,4 +68,13 @@ async def add_section_handler(
     token_payload: dict = Depends(verify_instructor)
 ):
     return await add_section_to_course(db, course_id, token_payload["uuid"], section_data)
+
+@router.delete("/{course_id}/sections/{section_id}", status_code=status.HTTP_200_OK)
+async def delete_section_handler(
+    course_id: str,
+    section_id: str,
+    db: AsyncSession = Depends(get_db),
+    token_payload: dict = Depends(verify_instructor)
+):
+    return await delete_section(db, course_id, section_id, token_payload["uuid"])
 

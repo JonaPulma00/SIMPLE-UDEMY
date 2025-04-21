@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { getCourseById, addSectionToCourse, addLessonToSection, uploadLessonVideo, getLessonVideo } from "../../services/courseService";
+import { getCourseById, addSectionToCourse, addLessonToSection, uploadLessonVideo, getLessonVideo, deleteSection } from "../../services/courseService";
 import { Sidebar } from "../../components/Sidebar";
 import useAsync from "../../hooks/useAsync";
 import { Modal } from "../../components/modals/Modal";
@@ -18,8 +18,10 @@ export const CourseDetail = () => {
   const [isLessonModalOpen, setIsLessonModalOpen] = useState(false);
   const [currentSectionId, setCurrentSectionId] = useState(null);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
-const [currentVideoUrl, setCurrentVideoUrl] = useState(null);
-const [currentVideoTitle, setCurrentVideoTitle] = useState("");
+  const [currentVideoUrl, setCurrentVideoUrl] = useState(null);
+  const [currentVideoTitle, setCurrentVideoTitle] = useState("");
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
+  const [sectionToDelete, setSectionToDelete] = useState(null);
 
   const [lessonData, setLessonData] = useState({
     title: "",
@@ -102,6 +104,25 @@ const [currentVideoTitle, setCurrentVideoTitle] = useState("");
     setIsVideoModalOpen(false);
     setCurrentVideoUrl(null);
   };
+
+  const handleDeleteSection = async (sectionId) => {
+    setSectionToDelete(sectionId);
+    setIsDeleteConfirmationOpen(true);
+  };
+
+  const confirmDeleteSection = async () => {
+    try {
+      await deleteSection(courseId, sectionToDelete);
+      toast.success("Section deleted successfully");
+      setIsDeleteConfirmationOpen(false);
+      setSectionToDelete(null);
+      refreshData(setRefreshKey)();
+    } catch (error) {
+      toast.error("Failed to delete section");
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <>
       {loading ? (
@@ -136,7 +157,10 @@ const [currentVideoTitle, setCurrentVideoTitle] = useState("");
                         <button className="section-btn edit">
                           <i className="fas fa-edit"></i>
                         </button>
-                        <button className="section-btn delete">
+                        <button 
+                          className="section-btn delete"
+                          onClick={() => handleDeleteSection(section.section_id)}
+                        >
                           <i className="fas fa-trash"></i>
                         </button>
                       </div>
@@ -290,6 +314,37 @@ const [currentVideoTitle, setCurrentVideoTitle] = useState("");
           ) : (
             <div className="video-loading">Loading video...</div>
           )}
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={isDeleteConfirmationOpen}
+        onClose={() => {
+          setIsDeleteConfirmationOpen(false);
+          setSectionToDelete(null);
+        }}
+        title="Delete Section"
+      >
+        <div className="delete-confirmation">
+          <p>Are you sure you want to delete this section?</p>
+          <p className="warning-text">This will permanently delete all lessons within it.</p>
+          <div className="confirmation-actions">
+            <button
+              className="cancel-btn"
+              onClick={() => {
+                setIsDeleteConfirmationOpen(false);
+                setSectionToDelete(null);
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              className="delete-btn"
+              onClick={confirmDeleteSection}
+            >
+              Delete Section
+            </button>
+          </div>
         </div>
       </Modal>
     </>

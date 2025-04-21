@@ -185,3 +185,24 @@ async def add_section_to_course(db: AsyncSession, course_id: str, user_id: str, 
     
     return new_section
 
+async def delete_section(db: AsyncSession, course_id: str, section_id: str, user_id: str):
+
+    course = await get_course_by_id(db, course_id, user_id)
+    
+
+    stmt = select(Section).filter(Section.section_id == section_id, Section.course_id == course_id)
+    result = await db.execute(stmt)
+    section = result.scalar_one_or_none()
+    
+    if not section:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Section not found"
+        )
+    
+ 
+    await db.delete(section)
+    await db.commit()
+    
+    return {"message": "Section deleted successfully"}
+
