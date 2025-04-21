@@ -13,7 +13,7 @@ export const Explore = () => {
     loading,
     error,
     value: coursesData
-  } = useAsync(() => courseService.getCourses(currentPage, 6), [currentPage]);
+  } = useAsync(() => courseService.getCourses(currentPage, 10), [currentPage]);
 
   const categories = [
     "All Courses", "Software Development", "Health", "Business & Finance", "Photography", "Technology"

@@ -17,7 +17,7 @@ export const InstructorCourses = () => {
     loading,
     error,
     value: coursesData
-  } = useAsync(() => getInstructorCourses(user?.uuid, currentPage, 6), [currentPage, user?.uuid]);
+  } = useAsync(() => getInstructorCourses(user?.uuid, currentPage, 10), [currentPage, user?.uuid]);
 
   useEffect(() => {
     if (location.state?.newCourseId) {
