@@ -141,10 +141,20 @@ export const uploadLessonVideo = async (
 
 export const getLessonVideo = async (lessonId) => {
   try {
-    const response = await api.get(`/lessons/get-video/${lessonId}/video`, {
-      responseType: "blob",
-    });
-    return URL.createObjectURL(response.data);
+    const response = await api.get(`/lessons/get-video/${lessonId}/video`);
+    console.log("API Response:", response.data);
+
+    if (response.data && response.data.url) {
+      try {
+        new URL(response.data.url);
+        return response.data.url;
+      } catch (e) {
+        console.error("Invalid URL received:", response.data.url);
+        throw new Error("Invalid video URL");
+      }
+    } else {
+      throw new Error("Invalid response format");
+    }
   } catch (error) {
     console.error("Error retrieving video:", error);
     throw error;

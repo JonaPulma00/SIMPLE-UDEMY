@@ -71,10 +71,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 60vh;
+  min-height: 100vh;
   background-color: #0a0a0a;
   color: #f8f9fa;
   padding: 30px;
+  border-radius: 0;
 }
 
 .error-icon {

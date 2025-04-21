@@ -82,6 +82,7 @@ const [currentVideoTitle, setCurrentVideoTitle] = useState("");
   const handlePlayVideo = async (lessonId, lessonTitle) => {
     try {
       const videoUrl = await getLessonVideo(lessonId);
+      console.log("Video URL received:", videoUrl);
       setCurrentVideoUrl(videoUrl);
       setCurrentVideoTitle(lessonTitle);
       setIsVideoModalOpen(true);
@@ -99,10 +100,7 @@ const [currentVideoTitle, setCurrentVideoTitle] = useState("");
 
   const closeVideoModal = () => {
     setIsVideoModalOpen(false);
-    if (currentVideoUrl) {
-      URL.revokeObjectURL(currentVideoUrl);
-      setCurrentVideoUrl(null);
-    }
+    setCurrentVideoUrl(null);
   };
   return (
     <>
@@ -267,21 +265,31 @@ const [currentVideoTitle, setCurrentVideoTitle] = useState("");
       </Modal>
 
       <Modal
-          isOpen={isVideoModalOpen}
-          onClose={closeVideoModal}
-          title={currentVideoTitle}
-        >
-          <div className="video-player-container">
-            {currentVideoUrl && (
-              <video
-                controls
-                autoPlay
-                style={{ width: '100%', maxHeight: '70vh' }}
-              >
-                <source src={currentVideoUrl} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            )}
+        isOpen={isVideoModalOpen}
+        onClose={closeVideoModal}
+        title={currentVideoTitle}
+      >
+        <div className="video-player-container">
+          {currentVideoUrl ? (
+            <video
+              controls
+              autoPlay
+              style={{ width: '100%', maxHeight: '70vh' }}
+              onError={(e) => {
+                console.error("Video error:", e);
+                toast.error("Error playing video. Please try again.");
+              }}
+            >
+              <source 
+                src={currentVideoUrl} 
+                type="video/mp4"
+                onError={(e) => console.error("Source error:", e)}
+              />
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <div className="video-loading">Loading video...</div>
+          )}
         </div>
       </Modal>
     </>

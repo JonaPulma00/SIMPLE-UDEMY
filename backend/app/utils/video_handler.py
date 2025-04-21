@@ -50,7 +50,7 @@ class VideoHandler:
                 'get_object',
                 Params={
                     'Bucket': self.bucket_name,
-                    'Key': video_path
+                    'Key': video_path 
                 },
                 ExpiresIn=expires_in
             )

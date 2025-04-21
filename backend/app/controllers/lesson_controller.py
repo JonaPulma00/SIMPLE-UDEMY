@@ -81,8 +81,10 @@ async def get_lesson_video(db: AsyncSession, lesson_id: str):
         raise HTTPException(status_code=404, detail="Video not found")
 
     try:
-        # Get a presigned URL for the video
-        presigned_url = video_handler.get_presigned_url(lesson.video_url)
+
+        video_path = lesson.video_url.split(f"{os.getenv('AWS_BUCKET_NAME')}.s3.{os.getenv('AWS_REGION')}.amazonaws.com/")[-1]
+        
+        presigned_url = video_handler.get_presigned_url(video_path)
         if not presigned_url:
             raise HTTPException(status_code=500, detail="Failed to generate video URL")
         
