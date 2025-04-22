@@ -135,6 +135,26 @@ async def delete_course(db: AsyncSession, course_id: str, user_id: str):
 
     return {"message": "Course deleted successfully"}
 
+async def get_public_course_by_id(db: AsyncSession, course_id: str):
+    stmt = select(Course).options(
+        selectinload(Course.sections).selectinload(Section.lessons)
+    ).filter(Course.course_id == course_id)
+    
+    result = await db.execute(stmt)
+    course = result.scalar_one_or_none()
+
+    if not course:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Course not found"
+        )
+
+    for section in course.sections:
+        section.lessons.sort(key=lambda x: x.position)
+    course.sections.sort(key=lambda x: x.position)
+
+    return course
+
 async def update_course(db: AsyncSession, course_id: str, user_id: str, course_data: CourseUpdate):
     stmt = select(Course).filter(Course.course_id == course_id)
     result = await db.execute(stmt)

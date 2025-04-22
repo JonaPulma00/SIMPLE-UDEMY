@@ -11,6 +11,7 @@ import { Teach } from "../pages/dashboard/Teach"
 import { InstructorCourses } from "../pages/dashboard/InstructorCourses"
 import { CourseDetail } from "../pages/dashboard/CourseDetail"
 import { UserEnrollments } from "../pages/dashboard/userEnrollments"
+import { UserCourseDetail } from "../pages/dashboard/user/UserCourseDetail"
 export const AppRoutes = () => {
   return (
     <Routes>
@@ -56,6 +57,14 @@ export const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <CourseDetail />
+          </ProtectedRoute>
+        } />
+
+      <Route
+        path="/explore/course/:courseId"
+        element={
+          <ProtectedRoute>
+            <UserCourseDetail />
           </ProtectedRoute>
         } />
 

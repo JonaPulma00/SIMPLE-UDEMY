@@ -3,8 +3,9 @@ import { Sidebar } from "../../components/Sidebar"
 import "../../styles/dashboard/Explore.css"
 import useAsync from "../../hooks/useAsync";
 import { courseService } from "../../services/courseService";
-
+import { useNavigate } from "react-router-dom";
 export const Explore = () => {
+  const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [activeCategory, setActiveCategory] = useState("All Courses");
@@ -13,7 +14,7 @@ export const Explore = () => {
     loading,
     error,
     value: coursesData
-  } = useAsync(() => courseService.getCourses(currentPage, 10), [currentPage]);
+  } = useAsync(() => courseService.getCourses(currentPage, 9), [currentPage]);
 
   const categories = [
     "All Courses", "Software Development", "Health", "Business & Finance", "Photography", "Technology"
@@ -81,7 +82,7 @@ export const Explore = () => {
             <div className="courses-grid">
               {coursesData?.courses?.length > 0 ? (
                 coursesData.courses.map((course) => (
-                  <div key={course.course_id} className="course-card">
+                  <div key={course.course_id} className="course-card" onClick={() => navigate(`/explore/course/${course.course_id}`)}>
                     <div className="course-image"></div>
                     <div className="course-content">
                       <h3>{course.title}</h3>

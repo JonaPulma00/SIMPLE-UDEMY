@@ -64,6 +64,16 @@ export const getCourseById = async (courseId) => {
   }
 };
 
+export const getPublicCourseById = async (courseId) => {
+  try {
+    const response = await api.get(`/courses/get-public-course/${courseId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error while getting public course", error);
+    throw error;
+  }
+};
+
 export const deleteCourse = async (courseId) => {
   try {
     const response = await api.delete(`/courses/delete/${courseId}`);
