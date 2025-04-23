@@ -20,6 +20,7 @@ app.add_middleware(
   allow_headers=["*"],
   expose_headers=["*"]
 )
-app.add_middleware(ExceptionHandlerMiddleware)
 
 app.include_router(api_routes, prefix="/api/v1")
+
+app.add_middleware(ExceptionHandlerMiddleware)
