@@ -44,7 +44,7 @@ class VideoHandler:
             return None
 
     def get_presigned_url(self, video_path: str, expires_in: int = 3600) -> Optional[str]:
-        """Generate a presigned URL for video access"""
+ 
         try:
             url = self.s3_client.generate_presigned_url(
                 'get_object',

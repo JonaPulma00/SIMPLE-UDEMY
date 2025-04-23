@@ -75,7 +75,7 @@ async def get_instructor_courses(db: AsyncSession, instructor_id: str, page: int
         
         if not instructor:
             raise HTTPException(
-                status_code=404,
+                status_code=status.HTTP_404_NOT_FOUND,
                 detail="Instructor not found"
             )
 
@@ -135,6 +135,7 @@ async def delete_course(db: AsyncSession, course_id: str, user_id: str):
 
     return {"message": "Course deleted successfully"}
 
+
 async def get_public_course_by_id(db: AsyncSession, course_id: str):
     stmt = select(Course).options(
         selectinload(Course.sections).selectinload(Section.lessons)
@@ -154,6 +155,7 @@ async def get_public_course_by_id(db: AsyncSession, course_id: str):
     course.sections.sort(key=lambda x: x.position)
 
     return course
+
 
 async def update_course(db: AsyncSession, course_id: str, user_id: str, course_data: CourseUpdate):
     stmt = select(Course).filter(Course.course_id == course_id)

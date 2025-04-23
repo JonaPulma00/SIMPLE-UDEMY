@@ -157,7 +157,7 @@ export const CourseDetail = () => {
                         <button className="section-btn edit">
                           <i className="fas fa-edit"></i>
                         </button>
-                        <button 
+                        <button
                           className="section-btn delete"
                           onClick={() => handleDeleteSection(section.section_id)}
                         >
@@ -173,13 +173,13 @@ export const CourseDetail = () => {
                           .map((lesson) => (
                             <div key={lesson.lesson_id} className="lesson-item">
                               <div className="lesson-info">
-                              <i 
-                                className="fas fa-play-circle"
-                                onClick={() => handlePlayVideo(lesson.lesson_id, lesson.title)}
-                                style={{ cursor: 'pointer' }}
-                              ></i>
-                              <span>{lesson.title}</span>
-                            </div>
+                                <i
+                                  className="fas fa-play-circle"
+                                  onClick={() => handlePlayVideo(lesson.lesson_id, lesson.title)}
+                                  style={{ cursor: 'pointer' }}
+                                ></i>
+                                <span>{lesson.title}</span>
+                              </div>
                               <div className="lesson-actions">
                                 <button className="lesson-btn edit">
                                   <i className="fas fa-edit"></i>
@@ -304,8 +304,8 @@ export const CourseDetail = () => {
                 toast.error("Error playing video. Please try again.");
               }}
             >
-              <source 
-                src={currentVideoUrl} 
+              <source
+                src={currentVideoUrl}
                 type="video/mp4"
                 onError={(e) => console.error("Source error:", e)}
               />
