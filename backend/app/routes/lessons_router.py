@@ -1,9 +1,8 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException, Depends
 from fastapi.responses import StreamingResponse
 from app.utils.video_handler import VideoHandler
-from app.utils.security import verify_token
+from app.middlewares.authenticate_token import verify_token
 from typing import Dict
-from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.database import get_db
 from app.middlewares.authorization import verify_instructor
@@ -12,7 +11,6 @@ from app.schemas.course import LessonCreate
 
 router = APIRouter()
 video_handler = VideoHandler()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
 @router.post("/create-lesson/{course_id}/sections/{section_id}")
 async def create_lesson(
@@ -38,11 +36,10 @@ async def upload_video(
     
     return await update_lesson_video(db, lesson_id, video, course_id, section_id)
 
-
 @router.get("/get-video/{lesson_id}/video")
 async def get_lesson_video_route(
     lesson_id: str,
     db: AsyncSession = Depends(get_db),
-    token_payload: dict = Depends(verify_instructor)
+    token_payload: dict = Depends(verify_token)
 ):
     return await get_lesson_video(db, lesson_id) 

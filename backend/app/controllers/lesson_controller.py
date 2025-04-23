@@ -86,7 +86,7 @@ async def get_lesson_video(db: AsyncSession, lesson_id: str):
         
         presigned_url = video_handler.get_presigned_url(video_path)
         if not presigned_url:
-            raise HTTPException(status_code=500, detail="Failed to generate video URL")
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to generate video URL")
         
         return {"url": presigned_url}
     except Exception as e:
