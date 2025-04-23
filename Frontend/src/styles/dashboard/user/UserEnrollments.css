@@ -1,0 +1,190 @@
+.enrollments-content {
+  flex: 1;
+  padding: 30px;
+  background-color: #0a0a0a;
+  color: #f8f9fa;
+  overflow-y: auto;
+}
+
+.enrollments-content h1 {
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, #ffffff, #00ff62);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.enrollments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.enrollment-card {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.enrollment-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 255, 98, 0.1);
+  border-color: #00ff62;
+}
+
+.enrollment-card h3 {
+  color: #fff;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.enrollment-card p {
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.continue-btn {
+  background: transparent;
+  border: 1px solid #00ff62;
+  color: #00ff62;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.continue-btn:hover {
+  background: rgba(0, 255, 98, 0.1);
+}
+
+.no-enrollments {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.no-enrollments i {
+  font-size: 3rem;
+  color: #00ff62;
+  margin-bottom: 20px;
+}
+
+.no-enrollments h3 {
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.no-enrollments p {
+  color: #888;
+  margin-bottom: 20px;
+}
+
+.browse-courses-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background: linear-gradient(90deg, #00ff62, #00b347);
+  color: #0a0a0a;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.browse-courses-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 255, 98, 0.3);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.pagination-btn {
+  background: transparent;
+  border: 1px solid #333;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  border-color: #00ff62;
+  color: #00ff62;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-info {
+  color: #888;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(0, 255, 98, 0.1);
+  border-radius: 50%;
+  border-top-color: #00ff62;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  margin-top: 15px;
+  color: #888;
+}
+
+.error-container {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.error-icon {
+  font-size: 3rem;
+  color: #ff3d3d;
+  margin-bottom: 20px;
+}
+
+.error-message {
+  color: #ff3d3d;
+} 

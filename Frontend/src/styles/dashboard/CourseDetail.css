@@ -7,7 +7,7 @@
 .course-detail-content {
   flex: 1;
   padding: 30px;
-  background-color: #0a0a0a;
+  background-color: var(--dark-color);
   color: #f8f9fa;
   overflow-y: auto;
   height: 100%;
@@ -36,7 +36,7 @@
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #0a0a0a;
+  background-color: var(--dark-color);
   color: #f8f9fa;
 }
 
@@ -72,7 +72,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #0a0a0a;
+  background-color: var(--dark-color);
   color: #f8f9fa;
   padding: 30px;
   border-radius: 0;
@@ -97,7 +97,7 @@
   background: linear-gradient(90deg, #00ff62, #00b347);
   border: none;
   border-radius: 5px;
-  color: #0a0a0a;
+  color: var(--dark-color);
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -118,7 +118,7 @@
 .add-section-btn {
   padding: 12px 24px;
   background: linear-gradient(90deg, #00ff62, #00b347);
-  color: #0a0a0a;
+  color: var(--dark-color);
   border: none;
   border-radius: 6px;
   font-weight: bold;
@@ -211,6 +211,7 @@
   padding: 12px 15px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 6px;
+  cursor: pointer;
   transition: all 0.2s ease;
 }
 

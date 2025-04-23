@@ -10,7 +10,7 @@ import { Explore } from "../pages/dashboard/Explore"
 import { Teach } from "../pages/dashboard/Teach"
 import { InstructorCourses } from "../pages/dashboard/InstructorCourses"
 import { CourseDetail } from "../pages/dashboard/CourseDetail"
-import { UserEnrollments } from "../pages/dashboard/userEnrollments"
+import { UserEnrollments } from "../pages/dashboard/user/UserEnrollments"
 import { UserCourseDetail } from "../pages/dashboard/user/UserCourseDetail"
 export const AppRoutes = () => {
   return (

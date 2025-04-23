@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { getPublicCourseById, getLessonVideo } from "../../../services/courseService"
+import { enrollUser } from "../../../services/userService"
 import { Sidebar } from "../../../components/Sidebar"
 import { toast } from "react-toastify"
 import useAsync from "../../../hooks/useAsync"
@@ -12,8 +13,22 @@ export const UserCourseDetail = () => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [currentVideoUrl, setCurrentVideoUrl] = useState(null);
   const [currentVideoTitle, setCurrentVideoTitle] = useState("");
+  const [isEnrolling, setIsEnrolling] = useState(false);
 
   const { loading, error, value: course } = useAsync(() => getPublicCourseById(courseId), [courseId])
+
+  const handleEnroll = async () => {
+    setIsEnrolling(true);
+    try {
+      await enrollUser(courseId);
+      toast.success("Successfully enrolled in the course!");
+    } catch (error) {
+      toast.error("Failed to enroll in the course. Please try again.");
+      console.error("Error enrolling:", error);
+    } finally {
+      setIsEnrolling(false);
+    }
+  };
 
   const handlePlayVideo = async (lessonId, lessonTitle) => {
     try {
@@ -50,6 +65,13 @@ export const UserCourseDetail = () => {
           <div className="course-detail-content">
             <div className="course-header">
               <h1>{course.title}</h1>
+              <button
+                className="enroll-button"
+                onClick={handleEnroll}
+                disabled={isEnrolling}
+              >
+                {isEnrolling ? "Enrolling..." : "Enroll in Course"}
+              </button>
             </div>
             <p>{course.description}</p>
 
@@ -66,12 +88,10 @@ export const UserCourseDetail = () => {
                         [...section.lessons]
                           .sort((a, b) => a.position - b.position)
                           .map((lesson) => (
-                            <div key={lesson.lesson_id} className="lesson-item">
+                            <div key={lesson.lesson_id} className="lesson-item" onClick={() => handlePlayVideo(lesson.lesson_id, lesson.title)}>
                               <div className="lesson-info">
                                 <i
                                   className="fas fa-play-circle"
-                                  onClick={() => handlePlayVideo(lesson.lesson_id, lesson.title)}
-                                  style={{ cursor: 'pointer' }}
                                 ></i>
                                 <span>{lesson.title}</span>
                               </div>

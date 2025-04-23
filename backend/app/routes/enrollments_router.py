@@ -6,9 +6,9 @@ from app.middlewares.authenticate_token import verify_token
 
 router = APIRouter()
 
-@router.post("/enroll-user", status_code=status.HTTP_201_CREATED)
+@router.post("/enroll-user/{course_id}", status_code=status.HTTP_201_CREATED)
 async def enroll_user_handler(
-    course_id: str,
+    course_id: str, 
     db: AsyncSession = Depends(get_db),
     token_payload: dict = Depends(verify_token)
 ):

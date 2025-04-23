@@ -1,0 +1,36 @@
+.course-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.enroll-button {
+  padding: 12px 24px;
+  background: linear-gradient(90deg, #00ff62, #00b347);
+  color: #0a0a0a;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.enroll-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 255, 98, 0.3);
+}
+
+.enroll-button:disabled {
+  background: #666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.enrollment {
+  display: flex;
+  justify-content: flex-end;
+}

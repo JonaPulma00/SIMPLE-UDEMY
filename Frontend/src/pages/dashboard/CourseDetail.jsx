@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { refreshData } from "../../utils/refreshUtils";
 import 'react-toastify/dist/ReactToastify.css';
 import '../../styles/dashboard/CourseDetail.css';
+import '../../../src/App.css'
 
 export const CourseDetail = () => {
   const { courseId } = useParams();
