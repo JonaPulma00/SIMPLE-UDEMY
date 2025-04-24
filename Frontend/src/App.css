@@ -1,29 +1,44 @@
 :root {
+  /* Dark Mode Colors */
   --primary-dark-color: #0a0a0a;
-  --primary-gradient-green: linear-gradient(90deg, #ffffff, #00ff62);
-  --primary-green: #00ff62;
-  --error-color: #ff3d3d;
-  --primary-white-color: #f8f9fa;
-  --green-shadow: rgba(0, 255, 98, 0.3);
-  --primary-grey-color: #333;
   --section-grey-color: #111;
   --section-border-color: #222;
-  --soft-red: #ff6b6b;
-  --soft-grey: #b8b8b8;
-  --hero-overlay-bg: rgba(10, 10, 10, 0.5);
+  --primary-grey-color: #333;
   --background-black: #000000;
+  
+  /* Light/White Colors */
+  --primary-white-color: #f8f9fa;
+  
+  /* Accent Colors */
+  --primary-green: #00ff62;
+  --primary-teal: #00ffaa;
   --dark-green-hover: #00cc4e;
+  
+  /* Error/Warning/Red Colors */
+  --error-color: #ff3d3d;
+  --soft-red: #ff6b6b;
+  
+  /* Neutral Colors */
+  --soft-grey: #b8b8b8;
+  
+  /* Gradient Colors */
+  --primary-gradient-green: linear-gradient(90deg, #ffffff, #00ff62);
+  --dark-gradient: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 50, 20, 0.8) 100%);
+  
+  /* Transparent Colors */
+  --green-shadow: rgba(0, 255, 98, 0.3);
   --transparent-green-hover: rgba(0, 255, 98, 0.2);
   --card-border-color: rgba(0, 255, 98, 0.1);
   --card-border-hover: rgba(0, 255, 98, 0.3);
   --card-shadow-hover: rgba(0, 255, 98, 0.1);
   --transparent-black: rgba(0, 0, 0, 0.3);
   --transparent-black-input: rgba(0, 0, 0, 0.7);
-  --dark-gradient: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 50, 20, 0.8) 100%);
+  --hero-overlay-bg: rgba(10, 10, 10, 0.5);
   --section-overlay-bg: rgba(10, 10, 10, 0.7);
   --modal-overlay-bg: rgba(0, 0, 0, 0.8);
   --hover-light-bg: rgba(255, 255, 255, 0.05);
-  --primary-teal: #00ffaa;
+  
+  /* Transparent Teal Colors */
   --teal-transparent-10: rgba(0, 255, 170, 0.1);
   --teal-transparent-80: rgba(0, 255, 170, 0.8);
 }
