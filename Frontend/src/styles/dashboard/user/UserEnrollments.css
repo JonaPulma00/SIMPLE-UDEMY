@@ -1,15 +1,15 @@
 .enrollments-content {
   flex: 1;
   padding: 30px;
-  background-color: #0a0a0a;
-  color: #f8f9fa;
+  background-color: var(--primary-dark-color);
+  color: var(--primary-white-color);
   overflow-y: auto;
 }
 
 .enrollments-content h1 {
   font-size: 2.2rem;
   margin-bottom: 30px;
-  background: linear-gradient(90deg, #ffffff, #00ff62);
+  background: var(--primary-gradient-green);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -23,8 +23,8 @@
 }
 
 .enrollment-card {
-  background: #111;
-  border: 1px solid #222;
+  background: var(--section-grey-color);
+  border: 1px solid var(--section-border-color);
   border-radius: 8px;
   padding: 20px;
   transition: all 0.3s ease;
@@ -34,18 +34,18 @@
 
 .enrollment-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 255, 98, 0.1);
-  border-color: #00ff62;
+  box-shadow: 0 5px 15px var(--card-shadow-hover);
+  border-color: var(--primary-green);
 }
 
 .enrollment-card h3 {
-  color: #fff;
+  color: var(--primary-white-color);
   margin-bottom: 10px;
   font-size: 1.2rem;
 }
 
 .enrollment-card p {
-  color: #888;
+  color: var(--soft-grey);
   font-size: 0.9rem;
   margin-bottom: 20px;
 }
@@ -57,8 +57,8 @@
 
 .continue-btn {
   background: transparent;
-  border: 1px solid #00ff62;
-  color: #00ff62;
+  border: 1px solid var(--primary-green);
+  color: var(--primary-green);
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
@@ -69,7 +69,7 @@
 }
 
 .continue-btn:hover {
-  background: rgba(0, 255, 98, 0.1);
+  background: var(--card-border-color);
 }
 
 .no-enrollments {
@@ -80,25 +80,25 @@
 
 .no-enrollments i {
   font-size: 3rem;
-  color: #00ff62;
+  color: var(--primary-green);
   margin-bottom: 20px;
 }
 
 .no-enrollments h3 {
-  color: #fff;
+  color: var(--primary-white-color);
   margin-bottom: 10px;
 }
 
 .no-enrollments p {
-  color: #888;
+  color: var(--soft-grey);
   margin-bottom: 20px;
 }
 
 .browse-courses-btn {
   display: inline-block;
   padding: 12px 24px;
-  background: linear-gradient(90deg, #00ff62, #00b347);
-  color: #0a0a0a;
+  background: var(--primary-gradient-green);
+  color: var(--primary-dark-color);
   text-decoration: none;
   border-radius: 6px;
   font-weight: bold;
@@ -107,7 +107,7 @@
 
 .browse-courses-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 255, 98, 0.3);
+  box-shadow: 0 5px 15px var(--green-shadow);
 }
 
 .pagination {
@@ -120,8 +120,8 @@
 
 .pagination-btn {
   background: transparent;
-  border: 1px solid #333;
-  color: #fff;
+  border: 1px solid var(--primary-grey-color);
+  color: var(--primary-white-color);
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -133,8 +133,8 @@
 }
 
 .pagination-btn:hover:not(:disabled) {
-  border-color: #00ff62;
-  color: #00ff62;
+  border-color: var(--primary-green);
+  color: var(--primary-green);
 }
 
 .pagination-btn:disabled {
@@ -143,7 +143,7 @@
 }
 
 .page-info {
-  color: #888;
+  color: var(--soft-grey);
 }
 
 .loading-container {
@@ -157,9 +157,9 @@
 .loading-spinner {
   width: 50px;
   height: 50px;
-  border: 5px solid rgba(0, 255, 98, 0.1);
+  border: 5px solid var(--card-border-color);
   border-radius: 50%;
-  border-top-color: #00ff62;
+  border-top-color: var(--primary-green);
   animation: spin 1s ease-in-out infinite;
 }
 
@@ -171,7 +171,7 @@
 
 .loading-text {
   margin-top: 15px;
-  color: #888;
+  color: var(--soft-grey);
 }
 
 .error-container {
@@ -181,10 +181,10 @@
 
 .error-icon {
   font-size: 3rem;
-  color: #ff3d3d;
+  color: var(--error-color);
   margin-bottom: 20px;
 }
 
 .error-message {
-  color: #ff3d3d;
+  color: var(--error-color);
 } 

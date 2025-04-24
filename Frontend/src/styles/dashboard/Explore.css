@@ -1,13 +1,11 @@
-
 .explore-content {
   flex: 1;
   padding: 30px;
   overflow-y: auto;
   position: relative;
-  background-color: #0a0a0a;
-  color: #f8f9fa;
+  background-color: var(--primary-dark-color);
+  color: var(--primary-white-color);
 }
-
 
 .explore-header {
   margin-bottom: 30px;
@@ -16,18 +14,17 @@
 .explore-header h1 {
   font-size: 2.2rem;
   margin-bottom: 10px;
-  background: linear-gradient(90deg, #ffffff, #00ff62);
+  background: var(--primary-gradient-green);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: 0 0 5px rgba(0, 255, 98, 0.3);
+  text-shadow: 0 0 5px var(--green-shadow);
 }
 
 .explore-header p {
-  color: #b8b8b8;
+  color: var(--soft-grey);
   font-size: 1.1rem;
 }
-
 
 .explore-search-container {
   margin-bottom: 25px;
@@ -36,11 +33,11 @@
 .search-bar {
   display: flex;
   max-width: 700px;
-  border: 1px solid #222;
+  border: 1px solid var(--section-border-color);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  background-color: rgba(30, 30, 30, 0.5);
+  box-shadow: 0 0 15px var(--transparent-black);
+  background-color: var(--transparent-black-input);
 }
 
 .search-bar input {
@@ -48,23 +45,22 @@
   padding: 12px 20px;
   background-color: transparent;
   border: none;
-  color: #fff;
+  color: var(--primary-white-color);
   font-size: 1rem;
   outline: none;
 }
 
 .search-bar input::placeholder {
-  color: #777;
+  color: var(--soft-grey);
 }
 
 .search-button {
-  background-color: #00ff62;
+  background-color: var(--primary-green);
   border: none;
-  color: #0a0a0a;
+  color: var(--primary-dark-color);
   padding: 0 20px;
   cursor: pointer;
 }
-
 
 .categories-filter {
   margin-bottom: 25px;
@@ -78,19 +74,18 @@
 
 .category-button {
   padding: 8px 16px;
-  background-color: rgba(20, 20, 20, 0.8);
-  border: 1px solid #222;
+  background-color: var(--section-grey-color);
+  border: 1px solid var(--section-border-color);
   border-radius: 30px;
-  color: #b8b8b8;
+  color: var(--soft-grey);
   cursor: pointer;
 }
 
 .category-button.active {
-  background-color: rgba(0, 255, 98, 0.2);
-  border-color: #00ff62;
-  color: #fff;
+  background-color: var(--transparent-green-hover);
+  border-color: var(--primary-green);
+  color: var(--primary-white-color);
 }
-
 
 .courses-grid {
   display: grid;
@@ -99,23 +94,23 @@
 }
 
 .course-card {
-  background-color: rgba(15, 15, 15, 0.8);
+  background-color: var(--section-grey-color);
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  border: 1px solid #222;
+  box-shadow: 0 5px 15px var(--transparent-black);
+  border: 1px solid var(--section-border-color);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .course-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(0, 255, 98, 0.3);
+  border-color: var(--card-border-hover);
 }
 
 .course-image {
   height: 160px;
-  background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+  background: var(--dark-gradient);
 }
 
 .course-content {
@@ -125,11 +120,11 @@
 .course-content h3 {
   margin: 0 0 10px 0;
   font-size: 1.2rem;
-  color: #fff;
+  color: var(--primary-white-color);
 }
 
 .course-content p {
-  color: #b8b8b8;
+  color: var(--soft-grey);
   margin: 0 0 15px 0;
   font-size: 0.9rem;
 }
@@ -139,25 +134,24 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 15px;
-  border-top: 1px solid #222;
+  border-top: 1px solid var(--section-border-color);
 }
 
 .course-rating {
   display: flex;
   align-items: center;
   gap: 5px;
-  color: #aaa;
+  color: var(--soft-grey);
 }
 
 .course-rating i {
-  color: #f0ad4e;
+  color: #f0ad4e; /* This could be a new variable if you want to standardize warning/star colors */
 }
 
 .course-price {
   font-weight: bold;
-  color: #00ff62;
+  color: var(--primary-green);
 }
-
 
 @media (max-width: 768px) {
   .explore-content {
@@ -169,7 +163,6 @@
   }
 }
 
-
 .error-container,
 .no-courses-message {
   display: flex;
@@ -178,44 +171,41 @@
   justify-content: center;
   padding: 50px 20px;
   text-align: center;
-  background: rgba(15, 15, 15, 0.7);
+  background: var(--section-grey-color);
   border-radius: 10px;
-  border: 1px solid #222;
+  border: 1px solid var(--section-border-color);
 }
-
 
 .error-container i,
 .no-courses-message i {
   font-size: 2.5rem;
-  color: #00ff62;
+  color: var(--primary-green);
   margin-bottom: 15px;
 }
 
 .error-container i {
-  color: #ff3232;
+  color: var(--error-color);
 }
-
 
 .error-container p,
 .no-courses-message p {
-  color: #b8b8b8;
+  color: var(--soft-grey);
   margin-bottom: 15px;
 }
 
 .error-container button {
   padding: 8px 16px;
-  background-color: rgba(255, 50, 50, 0.2);
-  border: 1px solid #ff3232;
+  background-color: var(--transparent-black);
+  border: 1px solid var(--error-color);
   border-radius: 5px;
-  color: #ff3232;
+  color: var(--error-color);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .error-container button:hover {
-  background-color: rgba(255, 50, 50, 0.3);
+  background-color: var(--transparent-black-input);
 }
-
 
 .pagination {
   display: flex;
@@ -231,10 +221,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(15, 15, 15, 0.7);
-  border: 1px solid #222;
+  background-color: var(--section-grey-color);
+  border: 1px solid var(--section-border-color);
   border-radius: 5px;
-  color: #b8b8b8;
+  color: var(--soft-grey);
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -246,28 +236,27 @@
 
 .pagination-button:not(:disabled):hover,
 .pagination-button.active {
-  background-color: rgba(0, 255, 98, 0.15);
-  border-color: #00ff62;
-  color: #fff;
+  background-color: var(--card-border-color);
+  border-color: var(--primary-green);
+  color: var(--primary-white-color);
 }
 
 .pagination-button.active {
-  background-color: rgba(0, 255, 98, 0.2);
+  background-color: var(--transparent-green-hover);
 }
 
 .pagination-ellipsis {
-  color: #b8b8b8;
+  color: var(--soft-grey);
 }
-
 
 .course-meta {
   font-size: 0.85rem;
-  color: #777;
+  color: var(--soft-grey);
   display: flex;
   align-items: center;
   gap: 5px;
 }
 
 .course-meta i {
-  color: #00ff62;
+  color: var(--primary-green);
 }

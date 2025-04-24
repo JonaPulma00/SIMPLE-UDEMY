@@ -8,8 +8,8 @@
   flex: 1;
   padding: 30px;
   overflow-y: auto;
-  background-color: #0a0a0a;
-  color: #f8f9fa;
+  background-color: var(--primary-dark-color);
+  color: var(--primary-white-color);
 }
 
 .teach-header {
@@ -19,24 +19,24 @@
 .teach-header h1 {
   font-size: 2.2rem;
   margin-bottom: 10px;
-  background: linear-gradient(90deg, #ffffff, #00ff62);
+  background: var(--primary-gradient-green);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: 0 0 5px rgba(0, 255, 98, 0.3);
+  text-shadow: 0 0 5px var(--green-shadow);
 }
 
 .teach-header p {
-  color: #b8b8b8;
+  color: var(--soft-grey);
   font-size: 1.1rem;
 }
 
 .course-form {
   max-width: 100%;
-  background-color: rgba(15, 15, 15, 0.8);
+  background-color: var(--section-grey-color);
   padding: 30px;
   border-radius: 10px;
-  border: 1px solid #222;
+  border: 1px solid var(--section-border-color);
 }
 
 .form-group {
@@ -46,7 +46,7 @@
 .form-group label {
   display: block;
   margin-bottom: 8px;
-  color: #00ff62;
+  color: var(--primary-green);
   font-weight: bold;
 }
 
@@ -55,10 +55,10 @@
 .form-group select {
   width: 100%;
   padding: 12px;
-  background-color: rgba(30, 30, 30, 0.5);
-  border: 1px solid #222;
+  background-color: var(--transparent-black-input);
+  border: 1px solid var(--section-border-color);
   border-radius: 5px;
-  color: #fff;
+  color: var(--primary-white-color);
   font-size: 1rem;
 }
 
@@ -74,16 +74,16 @@
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-  border-color: #00ff62;
+  border-color: var(--primary-green);
   outline: none;
-  box-shadow: 0 0 5px rgba(0, 255, 98, 0.3);
+  box-shadow: 0 0 5px var(--green-shadow);
 }
 
 .create-course-button {
   width: 100%;
   padding: 12px;
-  background-color: #00ff62;
-  color: #0a0a0a;
+  background-color: var(--primary-green);
+  color: var(--primary-dark-color);
   border: none;
   border-radius: 5px;
   font-size: 1rem;
@@ -93,30 +93,30 @@
 }
 
 .create-course-button:hover {
-  background-color: #00cc4e;
+  background-color: var(--dark-green-hover);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 255, 98, 0.3);
+  box-shadow: 0 5px 15px var(--green-shadow);
 }
 
 .unauthorized-message {
   text-align: center;
   padding: 50px;
-  background-color: rgba(15, 15, 15, 0.8);
+  background-color: var(--section-grey-color);
   border-radius: 10px;
-  border: 1px solid #222;
+  border: 1px solid var(--section-border-color);
 }
 
 .unauthorized-message i {
   font-size: 3rem;
-  color: #ff3232;
+  color: var(--error-color);
   margin-bottom: 20px;
 }
 
 .unauthorized-message h2 {
-  color: #ff3232;
+  color: var(--error-color);
   margin-bottom: 10px;
 }
 
 .unauthorized-message p {
-  color: #b8b8b8;
+  color: var(--soft-grey);
 }

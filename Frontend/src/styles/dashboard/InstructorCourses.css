@@ -2,8 +2,8 @@
   flex: 1;
   padding: 30px;
   overflow-y: auto;
-  background-color: #0a0a0a;
-  color: #f8f9fa;
+  background-color: var(--primary-dark-color);
+  color: var(--primary-white-color);
 }
 
 .instructor-header {
@@ -13,15 +13,15 @@
 .instructor-header h1 {
   font-size: 2.2rem;
   margin-bottom: 10px;
-  background: linear-gradient(90deg, #ffffff, #00ff62);
+  background: var(--primary-gradient-green);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: 0 0 5px rgba(0, 255, 98, 0.3);
+  text-shadow: 0 0 5px var(--green-shadow);
 }
 
 .instructor-header p {
-  color: #b8b8b8;
+  color: var(--soft-grey);
   font-size: 1.1rem;
 }
 
@@ -32,10 +32,10 @@
 
 .edit-button {
   padding: 8px 16px;
-  background-color: rgba(0, 255, 98, 0.1);
-  border: 1px solid #00ff62;
+  background-color: var(--card-border-color);
+  border: 1px solid var(--primary-green);
   border-radius: 5px;
-  color: #00ff62;
+  color: var(--primary-green);
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
@@ -44,7 +44,7 @@
 }
 
 .edit-button:hover {
-  background-color: rgba(0, 255, 98, 0.2);
+  background-color: var(--transparent-green-hover);
   transform: translateY(-2px);
 }
 
@@ -57,41 +57,40 @@
   justify-content: center;
   padding: 50px 20px;
   text-align: center;
-  background: rgba(15, 15, 15, 0.7);
+  background: var(--section-grey-color);
   border-radius: 10px;
-  border: 1px solid #222;
+  border: 1px solid var(--section-border-color);
 }
-
 
 .loading-spinner {
   width: 50px;
   height: 50px;
-  border: 5px solid rgba(0, 255, 98, 0.1);
+  border: 5px solid var(--card-border-color);
   border-radius: 50%;
-  border-top-color: #00ff62;
+  border-top-color: var(--primary-green);
   animation: spin 1s ease-in-out infinite;
 }
 
 .error-container i,
 .no-courses-message i {
   font-size: 2.5rem;
-  color: #00ff62;
+  color: var(--primary-green);
   margin-bottom: 15px;
 }
 
 .error-container i {
-  color: #ff3232;
+  color: var(--error-color);
 }
 
 .highlight-new {
   animation: highlightAnimation 5s ease-out;
-  border: 2px solid #00ff62;
+  border: 2px solid var(--primary-green);
 }
 
 @keyframes highlightAnimation {
   0% {
     transform: scale(1);
-    box-shadow: 0 0 20px rgba(0, 255, 98, 0.5);
+    box-shadow: 0 0 20px var(--green-shadow);
   }
   5% {
     transform: scale(1.02);
@@ -100,7 +99,7 @@
     transform: scale(1);
   }
   100% {
-    box-shadow: 0 0 0 rgba(0, 255, 98, 0);
+    box-shadow: 0 0 0 var(--card-border-color);
   }
 }
 

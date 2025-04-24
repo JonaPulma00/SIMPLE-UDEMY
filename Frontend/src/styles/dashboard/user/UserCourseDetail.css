@@ -7,8 +7,8 @@
 
 .enroll-button {
   padding: 12px 24px;
-  background: linear-gradient(90deg, #00ff62, #00b347);
-  color: #0a0a0a;
+  background: var(--primary-green);
+  color: var(--primary-dark-color);
   border: none;
   border-radius: 6px;
   font-weight: bold;
@@ -20,11 +20,11 @@
 
 .enroll-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 255, 98, 0.3);
+  box-shadow: 0 5px 15px var(--green-shadow);
 }
 
 .enroll-button:disabled {
-  background: #666;
+  background: var(--soft-grey);
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
