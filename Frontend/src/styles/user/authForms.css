@@ -4,7 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'poppins',sans-seri f;
+    font-family: 'poppins', sans-serif;
 }
 
 .general-container{
@@ -16,16 +16,16 @@
 .wrapper{
     width: 420px;
     background: transparent;
-    border: 2px solid rgba(255,255,255,0.2);
-    box-shadow: 0 0 10px rgba(255,255,255,0.2);
+    border: 2px solid var(--card-border-color);
+    box-shadow: 0 0 4px var(--primary-white-color);
     backdrop-filter: blur(6px);
-    color: #fff;
+    color: var(--primary-white-color);
     border-radius: 10px;
     padding: 30px 40px;
 }
 
 .wrapper h1{
-    color: #fff;
+    color: var(--primary-white-color);
     font-size: 36px;
     text-align: center;
 }
@@ -45,15 +45,15 @@
     background: transparent ;
     border: none;
     outline: none ;
-    border: 2px solid rgba(255,255,255,0.2);
+    border: 2px solid var(--card-border-color);
     border-radius: 40px;
     font-size: 16px;
-    color: #fff;
+    color: var(--primary-white-color);
     padding: 20px 45px 20px 20px;
 }
 
 .input-box input::placeholder{
-    color: #fff;
+    color: var(--primary-white-color);
 }
 
 .input-box i{
@@ -62,7 +62,7 @@
     top: 50%;
     transform: translateY(-50%);
     font-size: 20px ;
-    color: #fff;
+    color: var(--primary-white-color);
 }
 
 .wrapper .remember-forget{
@@ -73,12 +73,12 @@
 }
 
 .remember-forget label input{
-    accent-color: #242323;
+    accent-color: var(--section-grey-color);
     margin-right: 3px ;
 }
 
 .remember-forget a{
-    color: #fff;
+    color: var(--primary-white-color);
     text-decoration: none;
 }
 
@@ -91,21 +91,21 @@
 .wrapper .btn  {
     width: 100%;
     height: 45px;
-    background: #fff;
+    background: var(--primary-white-color);
     border: none;
     outline: none;
     border-radius: 40px ;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px var(--transparent-black);
     cursor: pointer;
     font-size: 16px;
-    color: #333;
+    color: var(--primary-grey-color);
     font-weight: 600;
 }
 
 .wrapper .btn:hover{
-    background: rgba(83,73,73,0.5);
-    color: white;
-    border-color: #fff;
+    background: var(--hover-light-bg);
+    color: var(--primary-white-color);
+    border-color: var(--primary-white-color);
 }
 
 .wrapper .register-link {
@@ -115,7 +115,7 @@
 }
 
 .register-link p a {
-    color: #fff;
+    color: var(--primary-white-color);
     text-decoration: none;
     font-weight: 600;
 }
@@ -124,9 +124,9 @@
     text-decoration: underline;
 }
 .error-message {
-    color: #ff3232;
-    background-color: rgba(255, 0, 0, 0.1); 
-    border: 1px solid #ff3232;
+    color: var(--error-color);
+    background-color: var(--transparent-black);
+    border: 1px solid var(--error-color);
     padding: 10px;
     border-radius: 5px;
     font-size: 14px;
@@ -153,7 +153,7 @@
     height: 20px;
     width: 20px;
     background-color: transparent;
-    border: 2px solid rgba(255,255,255,0.5);
+    border: 2px solid var(--card-border-color);
     border-radius: 5px;
     cursor: pointer;
     display: flex;
@@ -164,14 +164,14 @@
 }
 
 .instructor-checkbox:checked {
-    background-color: rgba(255,255,255,0.8);
+    background-color: var(--hover-light-bg);
     position: relative;
 }
 
 .instructor-checkbox:checked::after {
     content: '✓';
     font-size: 14px;
-    color: #333;
+    color: var(--primary-grey-color);
     position: absolute;
     right: 3px;
     top: -1px;
@@ -181,7 +181,7 @@
 }
 
 .checkbox-text {
-    color: #fff;
+    color: var(--primary-white-color);
 }
 
 .social-wrapper{
@@ -195,13 +195,13 @@
   
   .alternative-sing-in {
     font-size: 14px;
-    color: #757575;
+    color: var(--soft-grey);
     margin-bottom: 10px;
   }
   
   .google-btn {
     background-color: #4285F4;
-    color: white;
+    color: var(--primary-white-color);
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
