@@ -164,7 +164,7 @@
   justify-content: space-between;
   align-items: center;
   padding-bottom: 15px;
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid var(--section-border-color);
 }
 
 .section-card h3 {
