@@ -7,8 +7,8 @@
 .course-detail-content {
   flex: 1;
   padding: 30px;
-  background-color: var(--dark-color);
-  color: #f8f9fa;
+  background-color: var(--primary-dark-color);
+  color: var(--primary-white-color);
   overflow-y: auto;
   height: 100%;
 }
@@ -16,11 +16,11 @@
 .course-detail-content h1 {
   font-size: 2.2rem;
   margin-bottom: 10px;
-  background: linear-gradient(90deg, #ffffff, #00ff62);
+  background: var(--primary-gradient-green);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: 0 0 5px rgba(0, 255, 98, 0.3);
+  text-shadow: 0 0 5px var(--green-shadow);
 }
 
 .course-detail-content p {
@@ -36,16 +36,16 @@
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
-  background-color: var(--dark-color);
-  color: #f8f9fa;
+  background-color: var(--primary-dark-color);
+  color: var(--primary-white-color);
 }
 
 .loading-spinner {
   width: 50px;
   height: 50px;
-  border: 5px solid rgba(0, 255, 98, 0.1);
+  border: 5px solid var(--section-border-color);
   border-radius: 50%;
-  border-top-color: #00ff62;
+  border-top-color: var(--primary-green);
   animation: spin 1s ease-in-out infinite;
 }
 
@@ -58,7 +58,7 @@
 .loading-text {
   margin-top: 15px;
   font-size: 1.2rem;
-  background: linear-gradient(90deg, #ffffff, #00ff62);
+  background: var(--primary-gradient-green);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -72,8 +72,8 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: var(--dark-color);
-  color: #f8f9fa;
+  background-color: var(--primary-dark-color);
+  color: var(--primary-white-color);
   padding: 30px;
   border-radius: 0;
 }
@@ -81,23 +81,23 @@
 .error-icon {
   font-size: 3rem;
   margin-bottom: 15px;
-  color: #ff3d3d;
+  color: var(--error-color);
 }
 
 .error-message {
   font-size: 1.3rem;
   text-align: center;
-  color: #ff3d3d;
+  color: var(--error-color);
   margin-bottom: 20px;
 }
 
 .error-action {
   margin-top: 10px;
   padding: 10px 20px;
-  background: linear-gradient(90deg, #00ff62, #00b347);
+  background: linear-gradient(90deg, var(--primary-green));
   border: none;
   border-radius: 5px;
-  color: var(--dark-color);
+  color: var(--primary-dark-color);
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -105,7 +105,7 @@
 
 .error-action:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 255, 98, 0.3);
+  box-shadow: 0 5px 15px var(--green-shadow);
 }
 
 .course-header {
@@ -117,8 +117,8 @@
 
 .add-section-btn {
   padding: 12px 24px;
-  background: linear-gradient(90deg, #00ff62, #00b347);
-  color: var(--dark-color);
+  background: linear-gradient(90deg, var(--primary-green));
+  color: var(--primary-dark-color);
   border: none;
   border-radius: 6px;
   font-weight: bold;
@@ -129,7 +129,7 @@
 
 .add-section-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 255, 98, 0.3);
+  box-shadow: 0 5px 15px var(--green-shadow);
 }
 
 .add-section-btn:active {
@@ -143,8 +143,8 @@
 }
 
 .section-card {
-  background: #111;
-  border: 1px solid #222;
+  background: var(--section-grey-color);
+  border: 1px solid var(--section-border-color);
   border-radius: 8px;
   padding: 20px;
   display: flex;
@@ -156,7 +156,7 @@
 .section-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  border-color: #333;
+  border-color: var(--primary-dark-color);
 }
 
 .section-header {
@@ -170,7 +170,7 @@
 .section-card h3 {
   margin: 0;
   font-size: 1.1rem;
-  color: #fff;
+  color: var(--primary-white-color);
 }
 
 .section-actions {
@@ -181,7 +181,7 @@
 .section-btn {
   background: none;
   border: none;
-  color: #666;
+  color: var(--primary-grey-color);
   cursor: pointer;
   padding: 8px;
   border-radius: 4px;
@@ -189,13 +189,12 @@
 }
 
 .section-btn.edit:hover {
-  color: #00ff62;
-  background: rgba(0, 255, 98, 0.1);
+  color: var(--primary-green);
+  background: var(--section-border-color);
 }
 
 .section-btn.delete:hover {
-  color: #ff3d3d;
-  background: rgba(255, 61, 61, 0.1);
+  color: #ff6b6b;
 }
 
 .lessons-container {
@@ -209,14 +208,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 12px 15px;
-  background: rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .lesson-item:hover {
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--primary-dark-color);
   transform: translateX(5px);
 }
 
@@ -227,12 +225,12 @@
 }
 
 .lesson-info i {
-  color: #00ff62;
+  color: var(--primary-green);
   font-size: 1.1rem;
 }
 
 .lesson-info span {
-  color: #ccc;
+  color: var(--primary-white-color);
   font-size: 0.95rem;
 }
 
@@ -250,7 +248,7 @@
 .lesson-btn {
   background: none;
   border: none;
-  color: #666;
+  color: var(--primary-grey-color);
   cursor: pointer;
   padding: 6px;
   border-radius: 4px;
@@ -258,17 +256,16 @@
 }
 
 .lesson-btn.edit:hover {
-  color: #00ff62;
-  background: rgba(0, 255, 98, 0.1);
+  color: var(--primary-green);
+  background: var(--section-border-color);
 }
 
 .lesson-btn.delete:hover {
-  color: #ff3d3d;
-  background: rgba(255, 61, 61, 0.1);
+  color: var(--error-color);
 }
 
 .no-lessons {
-  color: #666;
+  color: var(--primary-grey-color);
   text-align: center;
   padding: 15px;
   font-style: italic;
@@ -281,16 +278,16 @@
   gap: 8px;
   padding: 8px 16px;
   background: transparent;
-  border: 1px solid #00ff62;
+  border: 1px solid var(--primary-green);
   border-radius: 4px;
-  color: #00ff62;
+  color: var(--primary-green);
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 0.9rem;
 }
 
 .add-lesson-btn:hover {
-  background: rgba(0, 255, 98, 0.1);
+  background: var(--section-border-color);
   transform: translateY(-2px);
 }
 
@@ -301,15 +298,14 @@
 
 input[type="file"] {
   padding: 8px;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid #333;
+  border: 1px solid var(--primary-dark-color);
   border-radius: 4px;
-  color: #fff;
+  color: var(--primary-white-color);
   cursor: pointer;
 }
 
 input[type="file"]::-webkit-file-upload-button {
-  background: #00ff62;
+  background: var(--primary-green);
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
@@ -318,13 +314,12 @@ input[type="file"]::-webkit-file-upload-button {
   margin-right: 10px;
 }
 .section-btn.delete {
-  color: #dc3545;
+  color: var(--error-color);
   transition: all 0.3s ease;
 }
 
 .section-btn.delete:hover {
-  background-color: #dc3545;
-  color: white;
+  background-color: var(--primary-grey-color);
 }
 
 .delete-confirmation {
@@ -334,7 +329,7 @@ input[type="file"]::-webkit-file-upload-button {
 
 .delete-confirmation p {
   margin-bottom: 15px;
-  color: #fff;
+  color: var(--error-color);
 }
 
 .delete-confirmation .warning-text {
@@ -353,29 +348,29 @@ input[type="file"]::-webkit-file-upload-button {
 .confirmation-actions .cancel-btn {
   padding: 10px 20px;
   background: transparent;
-  border: 1px solid #666;
-  color: #fff;
+  border: 1px solid var(--primary-grey-color);
+  color: var(--primary-white-color);
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .confirmation-actions .cancel-btn:hover {
-  background: #333;
-  border-color: #333;
+  background: var(--primary-dark-color);
+  border-color: var(--primary-dark-color);
 }
 
 .confirmation-actions .delete-btn {
   padding: 10px 20px;
-  background: #dc3545;
+  background: var(--error-color);
   border: none;
-  color: white;
+  color: var(--primary-white-color);
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .confirmation-actions .delete-btn:hover {
-  background: #c82333;
+  background: var(--error-color);
   transform: translateY(-1px);
 }

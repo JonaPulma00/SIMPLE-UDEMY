@@ -1,3 +1,11 @@
 :root {
-  --dark-color: #0a0a0a
+  --primary-dark-color: #0a0a0a;
+  --primary-gradient-green: linear-gradient(90deg, #ffffff, #00ff62);
+  --primary-green: #00ff62;
+  --error-color: #ff3d3d;
+  --primary-white-color: #f8f9fa;
+  --green-shadow: rgba(0, 255, 98, 0.3);
+  --primary-grey-color: #333;
+  --section-grey-color: #111;
+  --section-border-color: #222;
 }
