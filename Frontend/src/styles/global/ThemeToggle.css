@@ -1,0 +1,23 @@
+.theme-toggle {
+  background: transparent;
+  border: 1px solid var(--primary-grey-color);
+  color: var(--soft-grey);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background-color: var(--card-border-color);
+  border-color: var(--primary-green);
+  color: var(--primary-green);
+}
+
+.theme-toggle i {
+  font-size: 1.2rem;
+}

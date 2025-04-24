@@ -3,6 +3,7 @@ import { logoutUser } from "../services/userService";
 import '../styles/dashboard/Sidebar.css'
 import iconTest from '../assets/home/teacher.png'
 import { useUser } from "../context/UserContext";
+import { ThemeToggle } from "./ThemeToggle";
 
 const truncateUsername = (username, maxLength = 12) => {
   if (!username || username.length <= maxLength) return username;
@@ -100,10 +101,13 @@ export const Sidebar = () => {
         </div>
 
         <div className="sidebar-footer">
-          <button className="logout-btn" onClick={handleLogout}>
-            <i className="fas fa-sign-out-alt"></i>
-            <span>Logout</span>
-          </button>
+          <div className="sidebar-footer-actions">
+            <ThemeToggle />
+            <button className="logout-btn" onClick={handleLogout}>
+              <i className="fas fa-sign-out-alt"></i>
+              <span>Logout</span>
+            </button>
+          </div>
         </div>
       </div>
 

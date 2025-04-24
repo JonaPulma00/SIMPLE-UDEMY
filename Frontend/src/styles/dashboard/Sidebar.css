@@ -280,3 +280,15 @@
   visibility: visible;
   opacity: 1;
 }
+
+.sidebar-footer-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+
+.logout-btn {
+  flex: 1;
+
+}

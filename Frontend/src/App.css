@@ -1,4 +1,10 @@
 :root {
+  /* Common Colors */
+  --primary-green: #00ff62;
+  --primary-teal: #00ffaa;
+  --error-color: #ff3d3d;
+  --soft-red: #ff6b6b;
+  
   /* Dark Mode Colors */
   --primary-dark-color: #0a0a0a;
   --section-grey-color: #111;
@@ -8,15 +14,6 @@
   
   /* Light/White Colors */
   --primary-white-color: #f8f9fa;
-  
-  /* Accent Colors */
-  --primary-green: #00ff62;
-  --primary-teal: #00ffaa;
-  --dark-green-hover: #00cc4e;
-  
-  /* Error/Warning/Red Colors */
-  --error-color: #ff3d3d;
-  --soft-red: #ff6b6b;
   
   /* Neutral Colors */
   --soft-grey: #b8b8b8;
@@ -41,4 +38,64 @@
   /* Transparent Teal Colors */
   --teal-transparent-10: rgba(0, 255, 170, 0.1);
   --teal-transparent-80: rgba(0, 255, 170, 0.8);
+}
+
+[data-theme="dark"] {
+  /* Dark Mode Colors */
+  --primary-dark-color: #0a0a0a;
+  --section-grey-color: #111;
+  --section-border-color: #222;
+  --primary-grey-color: #333;
+  --background-black: #000000;
+  --primary-white-color: #f8f9fa;
+  --soft-grey: #b8b8b8;
+  
+  /* Gradients */
+  --primary-gradient-green: linear-gradient(90deg, #ffffff, #00ff62);
+  --dark-gradient: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 50, 20, 0.8) 100%);
+  
+  /* Transparent Colors */
+  --green-shadow: rgba(0, 255, 98, 0.3);
+  --transparent-green-hover: rgba(0, 255, 98, 0.2);
+  --card-border-color: rgba(0, 255, 98, 0.1);
+  --card-border-hover: rgba(0, 255, 98, 0.3);
+  --card-shadow-hover: rgba(0, 255, 98, 0.1);
+  --transparent-black: rgba(0, 0, 0, 0.3);
+  --transparent-black-input: rgba(0, 0, 0, 0.7);
+  --hero-overlay-bg: rgba(10, 10, 10, 0.5);
+  --section-overlay-bg: rgba(10, 10, 10, 0.7);
+  --modal-overlay-bg: rgba(0, 0, 0, 0.8);
+  --hover-light-bg: rgba(255, 255, 255, 0.05);
+  --teal-transparent-10: rgba(0, 255, 170, 0.1);
+  --teal-transparent-80: rgba(0, 255, 170, 0.8);
+}
+
+[data-theme="light"] {
+  /* Light Mode Colors */
+  --primary-dark-color: #ffffff;
+  --section-grey-color: #f5f5f5;
+  --section-border-color: #e0e0e0;
+  --primary-grey-color: #757575;
+  --background-black: #ffffff;
+  --primary-white-color: #333333;
+  --soft-grey: #666666;
+  
+  /* Gradients */
+  --primary-gradient-green: linear-gradient(90deg, #333333, #00ff62);
+  --dark-gradient: linear-gradient(135deg, rgba(245, 245, 245, 0.8) 0%, rgba(200, 255, 220, 0.8) 100%);
+  
+  /* Transparent Colors */
+  --green-shadow: rgba(0, 255, 98, 0.2);
+  --transparent-green-hover: rgba(0, 255, 98, 0.1);
+  --card-border-color: rgba(0, 255, 98, 0.05);
+  --card-border-hover: rgba(0, 255, 98, 0.2);
+  --card-shadow-hover: rgba(0, 255, 98, 0.05);
+  --transparent-black: rgba(0, 0, 0, 0.1);
+  --transparent-black-input: rgba(0, 0, 0, 0.05);
+  --hero-overlay-bg: rgba(245, 245, 245, 0.5);
+  --section-overlay-bg: rgba(245, 245, 245, 0.7);
+  --modal-overlay-bg: rgba(255, 255, 255, 0.9);
+  --hover-light-bg: rgba(0, 0, 0, 0.05);
+  --teal-transparent-10: rgba(0, 255, 170, 0.05);
+  --teal-transparent-80: rgba(0, 255, 170, 0.2);
 }
