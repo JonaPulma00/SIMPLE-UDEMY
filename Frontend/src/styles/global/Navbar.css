@@ -3,14 +3,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px 50px;
-  background-color: #000;
+  background-color: var(--background-black);
   position: relative;
-  box-shadow: 0 0 20px rgba(0, 255, 170, 0.1);
-  border-bottom: 1px solid rgba(0, 255, 170, 0.05);
+  box-shadow: 0 0 20px var(--teal-transparent-10);
+  border-bottom: 1px solid var(--teal-transparent-10);
 }
 
 .logo a {
-  color: white;
+  color: var(--primary-white-color);
   text-decoration: none;
   font-weight: bold;
   font-size: 24px;
@@ -28,7 +28,7 @@
 }
 
 .nav-links a {
-  color: white;
+  color: var(--primary-white-color);
   text-decoration: none;
   font-size: 16px;
   transition: color 0.3s;
@@ -37,11 +37,11 @@
 }
 
 .nav-links a:hover {
-  color: rgba(0, 255, 170, 0.8);
+  color: var(--teal-transparent-80);
 }
 
 .nav-links a.active {
-  color: rgba(0, 255, 170, 0.8);
+  color: var(--teal-transparent-80);
 }
 
 .arrow {
@@ -59,13 +59,13 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #111;
+  background-color: var(--section-grey-color);
   min-width: 180px;
   border-radius: 5px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 15px var(--transparent-black);
   z-index: 100;
   padding: 10px 0;
-  border: 1px solid rgba(0, 255, 170, 0.1);
+  border: 1px solid var(--teal-transparent-10);
 }
 
 .dropdown-menu li {
@@ -74,11 +74,11 @@
 
 .dropdown-menu a {
   padding: 10px 20px;
-  color: #ddd;
+  color: var(--soft-grey);
 }
 
 .dropdown-menu a:hover {
-  background-color: rgba(0, 255, 170, 0.1);
+  background-color: var(--teal-transparent-10);
 }
 
 .auth-buttons {
@@ -96,8 +96,8 @@
 }
 
 .btn-login {
-  color: white;
-  border: 1px solid #00ffaacc;
+  color: var(--primary-white-color);
+  border: 1px solid var(--teal-transparent-80);
   text-decoration: none;
   padding: 8px 16px;
   border-radius: 5px;
@@ -116,13 +116,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #00ffaacc;
+  background-color: var(--teal-transparent-80);
   transition: transform 0.5s ease-in-out;
   z-index: -1;
 }
 
 .btn-login:hover {
-  color: #000;
+  color: var(--background-black);
 }
 
 .btn-login:hover::before {
@@ -130,14 +130,14 @@
 }
 
 .btn-get-started {
-  background-color: white;
+  background-color: var(--primary-white-color);
   font-weight: bold;
-  color: black;
+  color: var(--background-black);
 }
 
 .btn-get-started:hover {
-  background-color: rgba(0, 255, 170, 0.8);
-  color: black;
+  background-color: var(--teal-transparent-80);
+  color: var(--background-black);
 }
 
 .hamburger {
@@ -150,7 +150,7 @@
   width: 25px;
   height: 3px;
   margin: 5px auto;
-  background-color: white;
+  background-color: var(--primary-white-color);
   transition: all 0.3s;
 }
 
@@ -161,7 +161,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 50% 100%, rgba(0, 255, 170, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 100%, var(--teal-transparent-10) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -195,7 +195,7 @@
     top: 70px;
     gap: 0;
     flex-direction: column;
-    background-color: #111;
+    background-color: var(--section-grey-color);
     width: 100%;
     text-align: center;
     transition: 0.3s;
@@ -220,7 +220,7 @@
     position: static;
     width: 100%;
     box-shadow: none;
-    background-color: #222;
+    background-color: var(--section-border-color);
   }
 
   .dropdown-toggle {

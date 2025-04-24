@@ -21,4 +21,9 @@
   --transparent-black-input: rgba(0, 0, 0, 0.7);
   --dark-gradient: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 50, 20, 0.8) 100%);
   --section-overlay-bg: rgba(10, 10, 10, 0.7);
+  --modal-overlay-bg: rgba(0, 0, 0, 0.8);
+  --hover-light-bg: rgba(255, 255, 255, 0.05);
+  --primary-teal: #00ffaa;
+  --teal-transparent-10: rgba(0, 255, 170, 0.1);
+  --teal-transparent-80: rgba(0, 255, 170, 0.8);
 }

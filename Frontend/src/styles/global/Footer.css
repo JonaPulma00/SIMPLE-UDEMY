@@ -1,8 +1,7 @@
-
 .footer {
   position: relative;
   width: 100%;
-  background: #000;
+  background: var(--background-black);
   min-height: 100px;
   padding: 5px 50px;
   display: flex;
@@ -25,7 +24,7 @@
 }
 
 .icon {
-  color: white;
+  color: var(--primary-white-color);
   font-size: 25px;
   display: inline-block;
   margin: 0 10px;
@@ -48,8 +47,9 @@
 .menu-elem {
   list-style: none;
 }
+
 .menu-icon {
-  color: white;
+  color: var(--primary-white-color);
   font-size: 15px;
   display: inline-block;
   text-decoration: none;
@@ -61,13 +61,9 @@
 .menu-icon:hover {
   opacity: 1;
 }
-.active-icon {
-  color: red; 
-  transform: scale(1.2); 
-}
 
 .text {
-  color: white;
+  color: var(--primary-white-color);
   text-align: center;
   margin-top: 15px;
   margin-bottom: 1px;
