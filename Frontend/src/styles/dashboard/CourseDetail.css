@@ -193,10 +193,6 @@
   background: var(--section-border-color);
 }
 
-.section-btn.delete:hover {
-  color: #ff6b6b;
-}
-
 .lessons-container {
   display: flex;
   flex-direction: column;
@@ -357,7 +353,7 @@ input[type="file"]::-webkit-file-upload-button {
 
 .confirmation-actions .cancel-btn:hover {
   background: var(--primary-dark-color);
-  border-color: var(--primary-dark-color);
+  border-color: var(--primary-grey-color);
 }
 
 .confirmation-actions .delete-btn {
