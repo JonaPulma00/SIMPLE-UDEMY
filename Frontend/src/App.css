@@ -10,4 +10,15 @@
   --section-border-color: #222;
   --soft-red: #ff6b6b;
   --soft-grey: #b8b8b8;
+  --hero-overlay-bg: rgba(10, 10, 10, 0.5);
+  --background-black: #000000;
+  --dark-green-hover: #00cc4e;
+  --transparent-green-hover: rgba(0, 255, 98, 0.2);
+  --card-border-color: rgba(0, 255, 98, 0.1);
+  --card-border-hover: rgba(0, 255, 98, 0.3);
+  --card-shadow-hover: rgba(0, 255, 98, 0.1);
+  --transparent-black: rgba(0, 0, 0, 0.3);
+  --transparent-black-input: rgba(0, 0, 0, 0.7);
+  --dark-gradient: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 50, 20, 0.8) 100%);
+  --section-overlay-bg: rgba(10, 10, 10, 0.7);
 }

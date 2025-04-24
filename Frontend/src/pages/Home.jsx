@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { Footer } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
-import "../styles/global/Home.css";
 import iconLearn from '../assets/home/study.png';
 import iconTeacher from '../assets/home/teacher.png';
 import iconCode from '../assets/home/code.png';
 import { ParticlesComponent } from "../components/ParticlesComponent";
+import "../styles/global/Home.css";
+import "../../src/App.css"
+
 export const Home = () => {
   const navigate = useNavigate();
 
