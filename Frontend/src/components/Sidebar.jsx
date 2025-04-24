@@ -93,9 +93,9 @@ export const Sidebar = () => {
           )}
 
           <div className="menu-item">
-            <NavLink to="/settings" className="">
-              <i className="fas fa-cog"></i>
-              <span>Settings</span>
+            <NavLink to="/stream" className="">
+              <i class="fa-solid fa-video"></i>
+              <span>Streaming</span>
             </NavLink>
           </div>
         </div>

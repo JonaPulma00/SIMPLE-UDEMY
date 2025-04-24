@@ -1,16 +1,14 @@
 import { NavLink } from "react-router-dom"
 import { useState } from "react"
-
+import { ThemeToggle } from "./ThemeToggle"
 import '../styles/global/Navbar.css'
 
 export const Navbar = () => {
   const [isMenuActive, setIsMenuActive] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
-
   const toggleMenu = () => {
     setIsMenuActive(!isMenuActive)
-
     setIsDropdownOpen(false)
   }
 
@@ -18,6 +16,7 @@ export const Navbar = () => {
     e.preventDefault()
     setIsDropdownOpen(!isDropdownOpen)
   }
+
   return (
     <nav className="navbar">
       <div className="logo">
@@ -42,9 +41,12 @@ export const Navbar = () => {
           <li><NavLink>Courses</NavLink></li>
         </ul>
       </div>
-      <div className="auth-buttons">
-        <NavLink to='/login' className="btn-login">Log In</NavLink>
-        <NavLink to='/register' className="btn btn-get-started">Get Started</NavLink>
+      <div className="nav-actions">
+        <ThemeToggle />
+        <div className="auth-buttons">
+          <NavLink to='/login' className="btn-login">Log In</NavLink>
+          <NavLink to='/register' className="btn btn-get-started">Get Started</NavLink>
+        </div>
       </div>
       <div
         className={`hamburger ${isMenuActive ? 'active' : ''}`}
