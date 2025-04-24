@@ -172,11 +172,10 @@ export const CourseDetail = () => {
                         [...section.lessons]
                           .sort((a, b) => a.position - b.position)
                           .map((lesson) => (
-                            <div key={lesson.lesson_id} className="lesson-item">
+                            <div key={lesson.lesson_id} className="lesson-item" onClick={() => handlePlayVideo(lesson.lesson_id, lesson.title)}>
                               <div className="lesson-info">
                                 <i
                                   className="fas fa-play-circle"
-                                  onClick={() => handlePlayVideo(lesson.lesson_id, lesson.title)}
                                   style={{ cursor: 'pointer' }}
                                 ></i>
                                 <span>{lesson.title}</span>
