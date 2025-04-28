@@ -1,15 +1,19 @@
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { useEffect, memo } from "react";
 import { loadSlim } from "@tsparticles/slim";
-
-
+import { useTheme } from "../context/ThemeContext";
 
 export const ParticlesComponent = memo((props) => {
+  const { theme } = useTheme();
+
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
     })
   }, []);
+
+  const particleColor = theme === "dark" ? "#FFFFFF" : "#000";
+  const linkColor = theme === "dark" ? "#FFFFFF" : "#000";
 
   const options = {
     fpsLimit: 120,
@@ -36,10 +40,10 @@ export const ParticlesComponent = memo((props) => {
     },
     particles: {
       color: {
-        value: "#FFFFFF",
+        value: particleColor,
       },
       links: {
-        color: "#FFFFFF",
+        color: linkColor,
         distance: 120,
         enable: true,
         opacity: 0.3,
@@ -73,7 +77,6 @@ export const ParticlesComponent = memo((props) => {
       },
     },
     detectRetina: true,
-
   }
 
   return <Particles id={props.id} options={options} />;
