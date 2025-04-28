@@ -15,4 +15,14 @@ io.on("connection", (socket) => {
     socket.join(groupId.toString());
     console.log(`User ${socket.id} joined room ${groupId}`);
   });
+
+  socket.on("leave-room", (groupId) => {
+    socket.leave(groupId.toString());
+    console.log(`User ${socket.id} left room ${groupId}`);
+  });
+
+  socket.on("disconnect", () => {
+    socket.disconnect();
+    console.log(`User disconnected: ${socket.id}`);
+  });
 });
