@@ -10,6 +10,11 @@ const io = new Server(PORT, {
     origin: [FRONT_URL],
   },
 });
+if (io) {
+  console.log("Server started at port:", PORT);
+} else {
+  console.error("Unable to start the server");
+}
 io.on("connection", (socket) => {
   socket.on("join-room", (groupId) => {
     socket.join(groupId.toString());
@@ -22,7 +27,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("start-stream", (groupId) => {
-    io.to(groupId).broadcast.emit("stream-started", socket.id);
+    io.to(groupId).emit("stream-started", socket.id);
     console.log(`Instructor started stream in room ${groupId}`);
   });
 
