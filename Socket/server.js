@@ -21,8 +21,15 @@ io.on("connection", (socket) => {
     console.log(`User ${socket.id} left room ${groupId}`);
   });
 
+  socket.on("start-stream", (groupId) => {
+    io.to(groupId).broadcast.emit("stream-started", socket.id);
+    console.log(`Instructor started stream in room ${groupId}`);
+  });
+
+  socket.on("draw", (groupId, drawingData) => {
+    io.to(groupId).emit("draw-update", drawingData);
+  });
   socket.on("disconnect", () => {
-    socket.disconnect();
     console.log(`User disconnected: ${socket.id}`);
   });
 });
