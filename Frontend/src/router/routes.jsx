@@ -12,6 +12,7 @@ import { InstructorCourses } from "../pages/dashboard/InstructorCourses"
 import { CourseDetail } from "../pages/dashboard/CourseDetail"
 import { UserEnrollments } from "../pages/dashboard/user/UserEnrollments"
 import { UserCourseDetail } from "../pages/dashboard/user/UserCourseDetail"
+import { Whiteboard } from "../components/Whiteboard"
 export const AppRoutes = () => {
   return (
     <Routes>
@@ -75,6 +76,15 @@ export const AppRoutes = () => {
             <UserEnrollments />
           </ProtectedRoute>
         } />
+
+      <Route
+        path="/stream"
+        element={
+          <ProtectedRoute>
+            <Whiteboard />
+          </ProtectedRoute>
+        } />
+
 
       <Route path="/*" element={<Navigate to='/' />}></Route>
     </Routes>
