@@ -13,15 +13,20 @@ export const socket = io(import.meta.env.VITE_SOCKET_SERVER_URL, {
 });
 
 export const connectSocket = () => {
-  if (!socket.connected) socket.connect();
-  console.log("Connected to socket!");
+  if (!socket.connected) {
+    socket.connect();
+  }
 };
+
 export const reconnectSocket = () => {
   if (socket.connected) socket.disconnect();
   socket.connect();
 };
 
 export const joinRoom = (roomId) => {
+  if (!socket.connected) {
+    socket.connect();
+  }
   socket.emit("join-room", roomId);
 };
 
@@ -32,12 +37,15 @@ export const leaveRoom = (roomId) => {
 export const startStream = (roomId) => {
   socket.emit("start-stream", roomId);
 };
+
 export const sendDrawing = (roomId, drawingData) => {
   socket.emit("draw", roomId, drawingData);
 };
 
 export const onDrawingUpdate = (callback) => {
-  socket.on("draw-update", callback);
+  socket.on("draw-update", (data) => {
+    callback(data);
+  });
 };
 
 export const offDrawingUpdate = () => {

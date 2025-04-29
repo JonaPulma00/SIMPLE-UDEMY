@@ -1,11 +1,25 @@
 import { Stage, Layer, Line } from "react-konva";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { joinRoom, sendDrawing, onDrawingUpdate, offDrawingUpdate } 
+from "../services/socketService";
 import "../styles/global/Whiteboard.css";
 
 export const Whiteboard = () => {
   const [lines, setLines] = useState([]);
   const isDrawing = useRef(false);
 
+  useEffect(() => {
+    joinRoom("test-room");
+
+    onDrawingUpdate((drawingData) => {
+      console.log("Data drawing", drawingData)
+      setLines(prevLines => [...prevLines, drawingData])
+    });
+
+    return () => {
+      offDrawingUpdate()
+    }
+  }, []);
   const handleMouseDown = (e) => {
     isDrawing.current = true;
     const pos = e.target.getStage().getPointerPosition();
@@ -21,6 +35,8 @@ export const Whiteboard = () => {
       const lastLine = prevLines[prevLines.length - 1];
       const newPoints = lastLine.points.concat([point.x, point.y]);
       const updatedLines = [...prevLines.slice(0, -1), { points: newPoints }];
+      setLines(updatedLines)
+      sendDrawing("test-room", {points: newPoints})
       return updatedLines;
     });
   };
