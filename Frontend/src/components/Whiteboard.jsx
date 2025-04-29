@@ -1,7 +1,7 @@
 import { Stage, Layer, Line } from "react-konva";
 import { useState, useRef, useEffect } from "react";
-import { joinRoom, sendDrawing, onDrawingUpdate, offDrawingUpdate } 
-from "../services/socketService";
+import { joinRoom, sendDrawing, onDrawingUpdate, offDrawingUpdate }
+  from "../services/socketService";
 import "../styles/global/Whiteboard.css";
 
 export const Whiteboard = () => {
@@ -9,7 +9,7 @@ export const Whiteboard = () => {
   const isDrawing = useRef(false);
 
   useEffect(() => {
-    joinRoom("test-room");
+    joinRoom(12);
 
     onDrawingUpdate((drawingData) => {
       console.log("Data drawing", drawingData)
@@ -36,7 +36,7 @@ export const Whiteboard = () => {
       const newPoints = lastLine.points.concat([point.x, point.y]);
       const updatedLines = [...prevLines.slice(0, -1), { points: newPoints }];
       setLines(updatedLines)
-      sendDrawing("test-room", {points: newPoints})
+      sendDrawing(12, { points: newPoints })
       return updatedLines;
     });
   };
@@ -61,7 +61,7 @@ export const Whiteboard = () => {
               key={i}
               points={line.points}
               stroke="black"
-              strokeWidth={2}
+              strokeWidth={4}
               lineCap="round"
             />
           ))}
