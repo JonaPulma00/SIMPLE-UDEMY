@@ -31,6 +31,17 @@ export const leaveRoom = (roomId) => {
 export const startStream = (roomId) => {
   socket.emit("start-stream", roomId);
 };
+export const sendDrawing = (roomId, drawingData) => {
+  socket.emit("draw", roomId, drawingData);
+};
+
+export const onDrawingUpdate = (callback) => {
+  socket.on("draw-update", callback);
+};
+
+export const offDrawingUpdate = () => {
+  socket.off("draw-update");
+};
 
 export const disconnectSocket = () => {
   socket.disconnect();
