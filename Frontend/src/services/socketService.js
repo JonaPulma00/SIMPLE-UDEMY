@@ -14,6 +14,7 @@ export const socket = io(import.meta.env.VITE_SOCKET_SERVER_URL, {
 
 export const connectSocket = () => {
   if (!socket.connected) socket.connect();
+  console.log("Connected to socket!");
 };
 export const reconnectSocket = () => {
   if (socket.connected) socket.disconnect();
