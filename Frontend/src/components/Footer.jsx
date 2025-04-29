@@ -8,7 +8,7 @@ export const Footer = () => {
           <li className="icon-elem">
             <NavLink
               to="/about"
-              className={icon}
+              className="icon"
             >
               <ion-icon name="logo-youtube"></ion-icon>
             </NavLink>
