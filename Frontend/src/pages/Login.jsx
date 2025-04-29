@@ -4,14 +4,14 @@ import { Navbar } from "../components/Navbar"
 import { useForm } from "../hooks/useForm"
 import { useState } from "react"
 import { loginUser } from "../services/authService"
-import "../styles/user/authForms.css"
 import { ParticlesComponent } from "../components/ParticlesComponent"
 import { useGoogleLogin } from '@react-oauth/google'
-import axios from 'axios'
 import { saveToken } from "../services/tokenService"
 import { useUser } from "../context/UserContext"
 import { toast } from 'react-toastify'
-
+import { connectSocket } from "../services/socketService"
+import "../styles/user/authForms.css"
+import axios from 'axios'
 export const Login = () => {
 
   const initialForm = {
@@ -33,6 +33,7 @@ export const Login = () => {
 
       if (response && response.data && response.data.access_token) {
         saveToken(response.data.access_token);
+        connectSocket()
         loadUserFromToken();
         navigate('/dashboard');
       }
@@ -65,6 +66,7 @@ export const Login = () => {
 
         if (response && response.data && response.data.access_token) {
           saveToken(response.data.access_token);
+          connectSocket()
           loadUserFromToken();
           navigate('/dashboard');
         }

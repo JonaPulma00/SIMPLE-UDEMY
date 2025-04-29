@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getToken, saveToken, deleteToken } from "../services/tokenService";
-
+import { reconnectSocket } from "../services/socketService";
 const api = axios.create({
   baseURL: import.meta.env.VITE_APP_API_URL,
   withCredentials: true,
@@ -47,6 +47,7 @@ api.interceptors.response.use(
           api.defaults.headers.common[
             "Authorization"
           ] = `Bearer ${res.data.access_token}`;
+          reconnectSocket();
           return api(originalRequest);
         }
       } catch (refreshError) {
