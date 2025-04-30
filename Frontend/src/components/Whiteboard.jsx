@@ -1,5 +1,5 @@
 import { Stage, Layer, Line } from "react-konva";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { joinRoom, sendDrawing, onDrawingUpdate, offDrawingUpdate }
   from "../services/socketService";
 import "../styles/global/Whiteboard.css";
@@ -13,6 +13,8 @@ export const Whiteboard = () => {
     height: window.innerHeight * 0.7
   });
   const isDrawing = useRef(false);
+  const lastSentTime = useRef(0);
+  const THROTTLE_TIME = 50; 
 
   useEffect(() => {
     joinRoom("12");
@@ -36,14 +38,24 @@ export const Whiteboard = () => {
     };
   }, []);
 
+  const throttledSendDrawing = useCallback((roomId, drawingData) => {
+    const now = Date.now();
+    if (now - lastSentTime.current >= THROTTLE_TIME) {
+      sendDrawing(roomId, drawingData);
+      lastSentTime.current = now;
+    }
+  }, []);
+
   const handleMouseDown = (e) => {
     isDrawing.current = true;
     const pos = e.target.getStage().getPointerPosition();
-    setLines([...lines, {
+    const newLine = {
       points: [pos.x, pos.y],
       strokeWidth: strokeWidth,
       strokeColor: strokeColor
-    }]);
+    };
+    setLines([...lines, newLine]);
+    throttledSendDrawing("12", newLine);
   };
 
   const handleMouseMove = (e) => {
@@ -62,7 +74,8 @@ export const Whiteboard = () => {
       };
       const updatedLines = [...prevLines.slice(0, -1), newLine];
 
-      sendDrawing("12", newLine);
+ 
+      throttledSendDrawing("12", newLine);
 
       return updatedLines;
     });
