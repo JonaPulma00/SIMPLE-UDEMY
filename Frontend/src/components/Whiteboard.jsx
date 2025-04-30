@@ -8,6 +8,7 @@ export const Whiteboard = () => {
   const [lines, setLines] = useState([]);
   const [strokeWidth, setStrokeWidth] = useState(3);
   const [strokeColor, setStrokeColor] = useState("#000000");
+  const [isEraser, setIsEraser] = useState(false);
   const [stageSize, setStageSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight * 0.7
@@ -52,7 +53,9 @@ export const Whiteboard = () => {
     const newLine = {
       points: [pos.x, pos.y],
       strokeWidth: strokeWidth,
-      strokeColor: strokeColor
+      strokeColor: isEraser ? "#FFFFFF" : strokeColor,
+      isEraser: isEraser,
+      globalCompositeOperation: isEraser ? 'destination-out' : 'source-over'
     };
     setLines([...lines, newLine]);
     throttledSendDrawing("12", newLine);
@@ -70,11 +73,12 @@ export const Whiteboard = () => {
       const newLine = {
         points: newPoints,
         strokeWidth: lastLine.strokeWidth,
-        strokeColor: lastLine.strokeColor
+        strokeColor: lastLine.strokeColor,
+        isEraser: lastLine.isEraser,
+        globalCompositeOperation: lastLine.globalCompositeOperation
       };
       const updatedLines = [...prevLines.slice(0, -1), newLine];
 
- 
       throttledSendDrawing("12", newLine);
 
       return updatedLines;
@@ -83,6 +87,10 @@ export const Whiteboard = () => {
 
   const handleMouseUp = () => {
     isDrawing.current = false;
+  };
+
+  const toggleEraser = () => {
+    setIsEraser(!isEraser);
   };
 
   return (
@@ -107,7 +115,17 @@ export const Whiteboard = () => {
             type="color"
             value={strokeColor}
             onChange={(e) => setStrokeColor(e.target.value)}
+            disabled={isEraser}
           />
+        </div>
+        <div className="control-group">
+          <button 
+            className={`tool-btn ${isEraser ? 'active' : ''}`}
+            onClick={toggleEraser}
+            title="Eraser"
+          >
+            {isEraser ? '✏️' : '🧽'}
+          </button>
         </div>
       </div>
       <Stage
@@ -126,6 +144,7 @@ export const Whiteboard = () => {
               stroke={line.strokeColor}
               strokeWidth={line.strokeWidth}
               lineCap="round"
+              globalCompositeOperation={line.globalCompositeOperation}
             />
           ))}
         </Layer>

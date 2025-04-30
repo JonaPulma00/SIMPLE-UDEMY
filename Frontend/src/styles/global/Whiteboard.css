@@ -24,6 +24,11 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 0 10px;
+}
+
+.control-group:not(:last-child) {
+  border-right: 1px solid #ddd;
 }
 
 .control-group label {
@@ -42,6 +47,25 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.tool-btn {
+  padding: 8px 12px;
+  font-size: 20px;
+  border: 2px solid #ddd;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tool-btn:hover {
+  background: #f0f0f0;
+}
+
+.tool-btn.active {
+  background: #e0e0e0;
+  border-color: #999;
 }
 
 @media (max-width: 480px) {
