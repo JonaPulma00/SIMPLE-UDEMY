@@ -6,37 +6,64 @@ import "../styles/global/Whiteboard.css";
 
 export const Whiteboard = () => {
   const [lines, setLines] = useState([]);
+  const [strokeWidth, setStrokeWidth] = useState(3);
+  const [strokeColor, setStrokeColor] = useState("#000000");
+  const [stageSize, setStageSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight * 0.7
+  });
   const isDrawing = useRef(false);
 
   useEffect(() => {
-    joinRoom(12);
+    joinRoom("12");
 
     onDrawingUpdate((drawingData) => {
-      console.log("Data drawing", drawingData)
-      setLines(prevLines => [...prevLines, drawingData])
+      setLines(prevLines => [...prevLines, drawingData]);
     });
 
+    const handleResize = () => {
+      setStageSize({
+        width: window.innerWidth,
+        height: window.innerHeight * 0.7
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+
     return () => {
-      offDrawingUpdate()
-    }
+      offDrawingUpdate();
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
+
   const handleMouseDown = (e) => {
     isDrawing.current = true;
     const pos = e.target.getStage().getPointerPosition();
-    setLines([...lines, { points: [pos.x, pos.y] }]);
-    console.log(pos)
+    setLines([...lines, {
+      points: [pos.x, pos.y],
+      strokeWidth: strokeWidth,
+      strokeColor: strokeColor
+    }]);
   };
 
   const handleMouseMove = (e) => {
     if (!isDrawing.current) return;
+
     const stage = e.target.getStage();
     const point = stage.getPointerPosition();
+
     setLines((prevLines) => {
       const lastLine = prevLines[prevLines.length - 1];
       const newPoints = lastLine.points.concat([point.x, point.y]);
-      const updatedLines = [...prevLines.slice(0, -1), { points: newPoints }];
-      setLines(updatedLines)
-      sendDrawing(12, { points: newPoints })
+      const newLine = {
+        points: newPoints,
+        strokeWidth: lastLine.strokeWidth,
+        strokeColor: lastLine.strokeColor
+      };
+      const updatedLines = [...prevLines.slice(0, -1), newLine];
+
+      sendDrawing("12", newLine);
+
       return updatedLines;
     });
   };
@@ -47,9 +74,32 @@ export const Whiteboard = () => {
 
   return (
     <main className="main">
+      <div className="controls">
+        <div className="control-group">
+          <label htmlFor="stroke-width">Width:</label>
+          <input
+            id="stroke-width"
+            type="range"
+            min="1"
+            max="20"
+            value={strokeWidth}
+            onChange={(e) => setStrokeWidth(parseInt(e.target.value))}
+          />
+          <span>{strokeWidth}px</span>
+        </div>
+        <div className="control-group">
+          <label htmlFor="stroke-color">Color:</label>
+          <input
+            id="stroke-color"
+            type="color"
+            value={strokeColor}
+            onChange={(e) => setStrokeColor(e.target.value)}
+          />
+        </div>
+      </div>
       <Stage
-        width={window.innerWidth}
-        height={400}
+        width={stageSize.width}
+        height={stageSize.height}
         className="board"
         onMouseDown={handleMouseDown}
         onMousemove={handleMouseMove}
@@ -60,8 +110,8 @@ export const Whiteboard = () => {
             <Line
               key={i}
               points={line.points}
-              stroke="black"
-              strokeWidth={4}
+              stroke={line.strokeColor}
+              strokeWidth={line.strokeWidth}
               lineCap="round"
             />
           ))}
