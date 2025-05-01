@@ -15,7 +15,7 @@ export const Whiteboard = () => {
   });
   const isDrawing = useRef(false);
   const lastSentTime = useRef(0);
-  const THROTTLE_TIME = 50; 
+  const THROTTLE_TIME = 50;
 
   useEffect(() => {
     joinRoom("12");
@@ -102,7 +102,7 @@ export const Whiteboard = () => {
             id="stroke-width"
             type="range"
             min="1"
-            max="20"
+            max="50"
             value={strokeWidth}
             onChange={(e) => setStrokeWidth(parseInt(e.target.value))}
           />
@@ -119,12 +119,12 @@ export const Whiteboard = () => {
           />
         </div>
         <div className="control-group">
-          <button 
+          <button
             className={`tool-btn ${isEraser ? 'active' : ''}`}
             onClick={toggleEraser}
             title="Eraser"
           >
-            {isEraser ? '✏️' : '🧽'}
+            {isEraser ? <i class="fa-solid fa-pencil"></i> : <i class="fa-solid fa-eraser"></i>}
           </button>
         </div>
       </div>
