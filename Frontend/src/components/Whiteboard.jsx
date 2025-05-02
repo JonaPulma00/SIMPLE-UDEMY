@@ -16,6 +16,7 @@ export const Whiteboard = () => {
   const isDrawing = useRef(false);
   const lastSentTime = useRef(0);
   const THROTTLE_TIME = 50;
+  const boardContainerRef = useRef(null);
 
   useEffect(() => {
     joinRoom("12");
@@ -24,18 +25,23 @@ export const Whiteboard = () => {
       setLines(prevLines => [...prevLines, drawingData]);
     });
 
-    const handleResize = () => {
-      setStageSize({
-        width: window.innerWidth,
-        height: window.innerHeight * 0.7
-      });
+    const updateStageSize = () => {
+      if (boardContainerRef.current) {
+        const width = boardContainerRef.current.offsetWidth;
+        const height = Math.min(width * 0.6, window.innerHeight * 0.7);
+        setStageSize({
+          width,
+          height
+        });
+      }
     };
 
-    window.addEventListener('resize', handleResize);
+    updateStageSize();
+    window.addEventListener('resize', updateStageSize);
 
     return () => {
       offDrawingUpdate();
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', updateStageSize);
     };
   }, []);
 
@@ -141,27 +147,34 @@ export const Whiteboard = () => {
           </button>
         </div>
       </div>
-      <Stage
-        width={stageSize.width}
-        height={stageSize.height}
+      <div
         className="board"
-        onMouseDown={handleMouseDown}
-        onMousemove={handleMouseMove}
-        onMouseup={handleMouseUp}
+        ref={boardContainerRef}
+        style={{ position: "relative" }}
       >
-        <Layer>
-          {lines.map((line, i) => (
-            <Line
-              key={i}
-              points={line.points}
-              stroke={line.strokeColor}
-              strokeWidth={line.strokeWidth}
-              lineCap="round"
-              globalCompositeOperation={line.globalCompositeOperation}
-            />
-          ))}
-        </Layer>
-      </Stage>
+        <Stage
+          width={stageSize.width}
+          height={stageSize.height}
+          style={{ width: "100%", height: "100%" }}
+          className="board-stage"
+          onMouseDown={handleMouseDown}
+          onMousemove={handleMouseMove}
+          onMouseup={handleMouseUp}
+        >
+          <Layer>
+            {lines.map((line, i) => (
+              <Line
+                key={i}
+                points={line.points}
+                stroke={line.strokeColor}
+                strokeWidth={line.strokeWidth}
+                lineCap="round"
+                globalCompositeOperation={line.globalCompositeOperation}
+              />
+            ))}
+          </Layer>
+        </Stage>
+      </div>
     </main>
   );
 };
