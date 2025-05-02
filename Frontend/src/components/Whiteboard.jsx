@@ -93,6 +93,10 @@ export const Whiteboard = () => {
     setIsEraser(!isEraser);
   };
 
+  const handleClear = () => {
+    setLines([]);
+  };
+
   return (
     <main className="main">
       <div className="controls">
@@ -124,7 +128,16 @@ export const Whiteboard = () => {
             onClick={toggleEraser}
             title="Eraser"
           >
-            {isEraser ? <i class="fa-solid fa-pencil"></i> : <i class="fa-solid fa-eraser"></i>}
+            {isEraser ? <i class="fa-sharp fa-solid fa-pencil"></i> : <i class="fa-solid fa-eraser"></i>}
+          </button>
+        </div>
+        <div className="control-group">
+          <button
+            className="tool-btn"
+            onClick={handleClear}
+            title="Clear Everything"
+          >
+            <i className="fa-solid fa-trash"></i> Clear
           </button>
         </div>
       </div>
