@@ -1,8 +1,9 @@
-import { Routes, Route, Navigate } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
 import { publicRoutes } from "./publicRoutes"
+import { UserRoutes } from "./userRoutes"
 import { DashboardRoutes } from "./dashboardRoutes"
 import { InstructorRoutes } from "./instructorRoutes"
-import { UserRoutes } from "./userRoutes"
+import { NotFound } from "../components/error/NotFound"
 
 export const AppRoutes = () => (
   <Routes>
@@ -10,6 +11,6 @@ export const AppRoutes = () => (
     {DashboardRoutes}
     {InstructorRoutes}
     {UserRoutes}
-    <Route path="/*" element={<Navigate to="/" />} />
+    <Route path="*" element={<NotFound />} />
   </Routes>
 )

@@ -8,7 +8,7 @@ from app.utils.video_handler import VideoHandler
 from app.controllers.course_controller import get_course_by_id
 from fastapi.responses import StreamingResponse
 import os
-import paramiko
+
 
 video_handler = VideoHandler()
 

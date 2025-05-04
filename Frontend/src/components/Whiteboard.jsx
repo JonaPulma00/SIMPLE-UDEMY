@@ -2,6 +2,7 @@ import { Stage, Layer, Line } from "react-konva";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { joinRoom, sendDrawing, onDrawingUpdate, offDrawingUpdate }
   from "../services/socketService";
+import { useUser } from "../context/UserContext";
 import "../styles/global/Whiteboard.css";
 
 export const Whiteboard = () => {
@@ -17,33 +18,37 @@ export const Whiteboard = () => {
   const lastSentTime = useRef(0);
   const THROTTLE_TIME = 50;
   const boardContainerRef = useRef(null);
+  const { user } = useUser();
 
-  useEffect(() => {
-    joinRoom("12");
+
+useEffect(() => {
+  if (user) { 
+    joinRoom("12", user.uuid);
 
     onDrawingUpdate((drawingData) => {
       setLines(prevLines => [...prevLines, drawingData]);
     });
+  }
 
-    const updateStageSize = () => {
-      if (boardContainerRef.current) {
-        const width = boardContainerRef.current.offsetWidth;
-        const height = Math.min(width * 0.6, window.innerHeight * 0.7);
-        setStageSize({
-          width,
-          height
-        });
-      }
-    };
+  const updateStageSize = () => {
+    if (boardContainerRef.current) {
+      const width = boardContainerRef.current.offsetWidth;
+      const height = Math.min(width * 0.6, window.innerHeight * 0.7);
+      setStageSize({
+        width,
+        height
+      });
+    }
+  };
 
-    updateStageSize();
-    window.addEventListener('resize', updateStageSize);
+  updateStageSize();
+  window.addEventListener('resize', updateStageSize);
 
-    return () => {
-      offDrawingUpdate();
-      window.removeEventListener('resize', updateStageSize);
-    };
-  }, []);
+  return () => {
+    offDrawingUpdate();
+    window.removeEventListener('resize', updateStageSize);
+  };
+}, [user]); 
 
   const throttledSendDrawing = useCallback((roomId, drawingData) => {
     const now = Date.now();

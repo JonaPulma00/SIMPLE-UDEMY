@@ -23,11 +23,14 @@ export const reconnectSocket = () => {
   socket.connect();
 };
 
-export const joinRoom = (roomId) => {
+export const joinRoom = (roomId, userId) => {
   if (!socket.connected) {
     socket.connect();
   }
-  socket.emit("join-room", roomId);
+  socket.emit("join-room", roomId, userId);
+  socket.on("user-connected", (userId) => {
+    console.log("User connected", userId);
+  });
 };
 
 export const leaveRoom = (roomId) => {

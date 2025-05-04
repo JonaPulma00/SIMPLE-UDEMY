@@ -1,6 +1,7 @@
 export const registerGeneralHandlers = (io, socket) => {
-  socket.on("join-room", (roomId) => {
+  socket.on("join-room", (roomId, userId) => {
     socket.join(roomId.toString());
+    socket.to(roomId).emit("user-connected", userId);
     console.log(`Socket ${socket.id} joined room ${roomId}`);
   });
 
