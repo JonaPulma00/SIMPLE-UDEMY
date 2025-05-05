@@ -3,7 +3,7 @@ import { ProtectedRoute } from "../components/ProtectedRoutes"
 import { UserEnrollments } from "../pages/dashboard/user/UserEnrollments"
 import { UserCourseDetail } from "../pages/dashboard/user/UserCourseDetail"
 import { Stream } from "../pages/dashboard/Stream"
-import { Whiteboard } from "../components/Whiteboard"
+
 export const UserRoutes = [
   <>
     <Route key="courses-deatil" path="/explore/course/:courseId" element={<ProtectedRoute><UserCourseDetail /></ProtectedRoute>} />

@@ -4,6 +4,7 @@ import { Sidebar } from "../../components/Sidebar";
 import useAsync from "../../hooks/useAsync";
 import { Modal } from "../../components/modals/Modal";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { refreshData } from "../../utils/refreshUtils";
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,6 +13,7 @@ import '../../../src/App.css'
 
 export const CourseDetail = () => {
   const { courseId } = useParams();
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [sectionTitle, setSectionTitle] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -94,6 +96,15 @@ export const CourseDetail = () => {
       console.error("Error loading video:", error);
     }
   };
+
+  const handleStartStream = () => {
+    navigate(`/stream/${courseId}`, {
+      state: {
+        courseTitle: course.title,
+        courseId: courseId
+      }
+    });
+  };
   const openLessonModal = (sectionId) => {
     setCurrentSectionId(sectionId);
     setIsLessonModalOpen(true);
@@ -145,7 +156,7 @@ export const CourseDetail = () => {
               <button className="add-section-btn" onClick={() => setIsModalOpen(true)}>
                 Add Section
               </button>
-              <button className="start-stream-btn">
+              <button className="start-stream-btn" onClick={handleStartStream}>
                 <i className="fa-solid fa-video"></i> Start Stream
               </button>
             </div>
