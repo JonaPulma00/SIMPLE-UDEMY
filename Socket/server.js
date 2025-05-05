@@ -7,10 +7,10 @@ import { createSocketServer } from "./config/socket.js";
 dotenv.config();
 
 const PORT = process.env.PORT || 4000;
-const PEER_PORT = process.env.PEER_PORT || 4500;
+const PEER_PORT = process.env.PEER_PORT || 9000;
 const FRONT_URL = process.env.APP_URL;
 
-const io = createSocketServer({ port: PORT });
+const io = createSocketServer({ port: PORT, origin: FRONT_URL });
 
 if (io) {
   console.log("Socket server started at port:", PORT);
