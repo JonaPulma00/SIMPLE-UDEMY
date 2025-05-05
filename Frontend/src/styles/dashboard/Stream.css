@@ -35,7 +35,6 @@
 .start-stream-btn {
   background: var(--primary-green);
   color: var(--primary-dark-color);
-  border: ridge;
   border-radius: 8px;
   padding: 10px 22px;
   font-size: 1rem;
