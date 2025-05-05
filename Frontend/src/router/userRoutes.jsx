@@ -8,6 +8,6 @@ export const UserRoutes = [
   <>
     <Route key="courses-deatil" path="/explore/course/:courseId" element={<ProtectedRoute><UserCourseDetail /></ProtectedRoute>} />
     <Route key="user-courses" path="/my-courses" element={<ProtectedRoute><UserEnrollments /></ProtectedRoute>} />
-    <Route key="streaming" path="/stream" element={<ProtectedRoute><Whiteboard /></ProtectedRoute>} />
+    <Route key="streaming" path="/stream" element={<ProtectedRoute><Stream /></ProtectedRoute>} />
   </>
 ]

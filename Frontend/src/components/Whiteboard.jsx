@@ -12,7 +12,7 @@ export const Whiteboard = () => {
   const [isEraser, setIsEraser] = useState(false);
   const [stageSize, setStageSize] = useState({
     width: window.innerWidth,
-    height: window.innerHeight * 0.7
+    height: window.innerHeight
   });
   const isDrawing = useRef(false);
   const lastSentTime = useRef(0);
@@ -21,34 +21,34 @@ export const Whiteboard = () => {
   const { user } = useUser();
 
 
-useEffect(() => {
-  if (user) { 
-    joinRoom("12", user.uuid);
+  useEffect(() => {
+    if (user) {
+      joinRoom("12", user.uuid);
 
-    onDrawingUpdate((drawingData) => {
-      setLines(prevLines => [...prevLines, drawingData]);
-    });
-  }
-
-  const updateStageSize = () => {
-    if (boardContainerRef.current) {
-      const width = boardContainerRef.current.offsetWidth;
-      const height = Math.min(width * 0.6, window.innerHeight * 0.7);
-      setStageSize({
-        width,
-        height
+      onDrawingUpdate((drawingData) => {
+        setLines(prevLines => [...prevLines, drawingData]);
       });
     }
-  };
 
-  updateStageSize();
-  window.addEventListener('resize', updateStageSize);
+    const updateStageSize = () => {
+      if (boardContainerRef.current) {
+        const container = boardContainerRef.current.getBoundingClientRect();
+        setStageSize({
+          width: container.width,
+          height: container.height
+        });
+      }
+    };
 
-  return () => {
-    offDrawingUpdate();
-    window.removeEventListener('resize', updateStageSize);
-  };
-}, [user]); 
+
+    updateStageSize();
+    window.addEventListener('resize', updateStageSize);
+
+    return () => {
+      offDrawingUpdate();
+      window.removeEventListener('resize', updateStageSize);
+    };
+  }, [user]);
 
   const throttledSendDrawing = useCallback((roomId, drawingData) => {
     const now = Date.now();
