@@ -10,15 +10,10 @@ const PORT = process.env.PORT || 4000;
 const PEER_PORT = process.env.PEER_PORT || 4500;
 const FRONT_URL = process.env.APP_URL;
 
-console.log("Starting socket server with config:", {
-  PORT,
-  FRONT_URL,
-});
-
-const io = createSocketServer({ port: PORT, origin: FRONT_URL });
+const io = createSocketServer({ port: PORT });
 
 if (io) {
-  console.log("Server started at port:", PORT);
+  console.log("Socket server started at port:", PORT);
 
   io.use(authMiddleware);
 

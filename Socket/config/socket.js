@@ -1,7 +1,6 @@
 import { Server } from "socket.io";
 
 export const createSocketServer = (serverOptions) => {
-  console.log("origin: ", serverOptions.origin);
   const io = new Server({
     cors: {
       origin: serverOptions.origin,
