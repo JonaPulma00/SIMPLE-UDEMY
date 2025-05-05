@@ -32,22 +32,6 @@
   margin: 0;
 }
 
-.start-stream-btn {
-  background: var(--primary-green);
-  color: var(--primary-dark-color);
-  border-radius: 8px;
-  padding: 10px 22px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 2px 8px var(--green-shadow);
-  transition: background 0.2s, box-shadow 0.2s;
-}
-
-.start-stream-btn:hover {
-  box-shadow: 0 2px 100px var(--green-shadow);
-}
-
 .stream-video-area {
   background: var(--section-grey-color);
   border-radius: 12px;

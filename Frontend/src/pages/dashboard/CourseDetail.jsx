@@ -140,10 +140,13 @@ export const CourseDetail = () => {
         <div className="dashboard-container">
           <Sidebar />
           <div className="course-detail-content">
+            <h1>{course.title}</h1>
             <div className="course-header">
-              <h1>{course.title}</h1>
               <button className="add-section-btn" onClick={() => setIsModalOpen(true)}>
                 Add Section
+              </button>
+              <button className="start-stream-btn">
+                <i className="fa-solid fa-video"></i> Start Stream
               </button>
             </div>
             <p>{course.description}</p>

@@ -110,12 +110,13 @@
 
 .course-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
   align-items: center;
   margin-bottom: 24px;
 }
 
-.add-section-btn {
+.add-section-btn,
+.start-stream-btn {
   padding: 12px 24px;
   background: var(--primary-green);
   color: var(--primary-dark-color);
@@ -125,9 +126,11 @@
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  margin-left: 10px;
 }
 
-.add-section-btn:hover {
+.add-section-btn:hover,
+.start-stream-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px var(--green-shadow);
 }

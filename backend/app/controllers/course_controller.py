@@ -33,7 +33,7 @@ async def get_courses(db: AsyncSession, user_id: str, page: int = 1, limit: int 
 
     offset = (page - 1) * limit  
 
-    stmt = select(Course).limit(limit).offset(offset)
+    stmt = select(Course).limit(limit).offset(offset).order_by(Course.title.asc())
     result = await db.execute(stmt)
     courses = result.scalars().all()  
 

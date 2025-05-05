@@ -12,11 +12,6 @@ export const Stream = () => {
       <div className="stream-content">
         <div className="stream-header">
           <h2>Live Streaming</h2>
-          {user?.isInstructor && (
-            <button className="start-stream-btn">
-              <i className="fa-solid fa-video"></i> Start Stream
-            </button>
-          )}
         </div>
         <div className="stream-video-area">
           <div className="stream-placeholder">
