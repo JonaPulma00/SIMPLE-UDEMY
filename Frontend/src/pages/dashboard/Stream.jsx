@@ -15,12 +15,7 @@ export const Stream = () => {
         </div>
         <div className="stream-video-area">
           <div className="stream-placeholder">
-            <i className="fa-solid fa-video"></i>
-            <span>
-              {user?.isInstructor
-                ? "Click 'Start Stream' to begin streaming."
-                : "No one is live right now..."}
-            </span>
+            <span>No one is live right now</span>
           </div>
         </div>
       </div>
