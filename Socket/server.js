@@ -12,21 +12,14 @@ const FRONT_URL = process.env.APP_URL;
 
 const io = createSocketServer({ port: PORT, origin: FRONT_URL });
 
-if (io) {
-  console.log("Socket server started at port:", PORT);
-
-  io.use(authMiddleware);
-
-  io.on("connection", (socket) => {
-    console.log("New client connected:", socket.id);
-
-    registerGeneralHandlers(io, socket);
-    registerStreamHandlers(io, socket);
-
-    socket.on("disconnect", () => {
-      console.log("Client disconnected:", socket.id);
-    });
-  });
-} else {
-  console.log("Could not start server");
+const onConnection = (socket) => {
+  registerGeneralHandlers(io, socket);
+  registerStreamHandlers(io, socket);
+};
+if (!io) {
+  console.error("Could not start socket server");
+  process.exit(1);
 }
+io.use(authMiddleware);
+io.on("connection", onConnection);
+console.log("Socket server started at port:", PORT);
