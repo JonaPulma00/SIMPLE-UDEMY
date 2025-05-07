@@ -1,7 +1,10 @@
 import { useEffect, useRef } from "react"
+import { useParams } from "react-router-dom";
 import { socketService } from "../../services/socketService";
-import useAsync from "../../hooks/useAsync";
 export const StartStream = () => {
+  const { courseId } = useParams()
+  const localVideoRef = useRef(null)
+  const peerConnectionRef = useRef(null)
   const servers = {
     iceServers: [
       {
