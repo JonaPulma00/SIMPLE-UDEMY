@@ -1,7 +1,6 @@
 import { Stage, Layer, Line } from "react-konva";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { joinRoom, sendDrawing, onDrawingUpdate, offDrawingUpdate }
-  from "../services/socketService";
+import { socketService } from "../services/socketService";
 import { useUser } from "../context/UserContext";
 import "../styles/global/Whiteboard.css";
 
@@ -23,9 +22,9 @@ export const Whiteboard = () => {
 
   useEffect(() => {
     if (user) {
-      joinRoom("12", user.uuid);
+      socketService.joinRoom("12", user.uuid);
 
-      onDrawingUpdate((drawingData) => {
+      socketService.onDrawingUpdate((drawingData) => {
         setLines(prevLines => [...prevLines, drawingData]);
       });
     }
@@ -45,7 +44,7 @@ export const Whiteboard = () => {
     window.addEventListener('resize', updateStageSize);
 
     return () => {
-      offDrawingUpdate();
+      socketService.offDrawingUpdate();
       window.removeEventListener('resize', updateStageSize);
     };
   }, [user]);
@@ -53,7 +52,7 @@ export const Whiteboard = () => {
   const throttledSendDrawing = useCallback((roomId, drawingData) => {
     const now = Date.now();
     if (now - lastSentTime.current >= THROTTLE_TIME) {
-      sendDrawing(roomId, drawingData);
+      socketService.sendDrawing(roomId, drawingData);
       lastSentTime.current = now;
     }
   }, []);

@@ -8,8 +8,7 @@ import { ParticlesComponent } from "../components/ParticlesComponent"
 import { useGoogleLogin } from '@react-oauth/google'
 import { saveToken } from "../services/tokenService"
 import { useUser } from "../context/UserContext"
-import { toast } from 'react-toastify'
-import { connectSocket } from "../services/socketService"
+import { socketService } from "../services/socketService"
 import "../styles/user/authForms.css"
 import axios from 'axios'
 export const Login = () => {
@@ -35,10 +34,9 @@ export const Login = () => {
         saveToken(response.data.access_token);
         loadUserFromToken();
         navigate('/dashboard');
-        connectSocket()
+        socketService.connectSocket()
       }
     } catch (error) {
-      toast.error('Error while trying to log in');
       if (error.detail) {
         if (Array.isArray(error.detail)) {
           setError(error.detail.map(err => err.msg).join(', '));
@@ -66,12 +64,11 @@ export const Login = () => {
 
         if (response && response.data && response.data.access_token) {
           saveToken(response.data.access_token);
-          connectSocket()
+          socketService.connectSocket()
           loadUserFromToken();
           navigate('/dashboard');
         }
       } catch (error) {
-        toast.error('Google login error: ', error);
         setError('Error in Google login, try again');
         setTimeout(() => setError(''), 10000);
       }

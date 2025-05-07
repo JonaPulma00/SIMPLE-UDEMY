@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { Sidebar } from "../../components/Sidebar";
 import { useForm } from "../../hooks/useForm";
 import { useUser } from "../../context/UserContext";
-import { createCourse, getCategories } from "../../services/courseService";
-import "../../styles/dashboard/Teach.css";
+import { courseService } from "../../services/courseService";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify'
+import "../../styles/dashboard/Teach.css";
 
 export const Teach = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ export const Teach = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const data = await getCategories();
+        const data = await courseService.getCategories();
         setCategories(data);
       } catch (err) {
         toast.error("Failed to load categories");
@@ -33,7 +33,7 @@ export const Teach = () => {
     e.preventDefault();
 
     try {
-      const newCourse = await createCourse(formState);
+      const newCourse = await courseService.createCourse(formState);
       toast.success("Course created successfully!");
 
       setTimeout(() => {

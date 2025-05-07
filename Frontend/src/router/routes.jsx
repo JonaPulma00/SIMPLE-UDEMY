@@ -11,6 +11,6 @@ export const AppRoutes = () => (
     {DashboardRoutes}
     {InstructorRoutes}
     {UserRoutes}
-    <Route path="*" element={<NotFound />} />
+    <Route key="not-found" path="*" element={<NotFound />} />
   </Routes>
 )

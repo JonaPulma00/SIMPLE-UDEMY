@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useUser } from "../../context/UserContext";
-import { getInstructorCourses } from "../../services/courseService";
+import { courseService} from "../../services/courseService";
 import useAsync from "../../hooks/useAsync";
 import { Sidebar } from "../../components/Sidebar";
 import "../../styles/dashboard/InstructorCourses.css";
@@ -17,7 +17,7 @@ export const InstructorCourses = () => {
     loading,
     error,
     value: coursesData
-  } = useAsync(() => getInstructorCourses(user?.uuid, currentPage, 9), [currentPage, user?.uuid]);
+  } = useAsync(() => courseService.getInstructorCourses(user?.uuid, currentPage, 9), [currentPage, user?.uuid]);
 
   useEffect(() => {
     if (location.state?.newCourseId) {

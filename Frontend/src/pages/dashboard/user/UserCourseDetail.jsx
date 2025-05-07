@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { getPublicCourseById, getLessonVideo } from "../../../services/courseService"
+import {courseService} from "../../../services/courseService"
 import { enrollUser } from "../../../services/userService"
 import { Sidebar } from "../../../components/Sidebar"
 import { toast } from "react-toastify"
@@ -15,7 +15,7 @@ export const UserCourseDetail = () => {
   const [currentVideoTitle, setCurrentVideoTitle] = useState("");
   const [isEnrolling, setIsEnrolling] = useState(false);
 
-  const { loading, error, value: course } = useAsync(() => getPublicCourseById(courseId), [courseId])
+  const { loading, error, value: course } = useAsync(() => courseService.getPublicCourseById(courseId), [courseId])
 
   const handleEnroll = async () => {
     setIsEnrolling(true);
@@ -32,7 +32,7 @@ export const UserCourseDetail = () => {
 
   const handlePlayVideo = async (lessonId, lessonTitle) => {
     try {
-      const videoUrl = await getLessonVideo(lessonId);
+      const videoUrl = await courseService.getLessonVideo(lessonId);
       setCurrentVideoUrl(videoUrl);
       setCurrentVideoTitle(lessonTitle);
       setIsVideoModalOpen(true);

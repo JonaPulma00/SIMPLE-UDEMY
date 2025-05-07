@@ -1,20 +1,18 @@
 import api from "../interceptor/authInterceptor";
 
-export const courseService = {
-  async getCourses(page = 1, limit = 10) {
-    try {
-      const response = await api.get(
-        `/courses/get-general-courses?page=${page}&limit=${limit}`
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching courses:", error);
-      throw error;
-    }
-  },
+const getCourses = async (page = 1, limit = 10) => {
+  try {
+    const response = await api.get(
+      `/courses/get-general-courses?page=${page}&limit=${limit}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching courses:", error);
+    throw error;
+  }
 };
 
-export const createCourse = async (courseData) => {
+const createCourse = async (courseData) => {
   try {
     const response = await api.post("/courses/create", {
       title: courseData.title,
@@ -28,7 +26,7 @@ export const createCourse = async (courseData) => {
   }
 };
 
-export const getCategories = async () => {
+const getCategories = async () => {
   try {
     const response = await api.get("/categories/get-categories");
     return response.data;
@@ -38,11 +36,7 @@ export const getCategories = async () => {
   }
 };
 
-export const getInstructorCourses = async (
-  instructorId,
-  page = 1,
-  limit = 10
-) => {
+const getInstructorCourses = async (instructorId, page = 1, limit = 10) => {
   try {
     const response = await api.get(
       `/courses/instructor/${instructorId}?page=${page}&limit=${limit}`
@@ -54,7 +48,7 @@ export const getInstructorCourses = async (
   }
 };
 
-export const getCourseById = async (courseId) => {
+const getCourseById = async (courseId) => {
   try {
     const response = await api.get(`/courses/get-course-by-id/${courseId}`);
     return response.data;
@@ -64,7 +58,7 @@ export const getCourseById = async (courseId) => {
   }
 };
 
-export const getPublicCourseById = async (courseId) => {
+const getPublicCourseById = async (courseId) => {
   try {
     const response = await api.get(`/courses/get-public-course/${courseId}`);
     return response.data;
@@ -74,7 +68,7 @@ export const getPublicCourseById = async (courseId) => {
   }
 };
 
-export const deleteCourse = async (courseId) => {
+const deleteCourse = async (courseId) => {
   try {
     const response = await api.delete(`/courses/delete/${courseId}`);
     return response.data;
@@ -84,7 +78,7 @@ export const deleteCourse = async (courseId) => {
   }
 };
 
-export const updateCourse = async (courseId, updatedData) => {
+const updateCourse = async (courseId, updatedData) => {
   try {
     const response = await api.put(`/courses/update/${courseId}`, updatedData);
     return response.data;
@@ -94,7 +88,7 @@ export const updateCourse = async (courseId, updatedData) => {
   }
 };
 
-export const addSectionToCourse = async (courseId, sectionData) => {
+const addSectionToCourse = async (courseId, sectionData) => {
   try {
     const response = await api.post(`/courses/${courseId}/sections`, {
       title: sectionData.title,
@@ -107,7 +101,7 @@ export const addSectionToCourse = async (courseId, sectionData) => {
   }
 };
 
-export const addLessonToSection = async (courseId, sectionId, lessonData) => {
+const addLessonToSection = async (courseId, sectionId, lessonData) => {
   try {
     const response = await api.post(
       `/lessons/create-lesson/${courseId}/sections/${sectionId}`,
@@ -123,12 +117,7 @@ export const addLessonToSection = async (courseId, sectionId, lessonData) => {
   }
 };
 
-export const uploadLessonVideo = async (
-  courseId,
-  sectionId,
-  lessonId,
-  videoFile
-) => {
+const uploadLessonVideo = async (courseId, sectionId, lessonId, videoFile) => {
   try {
     const formData = new FormData();
     formData.append("video", videoFile);
@@ -149,7 +138,7 @@ export const uploadLessonVideo = async (
   }
 };
 
-export const getLessonVideo = async (lessonId) => {
+const getLessonVideo = async (lessonId) => {
   try {
     const response = await api.get(`/lessons/get-video/${lessonId}/video`);
     console.log("API Response:", response.data);
@@ -171,7 +160,7 @@ export const getLessonVideo = async (lessonId) => {
   }
 };
 
-export const deleteSection = async (courseId, sectionId) => {
+const deleteSection = async (courseId, sectionId) => {
   try {
     const response = await api.delete(
       `/courses/${courseId}/sections/${sectionId}`
@@ -181,4 +170,20 @@ export const deleteSection = async (courseId, sectionId) => {
     console.error("Error deleting section:", error);
     throw error;
   }
+};
+
+export const courseService = {
+  getCourses,
+  createCourse,
+  getCategories,
+  getInstructorCourses,
+  getCourseById,
+  getPublicCourseById,
+  deleteCourse,
+  updateCourse,
+  addSectionToCourse,
+  addLessonToSection,
+  uploadLessonVideo,
+  getLessonVideo,
+  deleteSection,
 };

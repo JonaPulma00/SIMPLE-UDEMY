@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { getCourseById, addSectionToCourse, addLessonToSection, uploadLessonVideo, getLessonVideo, deleteSection } from "../../services/courseService";
+import { courseService} from "../../services/courseService";
 import { Sidebar } from "../../components/Sidebar";
 import useAsync from "../../hooks/useAsync";
 import { Modal } from "../../components/modals/Modal";
@@ -39,7 +39,7 @@ export const CourseDetail = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await addSectionToCourse(courseId, {
+      await courseService.addSectionToCourse(courseId, {
         title: sectionTitle,
         position: 0
       });
@@ -58,13 +58,13 @@ export const CourseDetail = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const newLesson = await addLessonToSection(courseId, currentSectionId, {
+      const newLesson = await courseService.addLessonToSection(courseId, currentSectionId, {
         title: lessonData.title,
         position: 0
       });
 
       if (lessonData.video) {
-        await uploadLessonVideo(
+        await courseService.uploadLessonVideo(
           courseId,
           currentSectionId,
           newLesson.lesson_id,
@@ -86,7 +86,7 @@ export const CourseDetail = () => {
 
   const handlePlayVideo = async (lessonId, lessonTitle) => {
     try {
-      const videoUrl = await getLessonVideo(lessonId);
+      const videoUrl = await courseService.getLessonVideo(lessonId);
       console.log("Video URL received:", videoUrl);
       setCurrentVideoUrl(videoUrl);
       setCurrentVideoTitle(lessonTitle);
@@ -110,7 +110,7 @@ export const CourseDetail = () => {
     setIsLessonModalOpen(true);
   };
 
-  const { loading, error, value: course } = useAsync(() => getCourseById(courseId), [courseId, refreshKey]);
+  const { loading, error, value: course } = useAsync(() => courseService.getCourseById(courseId), [courseId, refreshKey]);
 
   const closeVideoModal = () => {
     setIsVideoModalOpen(false);
@@ -124,7 +124,7 @@ export const CourseDetail = () => {
 
   const confirmDeleteSection = async () => {
     try {
-      await deleteSection(courseId, sectionToDelete);
+      await courseService.deleteSection(courseId, sectionToDelete);
       toast.success("Section deleted successfully");
       setIsDeleteConfirmationOpen(false);
       setSectionToDelete(null);
