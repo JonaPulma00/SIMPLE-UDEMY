@@ -2,9 +2,9 @@ import { errorHandler } from "../middlewares/errorHandler.js";
 export const registerStreamHandlers = (io, socket) => {
   socket.on(
     "start-stream",
-    errorHandler((groupId) => {
-      socket.to(groupId).emit("stream-started", socket.id);
-      console.log(`Instructor started stream in room ${groupId}`);
+    errorHandler((courseId) => {
+      socket.to(courseId.toString()).emit("stream-started", courseId);
+      console.log(`Instructor started stream in room ${courseId}`);
     })
   );
   socket.on(

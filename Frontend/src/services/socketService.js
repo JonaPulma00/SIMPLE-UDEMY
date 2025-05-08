@@ -42,7 +42,9 @@ export const socketService = {
     socket.emit("start-stream", roomId);
   },
   onStreamStarted(callback) {
-    socket.on("stream-started", callback);
+    socket.on("stream-started", (courseId) => {
+      callback(courseId);
+    });
   },
 
   endStream(roomId) {
@@ -50,7 +52,9 @@ export const socketService = {
   },
 
   onStreamEnded(callback) {
-    socket.on("stream-ended", callback);
+    socket.on("stream-ended", (courseId) => {
+      callback(courseId);
+    });
   },
   sendDrawing(roomId, drawingData) {
     socket.emit("draw", roomId, drawingData);
