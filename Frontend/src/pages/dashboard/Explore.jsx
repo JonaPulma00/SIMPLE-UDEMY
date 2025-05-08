@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Sidebar } from "../../components/Sidebar"
-import "../../styles/dashboard/Explore.css"
 import useAsync from "../../hooks/useAsync";
 import { courseService } from "../../services/courseService";
 import { useNavigate } from "react-router-dom";
+import "../../styles/dashboard/Explore.css"
 export const Explore = () => {
   const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState("");
