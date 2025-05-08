@@ -3,7 +3,7 @@ import { ProtectedRoute } from "../components/ProtectedRoutes"
 import { InstructorCourses } from "../pages/dashboard/InstructorCourses"
 import { CourseDetail } from "../pages/dashboard/CourseDetail"
 import { Teach } from "../pages/dashboard/Teach"
-import { StartStream } from "../pages/dashboard/StartStream"
+import { StartStream } from "../pages/dashboard/stream/StartStream"
 export const InstructorRoutes = [
   <>
     <Route key="instructor-courses" path="/instructor/courses" element={<ProtectedRoute><InstructorCourses /></ProtectedRoute>} />

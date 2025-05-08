@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { socketService } from "../../services/socketService";
+import { socketService } from "../../../services/socketService";
 
 export const StartStream = () => {
   const { courseId } = useParams();

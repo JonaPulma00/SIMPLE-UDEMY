@@ -3,13 +3,13 @@ import { useUser } from "../../../context/UserContext";
 import { Sidebar } from "../../../components/Sidebar";
 import { socketService } from "../../../services/socketService";
 import useAsync from "../../../hooks/useAsync";
-import "../../../styles/dashboard/WatchStream.css";
+import "../../../styles/dashboard/stream/WatchStream.css";
 import { courseService } from "../../../services/courseService";
 export const WatchStream = () => {
   const { user } = useUser();
   const [isStreamLive, setisStreamLive] = useState(false) //estat per controlar si hi ha stream actiu
 
-  const {loading, error, value: courseData} = useAsync(() => courseService.getPublicCourseById(courseId), [courseId]);
+  // const {loading, error, value: courseData} = useAsync(() => courseService.getPublicCourseById(courseId), [courseId]);
 
   useEffect (()=> {
 
@@ -22,23 +22,20 @@ export const WatchStream = () => {
       setisStreamLive(false)
     })
       return() => {
-        socketService.offStreamStarted();
-        socketService.offStreamEnded();
+        // socketService.offStreamStarted();
+        // socketService.offStreamEnded();
       };
-    }, [courseId])
+    }, [])
 
     const handleJoinStream = () => {
-      if (courseId) {
-        socketService.joinRoom(courseId, user.uuid); 
-      }
+
     }
-  }
   return (
     <div className="dashboard-container">
       <Sidebar />
       <div className="stream-content">
         <div className="stream-header">
-          <h2>Live Streaming -</h2>
+          <h2>Live Streaming</h2>
         </div>
         <div className="stream-video-area">
           {isStreamLive ? (
@@ -55,3 +52,4 @@ export const WatchStream = () => {
       </div>
   );
 
+}
