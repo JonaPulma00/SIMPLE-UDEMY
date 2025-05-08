@@ -7,6 +7,13 @@ export const registerStreamHandlers = (io, socket) => {
       console.log(`Instructor started stream in room ${groupId}`);
     })
   );
+  socket.on(
+    "end-stream",
+    errorHandler((courseId) => {
+      socket.to(courseId).emit("stream-ended");
+      console.log(`Instructor ended stream in room ${courseId}`);
+    })
+  );
 
   socket.on(
     "watcher",

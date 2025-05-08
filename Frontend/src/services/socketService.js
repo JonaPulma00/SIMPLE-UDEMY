@@ -41,7 +41,17 @@ export const socketService = {
   startStream(roomId) {
     socket.emit("start-stream", roomId);
   },
+  onStreamStarted(callback) {
+    socket.on("stream-started", callback);
+  },
 
+  endStream(roomId) {
+    socket.emit("end-stream", roomId);
+  },
+
+  onStreamEnded(callback) {
+    socket.on("stream-ended", callback);
+  },
   sendDrawing(roomId, drawingData) {
     socket.emit("draw", roomId, drawingData);
   },
