@@ -64,9 +64,9 @@ export const Login = () => {
 
         if (response && response.data && response.data.access_token) {
           saveToken(response.data.access_token);
-          socketService.connectSocket()
           loadUserFromToken();
           navigate('/dashboard');
+          socketService.connectSocket()
         }
       } catch (error) {
         setError('Error in Google login, try again');

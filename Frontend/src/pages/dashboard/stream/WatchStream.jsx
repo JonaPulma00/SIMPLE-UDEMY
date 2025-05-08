@@ -1,9 +1,8 @@
 import React from "react";
-import { useUser } from "../../context/UserContext";
-import "../../styles/dashboard/Stream.css";
-import { Sidebar } from "../../components/Sidebar";
-
-export const Stream = () => {
+import { useUser } from "../../../context/UserContext";
+import { Sidebar } from "../../../components/Sidebar";
+import "../../../styles/dashboard/WatchStream.css";
+export const WatchStream = () => {
   const { user } = useUser();
 
   return (

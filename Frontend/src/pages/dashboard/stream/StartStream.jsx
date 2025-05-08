@@ -71,7 +71,7 @@ export const StartStream = () => {
       <div>
         <button id="webcam-btn" onClick={handleWebcamPermission}>Start Stream</button>
         <h2>Streaming in course - Course: {courseId}</h2>
-        <video ref={localVideoRef} autoPlay playsInline muted style={{ width: "300px" }}></video>
+        <video ref={localVideoRef} autoPlay playsInline muted style={{ height: "300px" }}></video>
       </div>
     </>
   );
