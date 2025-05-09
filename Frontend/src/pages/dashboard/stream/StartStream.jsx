@@ -1,10 +1,14 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { socketService } from "../../../services/socketService";
-
+import { socket, socketService } from "../../../services/socketService";
+import { useUser } from "../../../context/UserContext";
 export const StartStream = () => {
+  const { user } = useUser();
   const { courseId } = useParams();
-  //My webcam
+  const [isStreaming, setIsStreaming] = useState(false)
+  const [streamError, setStreamError] = useState(false)
+
+  const localStreamRef = useRef(null);
   const localVideoRef = useRef(null);
   const peerConnectionRef = useRef(null);
 
@@ -20,35 +24,72 @@ export const StartStream = () => {
   useEffect(() => {
     if (!courseId) return;
 
+    //asseguar conexió
+    socketService.connectSocket();
+    
+    socketService.joinRoom(courseId, user.uuid); 
+
+    socketService.onWatcher((whatcherId) => {
+      console.log("New watcher connected", whatcherId);
+    });
+
     //crear la conexio
     const pc = new RTCPeerConnection(servers);
     peerConnectionRef.current = pc;
 
+    if (localStreamRef.current) {
+      localStreamRef.current.getTracks().forEach((track) => {
+        pc.addTrack(track, localStreamRef.current);
+      });
+    }
     //enviar ice candidate
     pc.onicecandidate = (e) => {
       if (e.candidate) {
         socketService.sendIceCandidate(courseId, e.candidate);
       }
     };
+  
+    pc.createOffer()
+      .then((offer) => pc.setLocalDescription(offer))
+      .then(() => {
+        socketService.sendOffer(watcherId, pc.localDescription)
+      })
+      .catch((err) => {
+        console.error("Error creating offer", err);
+      });
+
+      socketService.onAnswer(({ answer, from }) => {
+        if (from === watcherId) {
+          pc.setRemoteDescription(new RTCSessionDescription(answer))
+          .catch((err) => {
+            console.error("Error setting remote description", err);
+          });
+        }
+      });
 
     return () => {
       pc.close();
+      if (isStreaming) {
+        endStream();
+      }
+      socketService.endStream(courseId);
+    socketService.leaveRoom(courseId);
     };
-  }, [courseId]);
+  }, [courseId, user?.uuid]);
 
   const handleWebcamPermission = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
       localVideoRef.current.srcObject = stream;
+      localStreamRef.current = stream;
 
-      //añadir stream local a la conexio
-      stream.getTracks().forEach((track) => {
-        peerConnectionRef.current.addTrack(track, stream);
-      });
+     socketService.startStream(courseId);
+     setIsStreaming(true);
 
       //crear offer despres d'obtenir els permisos
       createOffer();
     } catch (err) {
+      setStreamError("Error accessing webcam: " + err.message);
       console.error("Error accessing webcam:", err);
     }
   };

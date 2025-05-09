@@ -25,7 +25,7 @@ export const WatchStream = () => {
 
     const handleJoinStream = (courseId) => {
       socketService.startWatcher(courseId);
-      navigate(`/stream/${courseId}`);
+      navigate(`/stream/view/${courseId}`);
 
     };
   return (
