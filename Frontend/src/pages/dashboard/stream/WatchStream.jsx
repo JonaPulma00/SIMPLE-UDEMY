@@ -8,18 +8,32 @@ import "../../../styles/dashboard/stream/WatchStream.css";
 export const WatchStream = () => {
   const { user } = useUser();
   const [activeStreams, setActiveStreams] = useState([]);
+  const [isConnecting, setIsConnection] = useState(true);
   const navigate = useNavigate()
-  useEffect (()=> {
-    socketService.onStreamStarted((courseId) => {
-      setActiveStreams((prev) =>[...prev, courseId]);
-    })
 
+  useEffect (()=> {
+    socketService.connectSocket();
+
+    socketService.getActiveStreams((streams) => {
+      setActiveStreams(streams);
+      setIsConnection(false);
+    });
+
+    socketService.onStreamStarted((courseId) => {
+      setActiveStreams((prev) => {
+        if (!prev.includes(courseId)) {
+          return [...prev, courseId];
+        }
+        return prev;
+      });
+    });
     
     socketService.onStreamEnded((courseId) => {
       setActiveStreams((prev) => prev.filter((id) => id !== courseId));
     });
       return() => {
-        
+        socketService.offStreamStarted();
+      socketService.offStreamEnded();
       };
     }, [])
 
@@ -36,10 +50,14 @@ export const WatchStream = () => {
         <h2>Live Streams</h2>
       </div>
       <div className="stream-video-area">
-        {activeStreams.length > 0 ? (
+        {isConnecting ? (
+          <div className="stream-connecting">
+            <span>Connecting to server...</span>
+          </div>
+        ) : activeStreams && activeStreams.length > 0 ? (
           activeStreams.map((courseId) => (
             <div key={courseId} className="stream-item">
-              <span>Course {courseId} is live</span>
+              <span>Course {courseId.substring(0, 8)}... is live</span>
               <button onClick={() => handleJoinStream(courseId)}>Join Stream</button>
             </div>
           ))

@@ -107,13 +107,51 @@ export const StartStream = () => {
     }
   };
 
+  const endStream = () => {
+    if (localStreamRef.current) {
+      localStreamRef.current.getTracks().forEach(track => track.stop());
+    }
+
+    if (peerConnectionRef.current) {
+      peerConnectionRef.current.close();
+    }
+
+    socketService.endStream(courseId);
+    setIsStreaming(false)
+
+  }
+
   return (
-    <>
-      <div>
-        <button id="webcam-btn" onClick={handleWebcamPermission}>Start Stream</button>
-        <h2>Streaming in course - Course: {courseId}</h2>
-        <video ref={localVideoRef} autoPlay playsInline muted style={{ height: "300px" }}></video>
+    <div className="stream-container">
+      <h2>Streaming in course - Course: {courseId}</h2>
+      
+      {streamError && (
+        <div className="stream-error">
+          <p>{streamError}</p>
+        </div>
+      )}
+      
+      <div className="video-container">
+        <video 
+          ref={localVideoRef} 
+          autoPlay 
+          playsInline 
+          muted 
+          className="local-video"
+        />
       </div>
-    </>
+      
+      <div className="stream-controls">
+        {!isStreaming ? (
+          <button className="start-stream-btn" onClick={handleWebcamPermission}>
+            Start Stream
+          </button>
+        ) : (
+          <button className="end-stream-btn" onClick={endStream}>
+            End Stream
+          </button>
+        )}
+      </div>
+    </div>
   );
 };

@@ -1,4 +1,7 @@
 import { errorHandler } from "../middlewares/errorHandler.js";
+
+const activeStreams = new Set();
+
 export const registerStreamHandlers = (io, socket) => {
   socket.on(
     "get-active-streams",
@@ -10,7 +13,9 @@ export const registerStreamHandlers = (io, socket) => {
   socket.on(
     "start-stream",
     errorHandler((courseId) => {
+      activeStreams.add(courseId);
       socket.to(courseId.toString()).emit("stream-started", courseId);
+      io.emit("stream-started", courseId);
       console.log(`Instructor started stream in room ${courseId}`);
     })
   );
@@ -20,6 +25,7 @@ export const registerStreamHandlers = (io, socket) => {
     errorHandler((courseId) => {
       socket.to(courseId).emit("stream-ended");
       console.log(`Instructor ended stream in room ${courseId}`);
+      activeStreams.delete(courseId);
       io.emit("stream-ended", courseId);
     })
   );
