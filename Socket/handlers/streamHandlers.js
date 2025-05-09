@@ -20,6 +20,7 @@ export const registerStreamHandlers = (io, socket) => {
     errorHandler((courseId) => {
       socket.to(courseId).emit("stream-ended");
       console.log(`Instructor ended stream in room ${courseId}`);
+      io.emit("stream-ended", courseId);
     })
   );
 
