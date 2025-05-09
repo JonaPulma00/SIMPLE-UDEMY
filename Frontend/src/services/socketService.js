@@ -28,6 +28,7 @@ export const socketService = {
     if (!socket.connected) {
       socket.connect();
     }
+    console.log(`Joining room ${roomId} as ${userId}`);
     socket.emit("join-room", roomId, userId);
     socket.on("user-connected", (id) => {
       console.log("User connected", id);
@@ -47,6 +48,10 @@ export const socketService = {
     });
   },
 
+  offStreamStarted() {
+    socket.off("stream-started");
+  },
+
   endStream(roomId) {
     socket.emit("end-stream", roomId);
   },
@@ -56,6 +61,11 @@ export const socketService = {
       callback(courseId);
     });
   },
+
+  offStreamEnded() {
+    socket.off("stream-ended");
+  },
+
   sendDrawing(roomId, drawingData) {
     socket.emit("draw", roomId, drawingData);
   },
