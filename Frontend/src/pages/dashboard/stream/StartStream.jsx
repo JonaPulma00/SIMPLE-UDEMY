@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { socket, socketService } from "../../../services/socketService";
 import { useUser } from "../../../context/UserContext";
+import { Sidebar } from "../../../components/Sidebar";
 import "../../../styles/dashboard/stream/StartStream.css";
 
 export const StartStream = () => {
@@ -124,6 +125,8 @@ export const StartStream = () => {
   }
 
   return (
+    <div className="dashboard-container">
+      <Sidebar />
     <div className="stream-container">
       <h2>Streaming in course - Course: {courseId}</h2>
       
@@ -154,6 +157,7 @@ export const StartStream = () => {
           </button>
         )}
       </div>
+    </div>
     </div>
   );
 };

@@ -202,6 +202,8 @@
 @media (max-width: 768px) {
   .sidebar-toggle-label {
     display: flex;
+    right: 15px;
+    left: auto;
   }
   
   .dashboard-sidebar {
