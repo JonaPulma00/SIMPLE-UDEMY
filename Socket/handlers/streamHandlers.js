@@ -28,7 +28,7 @@ export const registerStreamHandlers = (io, socket) => {
     "watcher",
     errorHandler((courseId) => {
       socket.join(courseId.toString());
-      socket.to(courseId).emit("watcher", socket.id);
+      socket.to(courseId.toString()).emit("watcher", socket.id);
     })
   );
 
