@@ -3,7 +3,9 @@ import jwt from "jsonwebtoken";
 export const authMiddleware = (socket, next) => {
   const token = socket.handshake.auth.token;
 
-  if (!token) {
+  if (token) {
+    console.log("Token received");
+  } else if (!token) {
     console.log("No token provided");
     return next(new Error("Token required"));
   }

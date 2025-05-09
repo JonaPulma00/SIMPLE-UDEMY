@@ -8,7 +8,7 @@ import "../../../styles/dashboard/stream/WatchStream.css";
 export const WatchStream = () => {
   const { user } = useUser();
   const [activeStreams, setActiveStreams] = useState([]);
-
+  const navigate = useNavigate()
   useEffect (()=> {
     socketService.onStreamStarted((courseId) => {
       setActiveStreams((prev) =>[...prev, courseId]);

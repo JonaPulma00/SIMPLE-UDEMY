@@ -5,6 +5,7 @@ import { UserCourseDetail } from "../pages/dashboard/user/UserCourseDetail"
 import { WatchStream } from "../pages/dashboard/stream/WatchStream"
 import { StreamView } from "../pages/dashboard/stream/StreamView"
 
+
 export const UserRoutes = [
   <>
     <Route key="courses-deatil" path="/explore/course/:courseId" element={<ProtectedRoute><UserCourseDetail /></ProtectedRoute>} />
