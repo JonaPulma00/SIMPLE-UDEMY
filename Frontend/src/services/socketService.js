@@ -112,6 +112,23 @@ export const socketService = {
     socket.off("draw-update");
   },
 
+  getActiveStreams(callback) {
+    socket.emit("get-active-streams");
+    socket.once("active-streams", (streams) => {
+      callback(streams);
+    });
+  },
+
+  onWatcher(callback) {
+    socket.on("watcher", (watcherId) => {
+      callback(watcherId);
+    });
+  },
+
+  offWatcher() {
+    socket.off("watcher");
+  },
+
   disconnectSocket() {
     socket.disconnect();
   },
