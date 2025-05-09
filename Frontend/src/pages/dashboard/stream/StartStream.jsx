@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { socket, socketService } from "../../../services/socketService";
 import { useUser } from "../../../context/UserContext";
+import "../../../styles/dashboard/stream/StartStream.css";
+
 export const StartStream = () => {
   const { user } = useUser();
   const { courseId } = useParams();
