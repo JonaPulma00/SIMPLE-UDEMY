@@ -64,7 +64,7 @@
 }
 
 .stream-item button {
-  background: var(--primary-gradient-green);
+  background: var(--primary-green);
   color: var(--primary-white-color);
   border: none;
   border-radius: 6px;
