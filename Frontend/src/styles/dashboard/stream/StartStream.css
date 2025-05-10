@@ -28,21 +28,19 @@
 
 .video-container {
   position: relative;
+  display: flex;
+  justify-content: flex-start;
   width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
+  height: 500px;
+  overflow: hidden;
+  margin-bottom:30px;
   background-color: var(--section-grey-color);
   border-radius: 10px;
-  overflow: hidden;
   box-shadow: 0 4px 12px var(--transparent-black);
   border: 1px solid var(--section-border-color);
 }
 
-.local-video {
-  width: 100%;
-  height: auto;
-  display: block;
-}
+
 
 .stream-controls {
   display: flex;
