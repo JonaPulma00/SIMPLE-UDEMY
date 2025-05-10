@@ -15,6 +15,7 @@ export const socket = io(import.meta.env.VITE_SOCKET_SERVER_URL, {
 export const socketService = {
   connectSocket() {
     if (!socket.connected) {
+      socket.auth = { token: getToken() };
       socket.connect();
     }
   },

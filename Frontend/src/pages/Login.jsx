@@ -32,9 +32,11 @@ export const Login = () => {
 
       if (response && response.data && response.data.access_token) {
         saveToken(response.data.access_token);
-        loadUserFromToken();
+        await loadUserFromToken();
         navigate('/dashboard');
-        socketService.connectSocket()
+        setTimeout(() => {
+          socketService.connectSocket()
+        }, 100)
       }
     } catch (error) {
       if (error.detail) {
