@@ -1,81 +1,170 @@
-.dashboard-container {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-  background: var(--primary-dark-color);
-}
-
 .stream-content {
   flex: 1;
   padding: 30px;
   overflow-y: auto;
-  background-color: var(--primary-dark-color);
-  color: var(--primary-white-color);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  position: relative;
 }
 
 .stream-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 24px;
+  margin-bottom: 30px;
 }
 
 .stream-header h2 {
-  color: var(--primary-white-color);
   font-size: 2rem;
-  margin: 0;
+  margin-bottom: 10px;
+  background: var(--primary-gradient-green);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 5px var(--green-shadow);
 }
 
-
 .stream-video-area {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   background: var(--section-grey-color);
-  border-radius: 12px;
-  min-height: 320px;
-  width: 100%;
-  max-width: 700px;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 12px var(--transparent-black);
+  border: 1px solid var(--section-border-color);
+}
+
+.stream-item {
   display: flex;
   align-items: center;
-  justify-content: center;
-  border: 2px dashed var(--card-border-color);
-  position: relative;
-  margin-bottom: 40px;
+  justify-content: space-between;
+  padding: 20px;
+  background: var(--transparent-black);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: 1px solid var(--section-border-color);
+}
+
+.stream-item:hover {
+  background: var(--card-border-color);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px var(--card-shadow-hover);
+  border-color: var(--card-border-hover);
+}
+
+.stream-item span {
+  font-size: 1.1rem;
+  color: var(--primary-white-color);
+  display: flex;
+  align-items: center;
+}
+
+.stream-item span::before {
+  content: '•';
+  color: var(--primary-green);
+  font-size: 2rem;
+  margin-right: 10px;
+  animation: pulse 1.5s infinite;
+}
+
+.stream-item button {
+  background: var(--primary-gradient-green);
+  color: var(--primary-white-color);
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px var(--green-shadow);
+}
+
+.stream-item button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px var(--green-shadow);
 }
 
 .stream-placeholder {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 200px;
+  background: var(--transparent-black);
+  border-radius: 8px;
   color: var(--soft-grey);
   font-size: 1.2rem;
-  gap: 12px;
+  border: 1px dashed var(--section-border-color);
 }
 
-.stream-placeholder i {
-  font-size: 3rem;
+.stream-connecting {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  background: var(--transparent-black);
+  border-radius: 8px;
   color: var(--primary-green);
+  font-size: 1.2rem;
+  border: 1px dashed var(--section-border-color);
 }
 
-/* Responsive adjustments */
-@media (max-width: 900px) {
-  .stream-header,
+.stream-connecting span {
+  position: relative;
+  padding-left: 30px;
+}
+
+.stream-connecting span::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--primary-green);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: loading 1s infinite linear;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .stream-content {
+    padding: 20px 15px;
+  }
+  
+  .stream-header h2 {
+    font-size: 1.6rem;
+  }
+  
   .stream-video-area {
-    max-width: 100%;
+    padding: 20px;
   }
-  .stream-content {
-    padding: 16px;
-  }
-}
-
-@media (max-width: 600px) {
-  .dashboard-container {
+  
+  .stream-item {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
   }
-  .stream-content {
-    padding: 8px;
+  
+  .stream-item button {
+    width: 100%;
   }
 }
