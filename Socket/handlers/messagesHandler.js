@@ -1,4 +1,4 @@
-import { errorHandler } from "../middlewares/errorHandler";
+import { errorHandler } from "../middlewares/errorHandler.js";
 
 export const registerMessagesHandlers = (io, socket) => {
   socket.on(
