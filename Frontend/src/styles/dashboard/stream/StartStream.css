@@ -1,4 +1,11 @@
-.stream-container {
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--primary-dark-color);
+}
+
+.stream-view-content {
   flex: 1;
   padding: 30px;
   background-color: var(--primary-dark-color);
