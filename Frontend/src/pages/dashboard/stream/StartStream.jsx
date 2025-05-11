@@ -11,6 +11,7 @@ export const StartStream = () => {
   const { courseId } = useParams();
   const [isStreaming, setIsStreaming] = useState(false)
   const [streamError, setStreamError] = useState(false)
+  
 
   const localStreamRef = useRef(null);
   const localVideoRef = useRef(null);
