@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { socket, socketService } from "../../../services/socketService";
 import { useUser } from "../../../context/UserContext";
 import { Sidebar } from "../../../components/Sidebar";
+import { StreamChat } from "../../../components/StreamChat";
 import "../../../styles/dashboard/stream/StartStream.css";
 
 export const StartStream = () => {
@@ -156,6 +157,7 @@ export const StartStream = () => {
             End Stream
           </button>
         )}
+              <StreamChat />
       </div>
     </div>
     </div>

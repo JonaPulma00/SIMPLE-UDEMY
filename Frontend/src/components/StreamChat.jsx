@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import '../styles/global/StreamChat.css'
 
+export const StreamChat = () => {
   const [chatMessage, setChatMessage] = useState('');
 
   const handleSendMessage = (e) => {
@@ -10,7 +11,6 @@ import '../styles/global/StreamChat.css'
     console.log("Message sent:", chatMessage);
     setChatMessage("");
   };
-export const StreamChat = () => {
   return (
     <div className="stream-view-chat">
     <div className="chat-header">
