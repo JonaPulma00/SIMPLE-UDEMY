@@ -82,7 +82,7 @@ export const StartStream = () => {
 
   const handleWebcamPermission = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
       localVideoRef.current.srcObject = stream;
       localStreamRef.current = stream;
 
