@@ -9,15 +9,6 @@ export const StreamView = () => {
   const { courseId } = useParams();
   const { user } = useUser();
   const videoRef = useRef(null);
-  const [chatMessage, setChatMessage] = useState('');
-
-  const handleSendMessage = (e) => {
-    e.preventDefault();
-    if (!chatMessage.trim()) return;
-    
-    console.log("Message sent:", chatMessage);
-    setChatMessage("");
-  };
 
   return (
     <div className="dashboard-container">

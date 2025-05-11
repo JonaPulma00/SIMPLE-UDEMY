@@ -1,5 +1,15 @@
-import React from 'react'
+import { useState } from 'react';
 import '../styles/global/StreamChat.css'
+
+  const [chatMessage, setChatMessage] = useState('');
+
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+    if (!chatMessage.trim()) return;
+    
+    console.log("Message sent:", chatMessage);
+    setChatMessage("");
+  };
 export const StreamChat = () => {
   return (
     <div className="stream-view-chat">
