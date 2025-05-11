@@ -128,38 +128,41 @@ export const StartStream = () => {
   return (
     <div className="dashboard-container">
       <Sidebar />
-    <div className="stream-container">
-      <h2>Streaming in course - Course: {courseId}</h2>
-      
-      {streamError && (
-        <div className="stream-error">
-          <p>{streamError}</p>
+      <div className="stream-container">
+        <h2>Streaming</h2>
+        <div className="stream-info">
+          <span className="stream-course-id">Course: {courseId}</span>
         </div>
-      )}
-      
-      <div className="video-container">
-        <video 
-          ref={localVideoRef} 
-          autoPlay 
-          playsInline 
-          muted 
-          className="local-video"
-        />
-      </div>
-      
-      <div className="stream-controls">
-        {!isStreaming ? (
-          <button className="start-stream-btn" onClick={handleWebcamPermission}>
-            Start Stream
-          </button>
-        ) : (
-          <button className="end-stream-btn" onClick={endStream}>
-            End Stream
-          </button>
+        
+        {streamError && (
+          <div className="stream-error">
+            <p>{streamError}</p>
+          </div>
         )}
-              <StreamChat />
+        
+        <div className="video-container">
+          <video 
+            ref={localVideoRef} 
+            autoPlay 
+            playsInline 
+            muted 
+            className="local-video"
+          />
+        </div>
+        
+        <div className="stream-controls">
+          {!isStreaming ? (
+            <button className="start-stream-btn" onClick={handleWebcamPermission}>
+              Start Stream
+            </button>
+          ) : (
+            <button className="end-stream-btn" onClick={endStream}>
+              End Stream
+            </button>
+          )}
+        </div>
       </div>
-    </div>
+      <StreamChat />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { socketService } from '../../../services/socketService';
 import { Sidebar } from '../../../components/Sidebar';
+import { StreamChat } from '../../../components/StreamChat';
 import { useUser } from '../../../context/UserContext';
 import '../../../styles/dashboard/stream/StreamView.css';
 
@@ -44,6 +45,7 @@ export const StreamView = () => {
           </div>
         </div>
       </div>
+      <StreamChat />
     </div>
   );
 };
