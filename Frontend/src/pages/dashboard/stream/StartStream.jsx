@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { socket, socketService } from "../../../services/socketService";
+import { socketService } from "../../../services/socketService";
 import { useUser } from "../../../context/UserContext";
 import { Sidebar } from "../../../components/Sidebar";
 import { StreamChat } from "../../../components/StreamChat";
@@ -11,7 +11,7 @@ export const StartStream = () => {
   const { courseId } = useParams();
   const [isStreaming, setIsStreaming] = useState(false)
   const [streamError, setStreamError] = useState(false)
-  
+  const [watchers, setWatchers] = useState(new Set());
 
   const localStreamRef = useRef(null);
   const localVideoRef = useRef(null);
@@ -34,43 +34,40 @@ export const StartStream = () => {
     
     socketService.joinRoom(courseId, user.uuid); 
 
-    socketService.onWatcher((whatcherId) => {
-      console.log("New watcher connected", whatcherId);
+    socketService.onWatcher((watcherId) => {
+      console.log("New watcher connected", watcherId);
+      setWatchers((prev) => new Set(prev).add(watcherId));
     });
 
     //crear la conexio
     const pc = new RTCPeerConnection(servers);
     peerConnectionRef.current = pc;
 
-    if (localStreamRef.current) {
-      localStreamRef.current.getTracks().forEach((track) => {
-        pc.addTrack(track, localStreamRef.current);
-      });
-    }
-    //enviar ice candidate
+        //enviar ice candidate
     pc.onicecandidate = (e) => {
       if (e.candidate) {
         socketService.sendIceCandidate(courseId, e.candidate);
       }
     };
-  
-    pc.createOffer()
-      .then((offer) => pc.setLocalDescription(offer))
-      .then(() => {
-        socketService.sendOffer(watcherId, pc.localDescription)
-      })
-      .catch((err) => {
-        console.error("Error creating offer", err);
-      });
 
-      socketService.onAnswer(({ answer, from }) => {
-        if (from === watcherId) {
-          pc.setRemoteDescription(new RTCSessionDescription(answer))
+    socketService.onAnswer(({ answer, from }) => {
+      if (watchers.has(from)) {
+        pc.setRemoteDescription(new RTCSessionDescription(answer))
+        .catch((err) => {
+          console.error("Error setting remote description", err);
+        });
+      }
+    });
+
+    socketService.onIceCandidate(({ candidate, from }) => {
+      console.log("Received ICE candidate from:", from);
+      if (peerConnectionRef.current) {
+        peerConnectionRef.current.addIceCandidate(new RTCIceCandidate(candidate))
           .catch((err) => {
-            console.error("Error setting remote description", err);
+            console.error("Error adding ICE candidate", err);
           });
-        }
-      });
+      }
+    });
 
     return () => {
       pc.close();
@@ -88,11 +85,15 @@ export const StartStream = () => {
       localVideoRef.current.srcObject = stream;
       localStreamRef.current = stream;
 
+      stream.getTracks().forEach((track) => {
+        peerConnectionRef.current.addTrack(track, stream);
+      })
+
      socketService.startStream(courseId);
      setIsStreaming(true);
 
       //crear offer despres d'obtenir els permisos
-      createOffer();
+      await createOffer();
     } catch (err) {
       setStreamError("Error accessing webcam: " + err.message);
       console.error("Error accessing webcam:", err);
@@ -107,6 +108,7 @@ export const StartStream = () => {
 
       //enviar offer
       socketService.sendOffer(courseId, offer);
+      console.log("Offer sent:", offer);
     } catch (err) {
       console.error("Error creating offer", err);
     }

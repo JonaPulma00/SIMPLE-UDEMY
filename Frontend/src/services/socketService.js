@@ -91,6 +91,7 @@ export const socketService = {
 
   onAnswer(callback) {
     socket.on("answer", ({ answer, from }) => {
+      console.log("Received answer from:", from);
       callback({ answer, from });
     });
   },

@@ -12,29 +12,46 @@ export const registerStreamHandlers = (io, socket) => {
 
   socket.on(
     "start-stream",
-    errorHandler((courseId) => {
-      activeStreams.add(courseId);
-      socket.to(courseId.toString()).emit("stream-started", courseId);
-      io.emit("stream-started", courseId);
+    errorHandler((roomId) => {
+      activeStreams.add(roomId);
+      socket.join(roomId.toString());
+      io.to(roomId.toString()).emit("stream-started", roomId);
       console.log(`Instructor started stream in room ${courseId}`);
     })
   );
 
   socket.on(
     "end-stream",
-    errorHandler((courseId) => {
-      socket.to(courseId).emit("stream-ended");
-      console.log(`Instructor ended stream in room ${courseId}`);
-      activeStreams.delete(courseId);
-      io.emit("stream-ended", courseId);
+    errorHandler((roomId) => {
+      io.to(roomId.toString()).emit("stream-ended", roomId);
+      activeStreams.delete(roomId);
+      console.log(`Instructor ended stream in room ${roomId}`);
+    })
+  );
+
+  socket.on(
+    "join-room",
+    errorHandler((roomId, userId) => {
+      socket.join(roomId.toString());
+      socket.to(roomId.toString()).emit("user-connected", userId);
+      console.log(`User ${userId} joined room ${roomId}`);
+    })
+  );
+
+  socket.on(
+    "leave-room",
+    errorHandler((roomId) => {
+      socket.leave(roomId.toString());
+      console.log(`User left room ${roomId}`);
     })
   );
 
   socket.on(
     "watcher",
-    errorHandler((courseId) => {
-      socket.join(courseId.toString());
-      socket.to(courseId.toString()).emit("watcher", socket.id);
+    errorHandler((roomId, userId) => {
+      socket.join(roomId.toString());
+      socket.to(roomId.toString()).emit("watcher", userId);
+      console.log(`Watcher ${userId} joined stream${roomId}`);
     })
   );
 
