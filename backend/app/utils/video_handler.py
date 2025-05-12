@@ -1,19 +1,19 @@
-import os
 import boto3
-from botocore.exceptions import ClientError
+from fastapi import HTTPException, status
 from fastapi import UploadFile
 from typing import Optional
+from app.core.config import settings
 
 class VideoHandler:
     def __init__(self):
         self.s3_client = boto3.client(
             's3',
-            aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-            aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
-            aws_session_token=os.getenv('AWS_SESSION_TOKEN'),  
-            region_name=os.getenv('AWS_REGION')
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+            aws_session_token=settings.AWS_SESSION_TOKEN,  
+            region_name=settings.AWS_REGION
         )
-        self.bucket_name = os.getenv('AWS_BUCKET_NAME')
+        self.bucket_name = settings.AWS_BUCKET_NAME
 
     def get_video_path(self, course_id: str, section_id: str, lesson_id: str) -> str:
         return f"course_{course_id}/section_{section_id}/lesson_{lesson_id}/video.mp4"
@@ -37,12 +37,10 @@ class VideoHandler:
                 }
             )
             
-            url = f"https://{self.bucket_name}.s3.{os.getenv('AWS_REGION')}.amazonaws.com/{video_path}"
+            url = f"https://{self.bucket_name}.s3.{settings.AWS_REGION}.amazonaws.com/{video_path}"
             return url
-        except Exception as e:
-            print(f"Error uploading video to S3: {str(e)}")
-            return None
-
+        except Exception:
+                raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to upload video")
     def get_presigned_url(self, video_path: str, expires_in: int = 3600) -> Optional[str]:
  
         try:
@@ -55,6 +53,5 @@ class VideoHandler:
                 ExpiresIn=expires_in
             )
             return url
-        except Exception as e:
-            print(f"Error generating presigned URL: {str(e)}")
-            return None
+        except Exception:
+             raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to generate video URL")

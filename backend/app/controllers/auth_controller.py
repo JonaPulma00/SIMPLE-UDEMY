@@ -8,7 +8,7 @@ from app.db.models import User
 from app.schemas.user import UserCreate, UserLogin
 from app.utils.security import get_password_hash, verify_password, create_access_token, create_refresh_token
 import logging
-from app.core.config import SECRET_KEY, JWT_ALGORITHM, REFRESH_TOKEN_EXPIRE_MINUTES
+from app.core.config import settings
 from app.utils.security import add_to_blacklist
 
 logger = logging.getLogger(__name__)
@@ -60,7 +60,7 @@ async def authenticate_user(db: AsyncSession, username: str, password: str, requ
     
     if existing_refresh_token:
         try:
-            payload = jwt.decode(existing_refresh_token, SECRET_KEY, algorithms=[JWT_ALGORITHM])
+            payload = jwt.decode(existing_refresh_token, settings.SECRET_KEY, algorithms=[settings.JWT_ALGORITHM])
             if payload.get("uuid") == user.user_id:
                 needs_new_refresh = False
         except jwt.PyJWTError:
@@ -76,7 +76,7 @@ async def authenticate_user(db: AsyncSession, username: str, password: str, requ
             httponly=True,
             secure=False,
             samesite="None",
-            max_age=REFRESH_TOKEN_EXPIRE_MINUTES 
+            max_age=settings.REFRESH_TOKEN_EXPIRE_MINUTES 
         )
 
     return response
@@ -91,7 +91,7 @@ async def refresh_access_token(request: Request):
         )
 
     try:
-        payload = jwt.decode(refresh_token, SECRET_KEY, algorithms=[JWT_ALGORITHM])
+        payload = jwt.decode(refresh_token, settings.SECRET_KEY, algorithms=[settings.JWT_ALGORITHM])
         user_id = payload.get("uuid")
 
         if user_id is None:
@@ -122,14 +122,14 @@ async def logout_user(request: Request, token: str):
         )
 
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[JWT_ALGORITHM])
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.JWT_ALGORITHM])
         
         add_to_blacklist(token)
 
         refresh_token = request.cookies.get("refresh_token")
         if refresh_token:
             try:
-                jwt.decode(refresh_token, SECRET_KEY, algorithms=[JWT_ALGORITHM])
+                jwt.decode(refresh_token, settings.SECRET_KEY, algorithms=[settings.JWT_ALGORITHM])
                 add_to_blacklist(refresh_token)
             except jwt.PyJWTError:
                 pass  
@@ -204,7 +204,7 @@ async def authenticate_google_user(db: AsyncSession, google_data: dict, request:
     
     if existing_refresh_token:
         try:
-            payload = jwt.decode(existing_refresh_token, SECRET_KEY, algorithms=[JWT_ALGORITHM])
+            payload = jwt.decode(existing_refresh_token, settings.SECRET_KEY, algorithms=[settings.JWT_ALGORITHM])
             if payload.get("uuid") == user.user_id:
                 needs_new_refresh = False
         except jwt.PyJWTError:
@@ -220,7 +220,7 @@ async def authenticate_google_user(db: AsyncSession, google_data: dict, request:
             httponly=True,
             secure=False,
             samesite="None",
-            max_age=REFRESH_TOKEN_EXPIRE_MINUTES
+            max_age=settings.REFRESH_TOKEN_EXPIRE_MINUTES
         )
 
     return response
