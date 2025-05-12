@@ -4,13 +4,13 @@ import { socketService } from "../../../services/socketService";
 import { useUser } from "../../../context/UserContext";
 import { Sidebar } from "../../../components/Sidebar";
 import { StreamChat } from "../../../components/StreamChat";
+import { toast } from "react-toastify";
 import "../../../styles/dashboard/stream/StartStream.css";
 
 export const StartStream = () => {
   const { user } = useUser();
   const { courseId } = useParams();
   const [isStreaming, setIsStreaming] = useState(false)
-  const [streamError, setStreamError] = useState(false)
   const [watchers, setWatchers] = useState(new Set());
 
   const localStreamRef = useRef(null);
@@ -33,6 +33,9 @@ export const StartStream = () => {
     socketService.connectSocket();
     
     socketService.joinRoom(courseId, user.uuid); 
+
+    
+    console.log("room: ", courseId, "user: ", user.uuid)
 
     socketService.onWatcher((watcherId) => {
       console.log("New watcher connected", watcherId);
@@ -95,7 +98,7 @@ export const StartStream = () => {
       //crear offer despres d'obtenir els permisos
       await createOffer();
     } catch (err) {
-      setStreamError("Error accessing webcam: " + err.message);
+      toast.error("Error accessing webcam");
       console.error("Error accessing webcam:", err);
     }
   };
@@ -136,12 +139,6 @@ export const StartStream = () => {
         <div className="stream-info">
           <span className="stream-course-id">Course: {courseId}</span>
         </div>
-        
-        {streamError && (
-          <div className="stream-error">
-            <p>{streamError}</p>
-          </div>
-        )}
         
         <div className="video-container">
           <video 

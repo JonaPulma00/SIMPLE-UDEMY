@@ -20,15 +20,6 @@
   text-shadow: 0 0 5px var(--green-shadow);
 }
 
-.stream-error {
-  padding: 15px;
-  background-color: var(--error-color);
-  color: var(--primary-white-color);
-  border-radius: 6px;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
 .video-container {
   position: relative;
   display: flex;
