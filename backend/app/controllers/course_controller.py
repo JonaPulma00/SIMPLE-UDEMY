@@ -29,7 +29,7 @@ async def create_course(db: AsyncSession, course_data: CourseCreate, instructor_
 
 async def get_courses(db: AsyncSession, user_id: str, page: int = 1, limit: int = 10):
     if page < 1 or limit < 1:
-        raise HTTPException(status_code=400, detail="Page and limit must be positive integers")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Page and limit must be positive integers")
 
     offset = (page - 1) * limit  
 

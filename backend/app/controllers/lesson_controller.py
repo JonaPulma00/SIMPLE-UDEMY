@@ -49,7 +49,7 @@ async def add_lesson_to_section(db: AsyncSession, course_id: str, section_id: st
 async def update_lesson_video(db: AsyncSession, lesson_id: str, video_file, course_id: str, section_id: str):
     lesson = await db.get(Lesson, lesson_id)
     if not lesson:
-        raise HTTPException(status_code=404, detail="Lesson not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lesson not found")
     
 
     video_url = await video_handler.upload_video(
@@ -61,7 +61,7 @@ async def update_lesson_video(db: AsyncSession, lesson_id: str, video_file, cour
     
     if not video_url:
         raise HTTPException(
-            status_code=500,
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to upload video"
         )
 
@@ -78,7 +78,7 @@ async def get_lesson_video(db: AsyncSession, lesson_id: str):
     lesson = result.scalar_one_or_none()
 
     if not lesson or not lesson.video_url:
-        raise HTTPException(status_code=404, detail="Video not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Video not found")
 
     try:
 
@@ -90,5 +90,4 @@ async def get_lesson_video(db: AsyncSession, lesson_id: str):
         
         return {"url": presigned_url}
     except Exception as e:
-        print(f"Error retrieving video: {str(e)}")
-        raise HTTPException(status_code=500, detail="Failed to retrieve video")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to retrieve video")

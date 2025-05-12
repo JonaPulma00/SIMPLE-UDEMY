@@ -26,8 +26,6 @@ export const Explore = () => {
 
   const handleCategoryClick = (category) => {
     setActiveCategory(category);
-
-    setCurrentPage(1);
   };
 
   const handlePageChange = (newPage) => {

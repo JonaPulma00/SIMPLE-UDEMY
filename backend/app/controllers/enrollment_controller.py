@@ -11,7 +11,7 @@ async def enroll_user(db: AsyncSession, user_id: str, course_id: str):
     course = course_result.scalar_one_or_none()
 
     if not course:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Course not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Course not found")
 
     enrollment_stmt = select(Enrollments).filter(
         Enrollments.user_id == user_id,
@@ -21,7 +21,7 @@ async def enroll_user(db: AsyncSession, user_id: str, course_id: str):
     existing_enrollment = enrollment_result.scalar_one_or_none()
 
     if existing_enrollment:
-        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="User already enrolled in this course")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="User already enrolled in this course")
 
     enrollment = Enrollments(
         enrollment_id=str(uuid.uuid4()),
@@ -37,7 +37,7 @@ async def enroll_user(db: AsyncSession, user_id: str, course_id: str):
 
 async def get_user_enrollments(db: AsyncSession, user_id: str, page: int = 1, limit: int = 10):
     if page < 1 or limit < 1:
-        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Page and limit must be positive integers")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Page and limit must be positive integers")
 
     offset = (page - 1) * limit  
 
