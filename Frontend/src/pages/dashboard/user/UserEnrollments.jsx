@@ -9,7 +9,7 @@ import '../../../styles/dashboard/user/UserEnrollments.css';
 export const UserEnrollments = () => {
   const { user } = useUser();
   const [currentPage, setCurrentPage] = useState(1);
-  const limit = 10;
+  const limit = 9;
 
   const { loading, error, value: enrollmentsData } = useAsync(
     () => getUserEnrollments(currentPage, limit),

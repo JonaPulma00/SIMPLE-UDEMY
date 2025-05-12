@@ -30,6 +30,10 @@ export const Explore = () => {
     setCurrentPage(1);
   };
 
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
   return (
     <div className="dashboard-container">
       <Sidebar />
@@ -108,36 +112,17 @@ export const Explore = () => {
                 <button
                   className="pagination-button"
                   disabled={currentPage === 1}
-                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  onClick={() => handlePageChange(currentPage - 1)}
                 >
                   <i className="fas fa-chevron-left"></i>
                 </button>
-
-                {Array.from({ length: coursesData.total_pages }, (_, i) => i + 1)
-                  .filter(page => (
-                    page === 1 ||
-                    page === coursesData.total_pages ||
-                    Math.abs(page - currentPage) <= 1
-                  ))
-                  .map((page, index, array) => (
-                    <>
-                      {index > 0 && array[index - 1] !== page - 1 && (
-                        <span key={`ellipsis-${page}`} className="pagination-ellipsis">...</span>
-                      )}
-                      <button
-                        key={page}
-                        className={`pagination-button ${currentPage === page ? 'active' : ''}`}
-                        onClick={() => setCurrentPage(page)}
-                      >
-                        {page}
-                      </button>
-                    </>
-                  ))}
-
+                <span className="page-info">
+                  Page {currentPage} of {coursesData.total_pages}
+                </span>
                 <button
                   className="pagination-button"
                   disabled={currentPage === coursesData.total_pages}
-                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, coursesData.total_pages))}
+                  onClick={() => handlePageChange(currentPage + 1)}
                 >
                   <i className="fas fa-chevron-right"></i>
                 </button>

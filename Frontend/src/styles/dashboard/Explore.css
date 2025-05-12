@@ -211,22 +211,27 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   margin-top: 30px;
 }
 
 .pagination-button {
+  background: transparent;
+  border: 1px solid var(--primary-grey-color);
+  color: var(--primary-white-color);
   width: 40px;
   height: 40px;
+  border-radius: 50%;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background-color: var(--section-grey-color);
-  border: 1px solid var(--section-border-color);
-  border-radius: 5px;
-  color: var(--soft-grey);
+  justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+}
+
+.pagination-button:hover:not(:disabled) {
+  border-color: var(--primary-green);
+  color: var(--primary-green);
 }
 
 .pagination-button:disabled {
@@ -234,18 +239,7 @@
   cursor: not-allowed;
 }
 
-.pagination-button:not(:disabled):hover,
-.pagination-button.active {
-  background-color: var(--card-border-color);
-  border-color: var(--primary-green);
-  color: var(--primary-white-color);
-}
-
-.pagination-button.active {
-  background-color: var(--transparent-green-hover);
-}
-
-.pagination-ellipsis {
+.page-info {
   color: var(--soft-grey);
 }
 

@@ -32,9 +32,7 @@ export const Sidebar = () => {
 
       <div className="dashboard-sidebar">
         <div className="sidebar-header">
-          <Link to="/dashboard">
           <h2>MyEd</h2>
-          </Link>
         </div>
         
         <div className="sidebar-menu">
