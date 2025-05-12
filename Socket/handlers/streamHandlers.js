@@ -1,8 +1,16 @@
 import { errorHandler } from "../middlewares/errorHandler.js";
 
 const activeStreams = new Set();
+const userSockets = new Map();
 
 export const registerStreamHandlers = (io, socket) => {
+  socket.on(
+    "register-user",
+    errorHandler((userId) => {
+      userSockets.set(userId, socket.id);
+      console.log(`User ${userId} registered`);
+    })
+  );
   socket.on(
     "get-active-streams",
     errorHandler(() => {
@@ -58,28 +66,43 @@ export const registerStreamHandlers = (io, socket) => {
   socket.on(
     "offer",
     errorHandler(({ to, offer }) => {
-      socket.to(to).emit("offer", { offer, from: socket.id });
+      const toSocketId = userSockets.get(to);
+      if (toSocketId) {
+        socket.to(toSocketId).emit("offer", { offer, from: socket.id });
+        console.log(`Sent offer from ${socket.id} to ${to}`);
+      }
     })
   );
 
   socket.on(
     "answer",
     errorHandler(({ to, answer }) => {
-      socket.to(to).emit("answer", { answer, from: socket.id });
+      const toSocketId = userSockets.get(to);
+      if (toSocketId) {
+        socket.to(toSocketId).emit("answer", { answer, from: socket.id });
+        console.log(`Sent answer from ${socket.id} to ${to}`);
+      }
     })
   );
 
   socket.on(
     "ice-candidate",
     errorHandler(({ to, candidate }) => {
-      socket.to(to).emit("ice-candidate", { candidate, from: socket.id });
+      const toSocketId = userSockets.get(to);
+      if (toSocketId) {
+        socket
+          .to(toSocketId)
+          .emit("ice-candidate", { candidate, from: socket.id });
+        console.log(`ICE candidate sent from ${socket.id} to ${to}`);
+      }
     })
   );
 
   socket.on(
     "draw",
-    errorHandler((groupId, drawingData) => {
-      socket.to(groupId).emit("draw-update", drawingData);
+    errorHandler((roomId, drawingData) => {
+      socket.to(roomId.toString()).emit("draw-update", drawingData);
+      console.log(`Drawing update in room ${roomId}`);
     })
   );
 };
