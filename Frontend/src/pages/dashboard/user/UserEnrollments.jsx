@@ -58,9 +58,8 @@ export const UserEnrollments = () => {
               ) : (
                 <div className="no-enrollments">
                   <i className="fas fa-book-reader"></i>
-                  <h3>No Enrolled Courses</h3>
                   <p>You haven't enrolled in any courses yet.</p>
-                  <Link to="/dashboard/courses" className="browse-courses-btn">
+                  <Link to="/explore" className="browse-courses-btn">
                     Browse Courses
                   </Link>
                 </div>

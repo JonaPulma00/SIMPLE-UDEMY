@@ -1,16 +1,8 @@
 import { errorHandler } from "../middlewares/errorHandler.js";
 
 const activeStreams = new Set();
-const userSockets = new Map();
 
 export const registerStreamHandlers = (io, socket) => {
-  socket.on(
-    "register-user",
-    errorHandler((userId) => {
-      userSockets.set(userId, socket.id);
-      console.log(`User ${userId} registered`);
-    })
-  );
   socket.on(
     "get-active-streams",
     errorHandler(() => {
@@ -24,7 +16,7 @@ export const registerStreamHandlers = (io, socket) => {
       activeStreams.add(roomId);
       socket.join(roomId.toString());
       io.to(roomId.toString()).emit("stream-started", roomId);
-      console.log(`Instructor started stream in room ${courseId}`);
+      console.log(`Instructor started stream in room ${roomId}`);
     })
   );
 
@@ -59,42 +51,31 @@ export const registerStreamHandlers = (io, socket) => {
     errorHandler((roomId, userId) => {
       socket.join(roomId.toString());
       socket.to(roomId.toString()).emit("watcher", userId);
-      console.log(`Watcher ${userId} joined stream${roomId}`);
+      console.log(`Watcher ${userId} joined stream ${roomId}`);
     })
   );
 
   socket.on(
     "offer",
     errorHandler(({ to, offer }) => {
-      const toSocketId = userSockets.get(to);
-      if (toSocketId) {
-        socket.to(toSocketId).emit("offer", { offer, from: socket.id });
-        console.log(`Sent offer from ${socket.id} to ${to}`);
-      }
+      socket.to(to).emit("offer", { offer, from: socket.id });
+      console.log(`Sent offer from ${socket.id} to ${to}`);
     })
   );
 
   socket.on(
     "answer",
     errorHandler(({ to, answer }) => {
-      const toSocketId = userSockets.get(to);
-      if (toSocketId) {
-        socket.to(toSocketId).emit("answer", { answer, from: socket.id });
-        console.log(`Sent answer from ${socket.id} to ${to}`);
-      }
+      socket.to(to).emit("answer", { answer, from: socket.id });
+      console.log(`Sent answer from ${socket.id} to ${to}`);
     })
   );
 
   socket.on(
     "ice-candidate",
     errorHandler(({ to, candidate }) => {
-      const toSocketId = userSockets.get(to);
-      if (toSocketId) {
-        socket
-          .to(toSocketId)
-          .emit("ice-candidate", { candidate, from: socket.id });
-        console.log(`ICE candidate sent from ${socket.id} to ${to}`);
-      }
+      socket.to(to).emit("ice-candidate", { candidate, from: socket.id });
+      console.log(`ICE candidate sent from ${socket.id} to ${to}`);
     })
   );
 

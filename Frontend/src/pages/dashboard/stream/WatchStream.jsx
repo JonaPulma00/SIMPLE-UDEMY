@@ -42,7 +42,7 @@ export const WatchStream = () => {
   }, []);
 
   const handleJoinStream = (courseId) => {
-    socketService.startWatcher(courseId);
+    socketService.startWatcher(courseId, user.uuid);
     navigate(`/stream/view/${courseId}`);
   };
   

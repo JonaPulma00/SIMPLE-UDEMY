@@ -71,8 +71,8 @@ export const socketService = {
     socket.emit("draw", roomId, drawingData);
   },
 
-  startWatcher(courseId) {
-    socket.emit("watcher", courseId);
+  startWatcher(courseId, userId) {
+    socket.emit("watcher", courseId, userId);
   },
 
   sendOffer(to, offer) {

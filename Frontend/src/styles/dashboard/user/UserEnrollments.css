@@ -97,7 +97,7 @@
 .browse-courses-btn {
   display: inline-block;
   padding: 12px 24px;
-  background: var(--primary-gradient-green);
+  background: var(--primary-green);
   color: var(--primary-dark-color);
   text-decoration: none;
   border-radius: 6px;
