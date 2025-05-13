@@ -47,7 +47,9 @@ export const UserEnrollments = () => {
                     className="enrollment-card"
                   >
                     <h3>{enrollment.title}</h3>
-                    <p>{enrollment.description}</p>
+                    <p>{enrollment.description && enrollment.description.length > 100
+                      ? enrollment.description.substring(0, 100) + '...'
+                      : enrollment.description}</p>
                     <div className="card-footer">
                       <button className="continue-btn">
                         Continue Learning <i className="fas fa-arrow-right"></i>
