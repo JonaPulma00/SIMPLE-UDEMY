@@ -2,13 +2,12 @@ import { authMiddleware } from "./middlewares/authMiddleware.js";
 import { registerGeneralHandlers } from "./handlers/generalHandlers.js";
 import { registerStreamHandlers } from "./handlers/streamHandlers.js";
 import { registerMessagesHandlers } from "./handlers/messagesHandler.js";
-import dotenv from "dotenv";
 import { createSocketServer } from "./config/socket.js";
+import dotenv from "dotenv";
 
 dotenv.config();
 
 const PORT = process.env.PORT || 4000;
-const PEER_PORT = process.env.PEER_PORT || 9000;
 const FRONT_URL = process.env.APP_URL;
 
 const io = createSocketServer({ port: PORT, origin: FRONT_URL });

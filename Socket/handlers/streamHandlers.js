@@ -33,8 +33,8 @@ export const registerStreamHandlers = (io, socket) => {
     "join-room",
     errorHandler((roomId, userId) => {
       socket.join(roomId.toString());
-      socket.to(roomId.toString()).emit("user-connected", userId);
-      console.log(`User ${userId} joined room ${roomId}`);
+      socket.to(roomId.toString()).emit("user-connected", userId || socket.id);
+      console.log(`User ${userId || socket.id} joined room ${roomId}`);
     })
   );
 
@@ -49,9 +49,12 @@ export const registerStreamHandlers = (io, socket) => {
   socket.on(
     "watcher",
     errorHandler((roomId, userId) => {
+      // Make sure we have a valid userId
+      const watcherId = userId || socket.id;
+
       socket.join(roomId.toString());
-      socket.to(roomId.toString()).emit("watcher", userId);
-      console.log(`Watcher ${userId} joined stream ${roomId}`);
+      socket.to(roomId.toString()).emit("watcher", watcherId);
+      console.log(`Watcher ${watcherId} joined stream ${roomId}`);
     })
   );
 

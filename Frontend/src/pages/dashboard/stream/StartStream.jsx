@@ -10,7 +10,7 @@ import "../../../styles/dashboard/stream/StartStream.css";
 export const StartStream = () => {
   const { user } = useUser();
   const { courseId } = useParams();
-  const [isStreaming, setIsStreaming] = useState(false)
+  const [isStreaming, setIsStreaming] = useState(true)
   const [watchers, setWatchers] = useState(new Set());
 
   const localStreamRef = useRef(null);
@@ -40,6 +40,10 @@ export const StartStream = () => {
     socketService.onWatcher((watcherId) => {
       console.log("New watcher connected", watcherId);
       setWatchers((prev) => new Set(prev).add(watcherId));
+
+      if(peerConnectionRef.current && isStreaming){
+        createOfferForPeer(watcherId);
+      }
     });
 
     //crear la conexio
@@ -103,17 +107,24 @@ export const StartStream = () => {
     }
   };
 
-  const createOffer = async () => {
+  const createOfferForPeer = async (peerId) => {
     try {
       const pc = peerConnectionRef.current;
-      const offer = await pc.createOffer();
-      await pc.setLocalDescription(offer);
+      const offer = await pc.createOffer()
+      await pc.setLocalDescription(offer)
 
-      //enviar offer
-      socketService.sendOffer(courseId, offer);
-      console.log("Offer sent:", offer);
+      socketService.sendOffer(peerId, offer);
+      console.log("Offer sent to peer:", peerId);
     } catch (err) {
-      console.error("Error creating offer", err);
+        console.error("Error creating offer for peer:", peerId, err);
+    }
+  }
+
+  const createOffer = async () => {
+    try {
+      console.log("Stream started, waiting for watchers...");
+    } catch (err) {
+      console.error("Error setting up stream", err);
     }
   };
 

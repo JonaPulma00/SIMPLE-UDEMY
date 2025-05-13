@@ -9,7 +9,7 @@
     "dev": "nodemon server.js"
   },
   "keywords": [],
-  "author": "Jonathan rODAS",
+  "author": "Jonathan Rodas",
   "license": "ISC",
   "description": "",
   "dependencies": {

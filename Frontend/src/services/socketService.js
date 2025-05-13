@@ -43,6 +43,7 @@ export const socketService = {
   startStream(roomId) {
     socket.emit("start-stream", roomId);
   },
+
   onStreamStarted(callback) {
     socket.on("stream-started", (courseId) => {
       callback(courseId);
@@ -85,6 +86,10 @@ export const socketService = {
     });
   },
 
+  offOffer() {
+    socket.off("offer");
+  },
+
   sendAnswer(to, answer) {
     socket.emit("answer", { to, answer });
   },
@@ -96,6 +101,10 @@ export const socketService = {
     });
   },
 
+  offAnswer() {
+    socket.off("answer");
+  },
+
   sendIceCandidate(to, candidate) {
     socket.emit("ice-candidate", { to, candidate });
   },
@@ -104,6 +113,10 @@ export const socketService = {
     socket.on("ice-candidate", ({ candidate, from }) => {
       callback({ candidate, from });
     });
+  },
+
+  offIceCandidate() {
+    socket.off("ice-candidate");
   },
 
   onDrawingUpdate(callback) {

@@ -24,23 +24,22 @@ export const StreamView = () => {
   useEffect(() => {
     socketService.connectSocket();
     socketService.joinRoom(courseId, user.uuid);
-    socketService.startWatcher(courseId);
+    socketService.startWatcher(courseId, user.uuid);
 
     socketService.onOffer(({ offer, from }) => {
-      if (to === courseId) {
+        console.log("Received offer from:", from);
         const pc = new RTCPeerConnection(servers);
         peerConnectionRef.current = pc;
      
-        console.log("")
         pc.onicecandidate = (e) => {
           if (e.candidate) {
-            socketService.sendIceCandidate(courseId, e.candidate);
-          }
+            socketService.sendIceCandidate(from, e.candidate);
+          
         };
 
         pc.ontrack = (event) => {
           if (remoteVideoRef.current) {
-            remoteVideoRef.current.srcObject = event.streams[0];
+            remoteVideoRef.current.srcObject = event.streams;
             remoteVideoRef.current.play().catch((err) => {
               console.error("Error playing video:", err);
             });
