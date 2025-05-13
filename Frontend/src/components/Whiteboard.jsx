@@ -58,6 +58,7 @@ export const Whiteboard = () => {
   }, []);
 
   const handleMouseDown = (e) => {
+    if(!user || !user.isInstructor) return;
     isDrawing.current = true;
     const pos = e.target.getStage().getPointerPosition();
     const newLine = {
@@ -72,6 +73,7 @@ export const Whiteboard = () => {
   };
 
   const handleMouseMove = (e) => {
+    if(!user || !user.isInstructor) return;
     if (!isDrawing.current) return;
 
     const stage = e.target.getStage();
