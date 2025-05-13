@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3500;
 const FRONT_URL = process.env.APP_URL;
 
 const io = createSocketServer({ port: PORT, origin: FRONT_URL });
