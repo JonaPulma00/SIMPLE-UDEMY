@@ -75,21 +75,27 @@
   flex-direction: column;
   padding: 20px;
   overflow: hidden;
+  align-items: center;
 }
 
 .stream-video-container {
-  flex: 1;
-  background-color: var(--section-grey-color);
-  border-radius: 10px;
-  overflow: hidden;
   position: relative;
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  height: 500px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  background-color: var(--primary-dark-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px var(--transparent-black);
   border: 1px solid var(--section-border-color);
 }
 
 .remote-video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
   background-color: var(--primary-dark-color);
 }
 
@@ -119,38 +125,6 @@
   background-color: var(--primary-green);
   color: var(--primary-dark-color);
 }
-/* 
-.stream-tools {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 15px 0;
-}
-
-.tool-btn {
-  background-color: var(--section-grey-color);
-  color: var(--primary-white-color);
-  border: 1px solid var(--section-border-color);
-  border-radius: 8px;
-  padding: 8px 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.tool-btn:hover {
-  background-color: var(--card-border-color);
-  border-color: var(--card-border-hover);
-}
-
-.tool-btn i {
-  color: var(--primary-green);
-} */
-
-
-
 @keyframes pulse {
   0% { opacity: 0.4; }
   50% { opacity: 1; }
@@ -170,6 +144,7 @@
   
   .stream-video-container {
     height: 400px;
+    margin-bottom: 15px;
   }
   
 }
@@ -216,7 +191,8 @@
   }
   
   .stream-video-container {
-    height: 200px;
+    height: 250px;
+    margin-bottom: 10px;
   }
   
   .video-controls {
