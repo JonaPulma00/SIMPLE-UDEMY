@@ -144,6 +144,20 @@ export const socketService = {
     socket.off("watcher");
   },
 
+  sendMessage(roomId, message, id, username) {
+    socket.emit("send-message", { roomId, message, id, username });
+  },
+
+  onMessage(callback) {
+    socket.on("receive-message", (message) => {
+      callback(message);
+    });
+  },
+
+  offMessage() {
+    socket.off("receive-message");
+  },
+
   disconnectSocket() {
     socket.disconnect();
   },
