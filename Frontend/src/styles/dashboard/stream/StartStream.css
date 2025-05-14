@@ -40,8 +40,6 @@
   object-fit: fill;
 }
 
-
-
 .stream-controls {
   display: flex;
   justify-content: center;
@@ -73,7 +71,7 @@
   transform: translateY(0);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .dashboard-container {
     flex-direction: column;
     overflow-y: auto;
@@ -84,11 +82,13 @@
     padding: 15px;
     height: auto;
     min-height: auto;
+    max-height: 80vh;
   }
   
   .video-container {
     height: 400px;
     margin-bottom: 15px;
+    width: 100%;
   }
 }
 

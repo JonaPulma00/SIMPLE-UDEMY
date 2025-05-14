@@ -132,10 +132,21 @@
 }
 
 
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
+  .dashboard-container {
+    flex-direction: column;
+    height: auto;
+    overflow-y: auto;
+  }
+  
   .stream-view-layout {
     flex-direction: column;
     height: auto;
+  }
+  
+  .stream-view-content {
+    height: auto;
+    overflow-y: visible;
   }
   
   .stream-view-main {
@@ -145,8 +156,8 @@
   .stream-video-container {
     height: 400px;
     margin-bottom: 15px;
+    width: 100%;
   }
-  
 }
 
 @media (max-width: 768px) {
@@ -171,8 +182,6 @@
   .stream-video-container {
     height: 300px;
   }
-
-  
 }
 
 @media (max-width: 480px) {
