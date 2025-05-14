@@ -17,7 +17,6 @@
 
 .stream-view-header {
   padding: 20px 30px;
-  border-bottom: 1px solid var(--section-border-color);
 }
 
 .stream-view-header h2 {

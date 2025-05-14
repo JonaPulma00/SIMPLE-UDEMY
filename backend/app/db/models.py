@@ -83,7 +83,6 @@ class Stream(Base):
     title = Column(String(100), nullable=True)
     started_at = Column(TIMESTAMP, server_default=func.now())
     ended_at = Column(TIMESTAMP, nullable=True)
-    is_active = Column(Boolean, default=True)
 
     instructor = relationship("User", back_populates="streams")
     course = relationship("Course", back_populates="streams")
