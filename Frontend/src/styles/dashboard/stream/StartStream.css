@@ -80,6 +80,7 @@
   
   .stream-container {
     padding: 15px;
+    margin-bottom: 15%;
     height: auto;
     min-height: auto;
     max-height: 80vh;
