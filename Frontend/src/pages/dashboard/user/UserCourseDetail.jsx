@@ -1,15 +1,17 @@
 import { useParams } from "react-router-dom"
+import { useState } from "react"
 import {courseService} from "../../../services/courseService"
 import { enrollUser } from "../../../services/userService"
 import { Sidebar } from "../../../components/Sidebar"
 import { toast } from "react-toastify"
+import { useUser } from "../../../context/UserContext"
 import useAsync from "../../../hooks/useAsync"
-import { useState } from "react"
 import { Modal } from "../../../components/modals/Modal"
 import '../../../styles/dashboard/user/UserCourseDetail.css'
 
 export const UserCourseDetail = () => {
   const { courseId } = useParams()
+  const { user } = useUser()
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [currentVideoUrl, setCurrentVideoUrl] = useState(null);
   const [currentVideoTitle, setCurrentVideoTitle] = useState("");
@@ -65,13 +67,14 @@ export const UserCourseDetail = () => {
           <div className="course-detail-content">
             <div className="course-header">
               <h1>{course.title}</h1>
+              {!user.isInstructor ?
               <button
                 className="enroll-button"
                 onClick={handleEnroll}
                 disabled={isEnrolling}
               >
                 {isEnrolling ? "Enrolling..." : "Enroll in Course"}
-              </button>
+              </button>: <p>funcionant</p>}
             </div>
             <p>{course.description}</p>
 
