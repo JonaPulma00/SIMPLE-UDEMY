@@ -74,7 +74,7 @@ export const UserCourseDetail = () => {
                 disabled={isEnrolling}
               >
                 {isEnrolling ? "Enrolling..." : "Enroll in Course"}
-              </button>: <p>funcionant</p>}
+              </button>: ''}
             </div>
             <p>{course.description}</p>
 

@@ -3,21 +3,51 @@ import { useUser } from "../../context/UserContext";
 import { courseService} from "../../services/courseService";
 import useAsync from "../../hooks/useAsync";
 import { Sidebar } from "../../components/Sidebar";
+import { Modal } from "../../components/modals/Modal";
 import "../../styles/dashboard/InstructorCourses.css";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 export const InstructorCourses = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const { user } = useUser();
   const location = useLocation();
   const [highlightedCourse, setHighlightedCourse] = useState(null);
+  const [courseToDelete, setCourseToDelete] = useState(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const {
     loading,
     error,
     value: coursesData
-  } = useAsync(() => courseService.getInstructorCourses(user?.uuid, currentPage, 9), [currentPage, user?.uuid]);
+  } = useAsync(() => courseService.getInstructorCourses(user?.uuid, currentPage, 9), [currentPage, user?.uuid, refreshKey]);
+
+  const handleDeleteCourse = (courseId) => {
+    setCourseToDelete(courseId);
+    setIsDeleteModalOpen(true);
+  };
+
+  const confirmDeleteCourse = async () => {
+    if (!courseToDelete) return;
+    
+    setIsDeleting(true);
+    try {
+      await courseService.deleteCourse(courseToDelete);
+      toast.success("Course deleted successfully");
+      setIsDeleteModalOpen(false);
+      setCourseToDelete(null);
+      setRefreshKey(prev => prev + 1);
+    } catch (error) {
+      toast.error("Failed to delete course");
+      console.error("Error deleting course:", error);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   useEffect(() => {
     if (location.state?.newCourseId) {
@@ -89,6 +119,15 @@ export const InstructorCourses = () => {
                           <button className="edit-button" onClick={() => navigate(`/course/${course.course_id}`)}>
                             <i className="fas fa-edit"></i> Edit
                           </button>
+                          <button 
+                            className="delete-button" 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDeleteCourse(course.course_id);
+                            }}
+                          >
+                            <i className="fas fa-trash"></i> Delete
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -145,6 +184,38 @@ export const InstructorCourses = () => {
           </>
         )}
       </div>
+
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onClose={() => {
+          setIsDeleteModalOpen(false);
+          setCourseToDelete(null);
+        }}
+        title="Delete Course"
+      >
+        <div className="delete-confirmation">
+          <p>Are you sure you want to delete this course?</p>
+          <p className="warning-text">This will permanently delete all sections and lessons. This action cannot be undone.</p>
+          <div className="confirmation-actions">
+            <button
+              className="cancel-btn"
+              onClick={() => {
+                setIsDeleteModalOpen(false);
+                setCourseToDelete(null);
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              className="delete-btn"
+              onClick={confirmDeleteCourse}
+              disabled={isDeleting}
+            >
+              {isDeleting ? "Deleting..." : "Delete Course"}
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
