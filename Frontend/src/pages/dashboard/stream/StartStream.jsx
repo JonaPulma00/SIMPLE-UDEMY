@@ -12,7 +12,7 @@ import "../../../styles/dashboard/stream/StartStream.css";
 export const StartStream = () => {
   const { user } = useUser();
   const { courseId } = useParams();
-  const [isStreaming, setIsStreaming] = useState(true)
+  const [isStreaming, setIsStreaming] = useState(true);
   const [watchers, setWatchers] = useState(new Set());
   const [isWhiteboardOpen, setIsWhiteboardOpen] = useState(false);
 
@@ -32,11 +32,8 @@ export const StartStream = () => {
   useEffect(() => {
     if (!courseId) return;
 
-    //asseguar conexió
     socketService.connectSocket();
-    
     socketService.joinRoom(courseId, user.uuid); 
-
     
     console.log("room: ", courseId, "user: ", user.uuid)
 
@@ -49,11 +46,9 @@ export const StartStream = () => {
       }
     });
 
-    //crear la conexio
     const pc = new RTCPeerConnection(servers);
     peerConnectionRef.current = pc;
 
-        //enviar ice candidate
     pc.onicecandidate = (e) => {
       if (e.candidate) {
         socketService.sendIceCandidate(courseId, e.candidate);
@@ -85,7 +80,7 @@ export const StartStream = () => {
         endStream();
       }
       socketService.endStream(courseId);
-    socketService.leaveRoom(courseId);
+      socketService.leaveRoom(courseId);
     };
   }, [courseId, user?.uuid]);
 
@@ -99,10 +94,9 @@ export const StartStream = () => {
         peerConnectionRef.current.addTrack(track, stream);
       })
 
-     socketService.startStream(courseId);
-     setIsStreaming(true);
+      socketService.startStream(courseId);
+      setIsStreaming(true);
 
-      //crear offer despres d'obtenir els permisos
       await createOffer();
     } catch (err) {
       toast.error("Error accessing webcam");
@@ -142,7 +136,6 @@ export const StartStream = () => {
 
     socketService.endStream(courseId);
     setIsStreaming(false)
-
   }
 
   return (
@@ -162,26 +155,25 @@ export const StartStream = () => {
             muted 
             className="local-video"
           />
-        </div>
-        
-        <div className="stream-controls">
-          {!isStreaming ? (
-            <button className="start-stream-btn" onClick={handleWebcamPermission}>
-              Start Stream
-            </button>
-          ) : (
-            <>
-              <button className="end-stream-btn" onClick={endStream}>
-                End Stream
+          <div className="video-controls">
+            {!isStreaming ? (
+              <button className="control-btn start-stream-btn" onClick={handleWebcamPermission}>
+                <i className="fas fa-play"></i>
               </button>
-              <button 
-                className="whiteboard-btn"
-                onClick={() => setIsWhiteboardOpen(true)}
-              >
-                <i className="fa-solid fa-chalkboard"></i> Whiteboard
-              </button>
-            </>
-          )}
+            ) : (
+              <>
+                <button className="control-btn end-stream-btn" onClick={endStream}>
+                  <i className="fas fa-stop"></i>
+                </button>
+                <button 
+                  className="control-btn whiteboard-btn"
+                  onClick={() => setIsWhiteboardOpen(true)}
+                >
+                  <i className="fas fa-chalkboard"></i>
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
       <StreamChat />

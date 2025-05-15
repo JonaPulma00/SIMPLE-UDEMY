@@ -40,41 +40,59 @@
   object-fit: fill;
 }
 
-.stream-controls {
+.video-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
   gap: 10px;
 }
 
-.start-stream-btn,
-.end-stream-btn {
-  padding: 12px 24px;
-  background: var(--primary-green);
-  color: var(--primary-dark-color);
+.control-btn {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: var(--primary-white-color);
   border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  font-size: 0.9rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
-.start-stream-btn:hover,
-.end-stream-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px var(--green-shadow);
+.control-btn:hover {
+  background-color: var(--primary-green);
+  color: var(--primary-dark-color);
 }
 
-.start-stream-btn:active,
-.end-stream-btn:active {
-  transform: translateY(0);
+.control-btn.end-stream-btn {
+  background-color: rgba(220, 53, 69, 0.8);
 }
 
+.control-btn.end-stream-btn:hover {
+  background-color: rgb(220, 53, 69);
+}
 
+.control-btn.start-stream-btn {
+  background-color: rgba(46, 204, 113, 0.8);
+}
+
+.control-btn.start-stream-btn:hover {
+  background-color: rgb(46, 204, 113);
+}
+
+.control-btn.whiteboard-btn {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.control-btn.whiteboard-btn:hover {
+  background-color: rgb(46, 204, 113);
+}
 
 .whiteboard-btn {
-  padding: 12px 24px;
+  padding: 20px 64px;
   background: #1f1f1f;
   color: white;
   border: none;
@@ -143,7 +161,6 @@
   height: auto;
 }
 
-
 .modal-content:has(.whiteboard-modal-container) {
   max-width: 90%;
   height: auto;
@@ -191,7 +208,13 @@
     height: 250px;
     margin-bottom: 10px;
   }
+
+  .video-controls {
+    bottom: 10px;
+    right: 10px;
+  }
 }
+
 @media (max-width: 1180px) {
   .whiteboard-container .board {
     height: 400px;
@@ -206,25 +229,6 @@
 
 @media (max-width: 480px) {
   .whiteboard-container .board {
-    height: 250px;
-  }
-}
-
-
-@media (max-width: 1180px) {
-  .whiteboard-modal-container .board {
-    height: 400px;
-  }
-}
-
-@media (max-width: 768px) {
-  .whiteboard-modal-container .board {
-    height: 300px;
-  }
-}
-
-@media (max-width: 480px) {
-  .whiteboard-modal-container .board {
     height: 250px;
   }
   
