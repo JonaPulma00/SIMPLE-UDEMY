@@ -4,7 +4,7 @@ import { socketService } from "../services/socketService";
 import { useUser } from "../context/UserContext";
 import "../styles/global/Whiteboard.css";
 
-export const Whiteboard = () => {
+export const Whiteboard = ({ courseId }) => {
   const [lines, setLines] = useState([]);
   const [strokeWidth, setStrokeWidth] = useState(3);
   const [strokeColor, setStrokeColor] = useState("#000000");
@@ -21,8 +21,8 @@ export const Whiteboard = () => {
 
 
   useEffect(() => {
-    if (user) {
-      socketService.joinRoom("12", user.uuid);
+    if (user && courseId) {
+      socketService.joinRoom(courseId, user.uuid);
 
       socketService.onDrawingUpdate((drawingData) => {
         setLines(prevLines => [...prevLines, drawingData]);
@@ -47,7 +47,7 @@ export const Whiteboard = () => {
       socketService.offDrawingUpdate();
       window.removeEventListener('resize', updateStageSize);
     };
-  }, [user]);
+  }, [user, courseId]);
 
   const throttledSendDrawing = useCallback((roomId, drawingData) => {
     const now = Date.now();
@@ -69,7 +69,7 @@ export const Whiteboard = () => {
       globalCompositeOperation: isEraser ? 'destination-out' : 'source-over'
     };
     setLines([...lines, newLine]);
-    throttledSendDrawing("12", newLine);
+    throttledSendDrawing(courseId, newLine);
   };
 
   const handleMouseMove = (e) => {
@@ -91,7 +91,7 @@ export const Whiteboard = () => {
       };
       const updatedLines = [...prevLines.slice(0, -1), newLine];
 
-      throttledSendDrawing("12", newLine);
+      throttledSendDrawing(courseId, newLine);
 
       return updatedLines;
     });
@@ -107,7 +107,22 @@ export const Whiteboard = () => {
 
   const handleClear = () => {
     setLines([]);
+    socketService.sendDrawing(courseId, { clear: true });
   };
+
+  useEffect(() => {
+    const handleClearBoard = (data) => {
+      if (data.clear) {
+        setLines([]);
+      }
+    };
+    
+    socketService.onDrawingUpdate(handleClearBoard);
+    
+    return () => {
+      socketService.offDrawingUpdate();
+    };
+  }, []);
 
   return (
     <main className="main">
@@ -140,7 +155,7 @@ export const Whiteboard = () => {
             onClick={toggleEraser}
             title="Eraser"
           >
-            {isEraser ? <i class="fa-sharp fa-solid fa-pencil"></i> : <i class="fa-solid fa-eraser"></i>}
+            {isEraser ? <i className="fa-sharp fa-solid fa-pencil"></i> : <i className="fa-solid fa-eraser"></i>}
           </button>
         </div>
         <div className="control-group">
