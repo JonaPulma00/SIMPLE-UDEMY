@@ -4,6 +4,8 @@ import { socketService } from "../../../services/socketService";
 import { useUser } from "../../../context/UserContext";
 import { Sidebar } from "../../../components/Sidebar";
 import { StreamChat } from "../../../components/StreamChat";
+import { Whiteboard } from "../../../components/Whiteboard";
+import { Modal } from "../../../components/modals/Modal";
 import { toast } from "react-toastify";
 import "../../../styles/dashboard/stream/StartStream.css";
 
@@ -12,6 +14,7 @@ export const StartStream = () => {
   const { courseId } = useParams();
   const [isStreaming, setIsStreaming] = useState(true)
   const [watchers, setWatchers] = useState(new Set());
+  const [isWhiteboardOpen, setIsWhiteboardOpen] = useState(false);
 
   const localStreamRef = useRef(null);
   const localVideoRef = useRef(null);
@@ -167,13 +170,31 @@ export const StartStream = () => {
               Start Stream
             </button>
           ) : (
-            <button className="end-stream-btn" onClick={endStream}>
-              End Stream
-            </button>
+            <>
+              <button className="end-stream-btn" onClick={endStream}>
+                End Stream
+              </button>
+              <button 
+                className="whiteboard-btn"
+                onClick={() => setIsWhiteboardOpen(true)}
+              >
+                <i className="fa-solid fa-chalkboard"></i> Whiteboard
+              </button>
+            </>
           )}
         </div>
       </div>
       <StreamChat />
+
+      <Modal 
+        isOpen={isWhiteboardOpen} 
+        onClose={() => setIsWhiteboardOpen(false)} 
+        title="Whiteboard"
+      >
+        <div className="whiteboard-modal-container">
+          <Whiteboard courseId={courseId} />
+        </div>
+      </Modal>
     </div>
   );
 };

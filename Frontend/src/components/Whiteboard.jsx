@@ -181,6 +181,9 @@ export const Whiteboard = ({ courseId }) => {
           onMouseDown={handleMouseDown}
           onMousemove={handleMouseMove}
           onMouseup={handleMouseUp}
+          onTouchStart={handleMouseDown}
+          onTouchMove={handleMouseMove}
+          onTouchEnd={handleMouseUp}
         >
           <Layer>
             {lines.map((line, i) => (

@@ -5,12 +5,15 @@ import { Sidebar } from '../../../components/Sidebar';
 import { StreamChat } from '../../../components/StreamChat';
 import { useUser } from '../../../context/UserContext';
 import '../../../styles/dashboard/stream/StreamView.css';
+import { Whiteboard } from '../../../components/Whiteboard';
+import { Modal } from '../../../components/modals/Modal';
 
 export const StreamView = () => {
   const { courseId } = useParams();
   const { user } = useUser();
   const remoteVideoRef = useRef(null);
   const peerConnectionRef = useRef(null);
+  const [isWhiteboardOpen, setIsWhiteboardOpen] = useState(false);
 
   const servers = {
     iceServers: [
@@ -103,13 +106,28 @@ export const StreamView = () => {
                 <button className="control-btn fullscreen-btn">
                   <i className="fas fa-expand"></i>
                 </button>
+                <button 
+                  className="control-btn whiteboard-btn"
+                  onClick={() => setIsWhiteboardOpen(true)}
+                >
+                  <i className="fas fa-chalkboard"></i>
+                </button>
               </div>
             </div>
-
           </div>
         </div>
       </div>
       <StreamChat />
+      
+      <Modal 
+        isOpen={isWhiteboardOpen} 
+        onClose={() => setIsWhiteboardOpen(false)} 
+        title="Whiteboard"
+      >
+        <div className="whiteboard-modal-container">
+          <Whiteboard courseId={courseId} />
+        </div>
+      </Modal>
     </div>
   );
 };

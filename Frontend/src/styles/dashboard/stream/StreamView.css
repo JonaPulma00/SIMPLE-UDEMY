@@ -130,7 +130,55 @@
   100% { opacity: 0.4; }
 }
 
+.whiteboard-btn {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
 
+.whiteboard-btn:hover {
+  background-color: #2ecc71;
+  color: #121212;
+}
+
+.whiteboard-btn.active {
+  background-color: #2ecc71;
+  color: #121212;
+}
+
+.whiteboard-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Make sure the whiteboard fits properly */
+.whiteboard-container .main {
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.whiteboard-container .board {
+  height: 500px;
+}
+
+/* For responsive design */
 @media (max-width: 1180px) {
   .dashboard-container {
     flex-direction: column;
@@ -157,6 +205,10 @@
     margin-bottom: 15px;
     width: 100%;
   }
+  
+  .whiteboard-container .board {
+    height: 400px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -179,6 +231,10 @@
   }
   
   .stream-video-container {
+    height: 300px;
+  }
+  
+  .whiteboard-container .board {
     height: 300px;
   }
 }
@@ -216,4 +272,62 @@
     padding: 8px;
   }
   
+  .whiteboard-container .board {
+    height: 250px;
+  }
+}
+
+
+.whiteboard-btn {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+}
+
+.whiteboard-btn:hover {
+  background-color: #2ecc71;
+  color: #121212;
+}
+
+.whiteboard-modal-container {
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+}
+
+.whiteboard-modal-container .main {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.whiteboard-modal-container .board {
+  height: 500px;
+}
+
+.modal-content:has(.whiteboard-modal-container) {
+  max-width: 90%;
+  height: auto;
+}
+
+@media (max-width: 1180px) {
+  .whiteboard-modal-container .board {
+    height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .whiteboard-modal-container .board {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .whiteboard-modal-container .board {
+    height: 250px;
+  }
+  
+  .whiteboard-modal-container {
+    height: 400px;
+  }
 }

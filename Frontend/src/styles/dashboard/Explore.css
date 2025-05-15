@@ -145,7 +145,7 @@
 }
 
 .course-rating i {
-  color: #f0ad4e; /* This could be a new variable if you want to standardize warning/star colors */
+  color: #f0ad4e; 
 }
 
 .course-price {
@@ -153,15 +153,6 @@
   color: var(--primary-green);
 }
 
-@media (max-width: 768px) {
-  .explore-content {
-    padding: 20px 15px;
-  }
-  
-  .courses-grid {
-    grid-template-columns: 1fr;
-  }
-}
 
 .error-container,
 .no-courses-message {
@@ -253,4 +244,13 @@
 
 .course-meta i {
   color: var(--primary-green);
+}
+@media (max-width: 768px) {
+  .explore-content {
+    padding: 20px 15px;
+  }
+  
+  .courses-grid {
+    grid-template-columns: 1fr;
+  }
 }
