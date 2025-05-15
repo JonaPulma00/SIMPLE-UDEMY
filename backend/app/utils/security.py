@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from app.core.config import settings
 from fastapi import HTTPException, status
 import redis 
-redis_client = redis.Redis(host="localhost", port=6379, decode_responses=True)
+redis_client = redis.Redis(host="localhost", port=6380, decode_responses=True)
 
 
 def get_password_hash(password: str):
