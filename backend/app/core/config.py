@@ -13,6 +13,10 @@ class Settings:
   DB_PORT: int = int(os.getenv("DB_PORT"))
   DB_URL: str = f"mysql+asyncmy://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
+  # === REDIS CONFIGURATION ===
+  REDIS_HOST: str = os.getenv("REDIS_HOST")
+  REDIS_PORT: int = int(os.getenv("REDIS_PORT"))
+
   # === JWT CONFIGURATION ===
   SECRET_KEY: str = os.getenv("SECRET_KEY")
   JWT_ALGORITHM: str = os.getenv("JWT_ALGORITHM")

@@ -4,10 +4,10 @@ import { courseService} from "../../services/courseService";
 import useAsync from "../../hooks/useAsync";
 import { Sidebar } from "../../components/Sidebar";
 import { Modal } from "../../components/modals/Modal";
-import "../../styles/dashboard/InstructorCourses.css";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import "../../styles/dashboard/InstructorCourses.css";
 
 export const InstructorCourses = () => {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import { Sidebar } from "../../components/Sidebar"
-import "../../styles/dashboard/WelcomePage.css"
 import { useUser } from "../../context/UserContext"
 import iconTeacher from '../../assets/home/teacher.png'
+import "../../styles/dashboard/WelcomePage.css"
 
 export const WelcomePage = () => {
   const { user } = useUser()
@@ -12,9 +12,9 @@ export const WelcomePage = () => {
       <div className="dashboard-content">
         <div className="dashboard-header">
           <h1>Welcome {user?.username || 'User'}!</h1>
-          {!user.isIntructor?
-          <p>Here's an overview of your learning progress</p>
-          :<p>Here's an overview of your teaching progress</p>
+          {user.isInstructor?
+          <p>Here's an overview of your teaching progress</p>
+          :<p>Here's an overview of your learning progress</p>
           }
         </div>
 
@@ -86,7 +86,7 @@ export const WelcomePage = () => {
                   <div className="teacher-meta">
                     <span><i className="fas fa-graduation-cap"></i> 6 Courses</span>
                     <span><i className="fas fa-star"></i> 4.8</span>
-                  </div>
+                  </div>   
                 </div>
               </div>
 
