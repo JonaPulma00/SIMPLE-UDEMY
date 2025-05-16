@@ -8,3 +8,8 @@ pyjwt==2.10.1
 email-validator==2.2.0  
 redis==5.2.1
 boto3==1.28.18
+slowapi===0.1.9
+limits==5.2.0
+deprecated==1.2.18
+packaging==25.0
+wrapt==1.17.2

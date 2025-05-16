@@ -1,6 +1,8 @@
 import { Sidebar } from "../../components/Sidebar"
 import { useUser } from "../../context/UserContext"
 import iconTeacher from '../../assets/home/teacher.png'
+import { getUserEnrollments } from "../../services/userService"
+import useAsync from "../../hooks/useAsync"
 import "../../styles/dashboard/WelcomePage.css"
 
 export const WelcomePage = () => {

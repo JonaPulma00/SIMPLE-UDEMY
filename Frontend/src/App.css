@@ -100,13 +100,6 @@
   --teal-transparent-80: #000;
 }
 
-body, html, #root {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background-color: var(--primary-dark-color);
-}
-
 .app-container {
   min-height: 100vh;
   background-color: var(--primary-dark-color);
