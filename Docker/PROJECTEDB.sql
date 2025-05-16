@@ -1,15 +1,13 @@
-CREATE DATABASE  IF NOT EXISTS `projectedb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `projectedb`;
--- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.42, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: projectedb
+-- Host: localhost    Database: projectedb
 -- ------------------------------------------------------
--- Server version	8.0.41
+-- Server version	8.0.42
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -101,7 +99,7 @@ CREATE TABLE `enrollments` (
 
 LOCK TABLES `enrollments` WRITE;
 /*!40000 ALTER TABLE `enrollments` DISABLE KEYS */;
-INSERT INTO `enrollments` VALUES ('1806773e-b279-4bf2-aa2e-78bf47ab937a','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','cb55fd66-5523-43d1-8a57-4eee6f12816d','2025-05-12 17:26:19'),('3061f5fc-5dbc-4872-bd8c-415c8749c83d','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','23af1a5c-b7fe-4c77-9cbb-acb688576a62','2025-05-12 17:26:40'),('5a968bac-5381-4c18-9eae-8a2d80abb707','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','99ff8680-3dbf-40aa-969d-c7d4d855536c','2025-04-23 15:50:39'),('6c41490c-b3b4-44c4-8091-6eefb69fdf7a','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','11975348-70e8-4b5b-bf54-223d2fd2864c','2025-05-12 17:25:55'),('6c6b39c2-b119-419c-a9d8-9b55a7fb7b48','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','dbbb1ea6-8328-41b6-9113-fc8b0a666ecc','2025-05-09 15:56:24'),('8ea947f9-141d-44a3-9b1a-01b44ab38add','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','64c25542-b971-455a-a676-bbcc36e136b6','2025-04-23 15:27:57'),('923b8543-4621-4eb9-b721-71f694abe386','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','63b75705-aaeb-4966-8e0a-66f197b5c8c4','2025-05-12 17:26:28'),('9bcabe69-05e8-4f77-9912-f471321de5c1','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','76ac675d-2317-4efd-ad61-abccef7a7d96','2025-05-12 17:26:11'),('bf2c0437-7613-4849-85e7-93a436d8aab2','4f182752-d8a2-41ba-9028-4b7f7de70e40','6e3c2f9b-145f-4631-aba9-017938947aa4','2025-05-14 15:22:59'),('c48bfc5f-f9b9-4ea3-9fdc-3196d374739b','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','280dc56f-7348-470f-aaaa-cd61f7ad81b5','2025-05-12 17:27:05'),('d17796f5-99e2-405e-80a5-8e771da37de4','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','6e3c2f9b-145f-4631-aba9-017938947aa4','2025-05-12 17:25:59'),('f1ce6343-c213-4239-b48f-299681372ff6','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','c60bbdaa-d125-46e2-9c9c-876393060b0c','2025-05-12 17:26:49');
+INSERT INTO `enrollments` VALUES ('1806773e-b279-4bf2-aa2e-78bf47ab937a','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','cb55fd66-5523-43d1-8a57-4eee6f12816d','2025-05-12 17:26:19'),('187ebba6-a5d4-422a-bb3b-bb0b6b6d9b20','4f182752-d8a2-41ba-9028-4b7f7de70e40','11975348-70e8-4b5b-bf54-223d2fd2864c','2025-05-15 15:45:22'),('3061f5fc-5dbc-4872-bd8c-415c8749c83d','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','23af1a5c-b7fe-4c77-9cbb-acb688576a62','2025-05-12 17:26:40'),('5a968bac-5381-4c18-9eae-8a2d80abb707','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','99ff8680-3dbf-40aa-969d-c7d4d855536c','2025-04-23 15:50:39'),('6c41490c-b3b4-44c4-8091-6eefb69fdf7a','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','11975348-70e8-4b5b-bf54-223d2fd2864c','2025-05-12 17:25:55'),('6c6b39c2-b119-419c-a9d8-9b55a7fb7b48','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','dbbb1ea6-8328-41b6-9113-fc8b0a666ecc','2025-05-09 15:56:24'),('8ea947f9-141d-44a3-9b1a-01b44ab38add','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','64c25542-b971-455a-a676-bbcc36e136b6','2025-04-23 15:27:57'),('923b8543-4621-4eb9-b721-71f694abe386','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','63b75705-aaeb-4966-8e0a-66f197b5c8c4','2025-05-12 17:26:28'),('9bcabe69-05e8-4f77-9912-f471321de5c1','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','76ac675d-2317-4efd-ad61-abccef7a7d96','2025-05-12 17:26:11'),('bf2c0437-7613-4849-85e7-93a436d8aab2','4f182752-d8a2-41ba-9028-4b7f7de70e40','6e3c2f9b-145f-4631-aba9-017938947aa4','2025-05-14 15:22:59'),('c48bfc5f-f9b9-4ea3-9fdc-3196d374739b','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','280dc56f-7348-470f-aaaa-cd61f7ad81b5','2025-05-12 17:27:05'),('d17796f5-99e2-405e-80a5-8e771da37de4','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','6e3c2f9b-145f-4631-aba9-017938947aa4','2025-05-12 17:25:59'),('f1ce6343-c213-4239-b48f-299681372ff6','d6da1cdd-90b1-4de2-a811-1a69660a8dd5','c60bbdaa-d125-46e2-9c9c-876393060b0c','2025-05-12 17:26:49');
 /*!40000 ALTER TABLE `enrollments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -283,7 +281,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('06eaf5ac-764f-4920-9459-d89001832bc8','INSTRUCTORTEST','TESTINS@gmail.com','$2b$12$g7baJd/CAy/v5VuISYVBxu8BBwWPNVVLX/l/F6hfuMXyuYalFgVQK',NULL,NULL,'2025-05-07 16:34:20',1,0),('222b1543-92ad-460d-95cc-4f59cf9943c0','maria','maria@gmail.com','$2b$12$zVPOC0/sA7UZo7tbgRvf6OJ9yFawSbh6hYAtG4kFs//le.UnkJIDW',NULL,NULL,'2025-03-23 11:21:30',0,0),('4f182752-d8a2-41ba-9028-4b7f7de70e40','mboada','instructor@gmail.com','$2b$12$mwpHXDZs/IJMDPM2Vv9oWeWaIwynJBXFrjJ14.p3PSPvMY.93lFuy',NULL,NULL,'2025-03-26 19:34:12',1,0),('6726e246-0603-48de-8bfc-a83993457445','KlkKlk','klkdimeklk22@gmail.com',NULL,NULL,NULL,'2025-05-12 21:09:56',0,0),('6b031fc1-2486-47dc-a9da-c77e5952e188','lucas','lucas@gmail.com','$2b$12$lV.EooccVXSJsJryFfLEIO.nhnvCZSGpv4I8/XbLVF1FHwEeL8TES',NULL,NULL,'2025-04-08 17:51:05',1,0),('c5441c25-8a98-4c79-a28f-ddafb48012e2','Jonathan','idk@gmail.com','$2b$12$Xj1j2i8smo3P2BFisd20j.HhU.H/yivZed8MQhw8I/jTDqUk/rhxO',NULL,NULL,'2025-05-07 15:51:59',1,0),('d6da1cdd-90b1-4de2-a811-1a69660a8dd5','JonathanRodas','jona.rierasanchez@gmail.com',NULL,NULL,NULL,'2025-04-02 18:29:15',0,0),('e9c196a8-8735-4d4e-a2c1-2236c2968cb3','JonathanOswaldoRodasSánchez','jrodas753@boscdelacoma.cat',NULL,NULL,NULL,'2025-04-02 18:12:17',0,0);
+INSERT INTO `users` VALUES ('06eaf5ac-764f-4920-9459-d89001832bc8','INSTRUCTORTEST','TESTINS@gmail.com','$2b$12$g7baJd/CAy/v5VuISYVBxu8BBwWPNVVLX/l/F6hfuMXyuYalFgVQK',NULL,NULL,'2025-05-07 16:34:20',1,0),('222b1543-92ad-460d-95cc-4f59cf9943c0','maria','maria@gmail.com','$2b$12$zVPOC0/sA7UZo7tbgRvf6OJ9yFawSbh6hYAtG4kFs//le.UnkJIDW',NULL,NULL,'2025-03-23 11:21:30',0,0),('4f182752-d8a2-41ba-9028-4b7f7de70e40','mboada','instructor@gmail.com','$2b$12$mwpHXDZs/IJMDPM2Vv9oWeWaIwynJBXFrjJ14.p3PSPvMY.93lFuy',NULL,NULL,'2025-03-26 19:34:12',1,0),('6726e246-0603-48de-8bfc-a83993457445','KlkKlk','klkdimeklk22@gmail.com',NULL,NULL,NULL,'2025-05-12 21:09:56',0,0),('6b031fc1-2486-47dc-a9da-c77e5952e188','lucas','lucas@gmail.com','$2b$12$lV.EooccVXSJsJryFfLEIO.nhnvCZSGpv4I8/XbLVF1FHwEeL8TES',NULL,NULL,'2025-04-08 17:51:05',1,0),('c5441c25-8a98-4c79-a28f-ddafb48012e2','Jonathan','idk@gmail.com','$2b$12$Xj1j2i8smo3P2BFisd20j.HhU.H/yivZed8MQhw8I/jTDqUk/rhxO',NULL,NULL,'2025-05-07 15:51:59',1,0),('d6da1cdd-90b1-4de2-a811-1a69660a8dd5','JonathanRodas','jona.rierasanchez@gmail.com',NULL,NULL,NULL,'2025-04-02 18:29:15',0,0),('e9c196a8-8735-4d4e-a2c1-2236c2968cb3','JonathanOswaldoRodasS├ínchez','jrodas753@boscdelacoma.cat',NULL,NULL,NULL,'2025-04-02 18:12:17',0,0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -296,4 +294,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-14 18:02:25
+-- Dump completed on 2025-05-15 18:00:06

@@ -12,7 +12,10 @@ export const WelcomePage = () => {
       <div className="dashboard-content">
         <div className="dashboard-header">
           <h1>Welcome {user?.username || 'User'}!</h1>
+          {!user.isIntructor?
           <p>Here's an overview of your learning progress</p>
+          :<p>Here's an overview of your teaching progress</p>
+          }
         </div>
 
         <div className="dashboard-overview">
