@@ -5,6 +5,12 @@ from datetime import datetime
 class StreamCreate(BaseModel):
     course_id: Optional[str] = None
     title: Optional[str] = None
+    
+    @field_validator('title', mode='before')
+    def validate_title(cls, v):
+        if v and len(v) > 100:
+            raise ValueError('Title must be less than 100 characters')
+        return v.strip() if v else v
 
 class StreamResponse(BaseModel):
     stream_id: str
@@ -19,6 +25,14 @@ class StreamResponse(BaseModel):
 
 class MessageCreate(BaseModel):
     message: str
+    
+    @field_validator('message', mode='before')
+    def validate_message(cls, v):
+        if not v.strip():
+            raise ValueError('Message cannot be empty')
+        if len(v) > 100:
+            raise ValueError('Message must be less than 100 characters')
+        return v.strip()
 
 class MessageResponse(BaseModel):
     message_id: str
