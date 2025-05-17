@@ -31,7 +31,7 @@ export const Sidebar = () => {
       </label>
 
       <div className="dashboard-sidebar">
-        <div className="sidebar-header">
+        <div className="sidebar-header" onClick={navigate('/dashboard')}>
           <h2>MyEd</h2>
         </div>
         
