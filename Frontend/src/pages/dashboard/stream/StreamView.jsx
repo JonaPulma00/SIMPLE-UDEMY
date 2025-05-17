@@ -4,9 +4,10 @@ import { socketService } from '../../../services/socketService';
 import { Sidebar } from '../../../components/Sidebar';
 import { StreamChat } from '../../../components/StreamChat';
 import { useUser } from '../../../context/UserContext';
-import '../../../styles/dashboard/stream/StreamView.css';
 import { Whiteboard } from '../../../components/Whiteboard';
+import { courseService } from '../../../services/courseService';
 import { Modal } from '../../../components/modals/Modal';
+import '../../../styles/dashboard/stream/StreamView.css';
 
 export const StreamView = () => {
   const { courseId } = useParams();
@@ -14,6 +15,7 @@ export const StreamView = () => {
   const remoteVideoRef = useRef(null);
   const peerConnectionRef = useRef(null);
   const [isWhiteboardOpen, setIsWhiteboardOpen] = useState(false);
+  const [courseTitle, setCourseTitle] = useState("");
 
   const servers = {
     iceServers: [
@@ -78,6 +80,18 @@ export const StreamView = () => {
     };
   }, [courseId]);
 
+  useEffect(() => {
+    if (courseId){
+      courseService.getPublicCourseById(courseId)
+        .then(courseData => {
+          setCourseTitle(courseData.title)
+        })
+        .catch(error => {
+          console.error("Error fetching course title:", error);
+        });
+    }
+  }, [courseId]);
+
   return (
     <div className="dashboard-container">
       <Sidebar />
@@ -85,7 +99,7 @@ export const StreamView = () => {
         <div className="stream-view-header">
           <h2>Live Stream</h2>
           <div className="stream-info">
-            <span className="stream-course-id">Course: {courseId}</span>
+            <span className="stream-course-id">Course: {courseTitle || courseId}</span>
             <span className="stream-status">LIVE</span>
           </div>
         </div>

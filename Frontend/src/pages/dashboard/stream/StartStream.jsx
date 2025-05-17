@@ -8,6 +8,7 @@ import { Whiteboard } from "../../../components/Whiteboard";
 import { Modal } from "../../../components/modals/Modal";
 import { toast } from "react-toastify";
 import "../../../styles/dashboard/stream/StartStream.css";
+import { courseService } from "../../../services/courseService";
 
 export const StartStream = () => {
   const { user } = useUser();
@@ -15,6 +16,7 @@ export const StartStream = () => {
   const [isStreaming, setIsStreaming] = useState(true);
   const [watchers, setWatchers] = useState(new Set());
   const [isWhiteboardOpen, setIsWhiteboardOpen] = useState(false);
+  const [courseTitle, setCourseTitle] = useState("");
 
   const localStreamRef = useRef(null);
   const localVideoRef = useRef(null);
@@ -84,6 +86,18 @@ export const StartStream = () => {
     };
   }, [courseId, user?.uuid]);
 
+  useEffect(() => {
+    if (courseId) {
+      courseService.getPublicCourseById(courseId)
+        .then(courseData => {
+          setCourseTitle(courseData.title);
+        })
+        .catch(error => {
+          console.error("Error fetching course title:", error);
+        });
+    }
+  }, [courseId]);
+
   const handleWebcamPermission = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
@@ -144,7 +158,7 @@ export const StartStream = () => {
       <div className="stream-container">
         <h2>Streaming</h2>
         <div className="stream-info">
-          <span className="stream-course-id">Course: {courseId}</span>
+          <span className="stream-course-id">Course: {courseTitle || courseId}</span>
         </div>
         
         <div className="video-container">
