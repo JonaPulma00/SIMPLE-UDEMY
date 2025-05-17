@@ -4,6 +4,7 @@ from app.routes.course_router import router as course_router
 from app.routes.enrollments_router import router as enrollments_router
 from app.routes.category_router import router as category_router
 from app.routes.lessons_router import router as lessons_router
+from app.routes.stream_router import router as stream_router
 
 router = APIRouter()
 
@@ -21,3 +22,6 @@ router.include_router(category_router, prefix="/categories", tags=["Categories"]
 
 # Lessons routes
 router.include_router(lessons_router, prefix="/lessons", tags=["Lessons"])
+
+# Stream routes
+router.include_router(stream_router, prefix="/streams", tags=["Streams"])
