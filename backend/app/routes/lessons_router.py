@@ -32,7 +32,7 @@ async def upload_video(
     token_payload: dict = Depends(verify_instructor)
 ):
     if not video.content_type.startswith("video/"):
-        raise HTTPException(status_code=400, detail="File must be a video")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="File must be a video")
     
     return await update_lesson_video(db, lesson_id, video, course_id, section_id)
 

@@ -39,7 +39,7 @@ class InstructorCoursesResponse(BaseModel):
 class LessonResponse(BaseModel):
     lesson_id: str
     title: str
-    video_url: Optional[str] = None
+    video_url: str
     position: int
     is_free: bool
 

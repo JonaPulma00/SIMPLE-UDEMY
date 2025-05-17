@@ -69,7 +69,7 @@ class Lesson(Base):
     lesson_id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     section_id = Column(String(36), ForeignKey('sections.section_id', ondelete="CASCADE"), nullable=False)
     title = Column(String(100), nullable=False)
-    video_url = Column(String(255), nullable=True)
+    video_url = Column(String(255), nullable=False)
     position = Column(Integer, nullable=False)
 
     section = relationship("Section", back_populates="lessons")

@@ -51,6 +51,8 @@ async def update_lesson_video(db: AsyncSession, lesson_id: str, video_file, cour
     if not lesson:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lesson not found")
     
+    if not video_file:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Video file is required")
 
     video_url = await video_handler.upload_video(
         video_file=video_file,
@@ -65,12 +67,11 @@ async def update_lesson_video(db: AsyncSession, lesson_id: str, video_file, cour
             detail="Failed to upload video"
         )
 
-
     lesson.video_url = video_url
     await db.commit()
     await db.refresh(lesson)
     
-    return lesson 
+    return lesson
 
 async def get_lesson_video(db: AsyncSession, lesson_id: str):
     stmt = select(Lesson).filter(Lesson.lesson_id == lesson_id)

@@ -57,20 +57,25 @@ export const CourseDetail = () => {
   const handleAddLesson = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    
+    if (!lessonData.video) {
+      toast.error("Video is required");
+      setIsSubmitting(false);
+      return;
+    }
+    
     try {
       const newLesson = await courseService.addLessonToSection(courseId, currentSectionId, {
         title: lessonData.title,
         position: 0
       });
 
-      if (lessonData.video) {
-        await courseService.uploadLessonVideo(
-          courseId,
-          currentSectionId,
-          newLesson.lesson_id,
-          lessonData.video
-        );
-      }
+      await courseService.uploadLessonVideo(
+        courseId,
+        currentSectionId,
+        newLesson.lesson_id,
+        lessonData.video
+      );
 
       toast.success("Lesson added successfully");
       setIsLessonModalOpen(false);
@@ -274,13 +279,14 @@ export const CourseDetail = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="lessonVideo">Video (Optional)</label>
+            <label htmlFor="lessonVideo">Video</label>
             <input
               type="file"
               id="lessonVideo"
               className="form-control"
               accept="video/*"
               onChange={(e) => setLessonData({ ...lessonData, video: e.target.files[0] })}
+              required
             />
           </div>
           <div className="form-actions">
