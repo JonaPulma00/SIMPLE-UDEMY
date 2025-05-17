@@ -86,7 +86,6 @@ export const WelcomePage = () => {
                   <p>Learn advanced TypeScript concepts</p>
                   <div className="course-meta">
                     <span><i className="fas fa-clock"></i> 6.5 hours</span>
-                    <span><i className="fas fa-star"></i> 4.8</span>
                   </div>
                 </div>
               </div>

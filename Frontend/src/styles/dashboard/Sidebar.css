@@ -12,6 +12,7 @@
   padding: 20px;
   text-align: center;
   border-bottom: 1px solid var(--section-border-color);
+  cursor: pointer;
 }
 
 .sidebar-header h2 {
