@@ -100,9 +100,6 @@
   --teal-transparent-80: #000;
 }
 
-.app-container {
-  min-height: 100vh;
+body, html {
   background-color: var(--primary-dark-color);
-  display: flex;
-  flex-direction: column;
 }

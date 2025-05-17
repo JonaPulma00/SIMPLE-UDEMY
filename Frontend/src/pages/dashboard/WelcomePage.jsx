@@ -114,7 +114,11 @@ export const WelcomePage = () => {
           )}
 
           <div className="recommended-courses">
-            <h2>Recommended For You</h2>
+            {user?.isInstructor ? (
+              <h2>Your best courses</h2>
+            ) : (
+              <h2>Recommended For You</h2>
+            )}
             <div className="courses-grid">
               {coursesLoading ? (
                 <p>Loading courses...</p>

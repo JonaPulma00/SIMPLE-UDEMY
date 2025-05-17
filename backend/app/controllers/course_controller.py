@@ -18,6 +18,7 @@ async def create_course(db: AsyncSession, course_data: CourseCreate, instructor_
         category_id=course_data.category_id,
         created_at=datetime.now(timezone.utc)
 )
+    
 
     db.add(db_course)
     await db.commit()

@@ -1,4 +1,5 @@
 import { Navbar } from "../Navbar"
+import '../../styles/global/NotFound.css'
 export const NotFound = () => {
   return (
     <>

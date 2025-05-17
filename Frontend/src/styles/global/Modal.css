@@ -103,7 +103,7 @@
 
 .action-btn {
   padding: 12px 24px;
-  background: var(--primary-gradient-green);
+  background: var(--primary-green);
   color: var(--primary-dark-color);
   border: none;
   border-radius: 6px;
