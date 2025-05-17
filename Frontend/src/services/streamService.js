@@ -72,6 +72,36 @@ const getStreamMessages = async (streamId) => {
   }
 };
 
+const getActiveStreamDetails = async (activeStreamIds) => {
+  try {
+    const validStreamIds = activeStreamIds.filter((id) => id);
+    if (validStreamIds.length === 0) return [];
+
+    const streamDetailsPromises = validStreamIds.map(async (courseId) => {
+      try {
+        const courseResponse = await api.get(
+          `/courses/get-public-course/${courseId}`
+        );
+        return {
+          courseId,
+          title: courseResponse.data.title,
+        };
+      } catch (error) {
+        console.error(`Error fetching details for course ${courseId}:`, error);
+        return {
+          courseId,
+          title: `Course ${courseId.substring(0, 8)}...`,
+        };
+      }
+    });
+
+    return await Promise.all(streamDetailsPromises);
+  } catch (error) {
+    console.error("Error getting active stream details:", error);
+    throw error;
+  }
+};
+
 export const streamService = {
   createStream,
   getStream,
@@ -80,4 +110,5 @@ export const streamService = {
   getCourseStreams,
   sendStreamMessage,
   getStreamMessages,
+  getActiveStreamDetails,
 };
