@@ -37,12 +37,11 @@ export const Sidebar = () => {
         
         <div className="sidebar-menu">
 
-          <div className="user-profile">
-            <NavLink to="/dashboard">
+          <div className="user-profile" onClick={() => navigate('/profile')}>
               <div className="profile-wrapper">
                 <img src={iconTest} alt="user-profile-image" />
               </div>
-            </NavLink>
+
             <div className="profile-info">
               <div className="user-name tooltip" title={user?.username || 'User'}>
                 Hello, {truncateUsername(user?.username) || 'User'}
