@@ -13,7 +13,7 @@ export const StreamView = () => {
   const { courseId } = useParams();
   const { user } = useUser();
   const remoteVideoRef = useRef(null);
-  const peerConnectionRef = useRef(null);
+  const peerConnectionsRef = useRef({});
   const [isWhiteboardOpen, setIsWhiteboardOpen] = useState(false);
   const [courseTitle, setCourseTitle] = useState("");
 
@@ -34,17 +34,17 @@ export const StreamView = () => {
     socketService.onOffer(({ offer, from }) => {
         console.log("Received offer from:", from);
         const pc = new RTCPeerConnection(servers);
-        peerConnectionRef.current = pc;
+        peerConnectionsRef.current[from] = pc;
      
         pc.onicecandidate = (e) => {
           if (e.candidate) {
             socketService.sendIceCandidate(from, e.candidate);
-          
+          }
         };
 
         pc.ontrack = (event) => {
           if (remoteVideoRef.current) {
-            remoteVideoRef.current.srcObject = event.streams;
+            remoteVideoRef.current.srcObject = event.streams[0];
             remoteVideoRef.current.play().catch((err) => {
               console.error("Error playing video:", err);
             });
@@ -60,12 +60,13 @@ export const StreamView = () => {
         .catch((err) => {
           console.error("Error handling offer", err);
         });
-      }
     });
 
     socketService.onIceCandidate(({ candidate, from }) => {
-      if (peerConnectionRef.current) {
-        peerConnectionRef.current.addIceCandidate(new RTCIceCandidate(candidate))
+      console.log("Received ICE candidate from:", from);
+      const pc = peerConnectionsRef.current[from];
+      if (pc) {
+        pc.addIceCandidate(new RTCIceCandidate(candidate))
           .catch((err) => {
             console.error("Error adding ICE candidate", err);
           });
@@ -73,9 +74,9 @@ export const StreamView = () => {
     });
 
     return () => {
-      if (peerConnectionRef.current) {
-        peerConnectionRef.current.close();
-      }
+      Object.values(peerConnectionsRef.current).forEach(pc => {
+        if (pc) pc.close();
+      });
       socketService.leaveRoom(courseId);
     };
   }, [courseId]);

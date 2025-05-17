@@ -7,9 +7,8 @@ import { StreamChat } from "../../../components/StreamChat";
 import { Whiteboard } from "../../../components/Whiteboard";
 import { Modal } from "../../../components/modals/Modal";
 import { toast } from "react-toastify";
-import "../../../styles/dashboard/stream/StartStream.css";
 import { courseService } from "../../../services/courseService";
-
+import "../../../styles/dashboard/stream/StartStream.css";
 export const StartStream = () => {
   const { user } = useUser();
   const { courseId } = useParams();
@@ -20,7 +19,7 @@ export const StartStream = () => {
 
   const localStreamRef = useRef(null);
   const localVideoRef = useRef(null);
-  const peerConnectionRef = useRef(null);
+  const peerConnectionRef = useRef({});
 
   const servers = {
     iceServers: [
