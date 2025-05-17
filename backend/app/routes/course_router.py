@@ -17,7 +17,7 @@ async def create_course_handler(
     return await create_course(db, course, token_payload["uuid"])
 
 @router.get("/get-general-courses", status_code=status.HTTP_200_OK)
-@limiter.limit("10/minute")
+@limiter.limit("100/minute")
 async def get_courses_handler(
     request: Request,
     db: AsyncSession = Depends(get_db),
