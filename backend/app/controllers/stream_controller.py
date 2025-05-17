@@ -18,7 +18,7 @@ async def create_stream(db: AsyncSession, stream_data: StreamCreate, user_id: st
   if not user.is_instructor:
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Only instructor can create streams")
   
-  stream = Stream(
+  new_stream = Stream(
     stream_id=str(uuid.uuid4()),
     intructor_id=user_id,
     course_id=stream_data.course_id,
@@ -26,8 +26,8 @@ async def create_stream(db: AsyncSession, stream_data: StreamCreate, user_id: st
     started_at=datetime.now(timezone.utc)
   )
 
-  db.add(stream)
+  db.add(new_stream)
   await db.commit()
-  await db.refresh(stream)
+  await db.refresh(new_stream)
 
-  return stream
+  return new_stream
