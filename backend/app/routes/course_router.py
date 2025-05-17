@@ -1,11 +1,11 @@
-from fastapi import APIRouter, Depends, status, Query
+from fastapi import APIRouter, Depends, status, Query, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.database import get_db
 from app.schemas.course import CourseCreate, CourseResponse, CourseUpdate, SectionCreate, LessonCreate
 from app.controllers.course_controller import create_course, get_courses, get_instructor_courses, get_course_by_id, delete_course, update_course, add_section_to_course, delete_section, get_public_course_by_id
 from app.middlewares.authorization import verify_instructor
 from app.middlewares.authenticate_token import verify_token
-
+from app.middlewares.rate_limit import limiter
 router = APIRouter()
 
 @router.post("/create", response_model=CourseResponse, status_code=status.HTTP_201_CREATED)
@@ -17,7 +17,9 @@ async def create_course_handler(
     return await create_course(db, course, token_payload["uuid"])
 
 @router.get("/get-general-courses", status_code=status.HTTP_200_OK)
+@limiter.limit("10/minute")
 async def get_courses_handler(
+    request: Request,
     db: AsyncSession = Depends(get_db),
     token_payload: dict = Depends(verify_token),
     page: int = Query(1, alias="page", ge=1),
