@@ -106,6 +106,7 @@ export const Whiteboard = ({ courseId }) => {
   };
 
   const handleClear = () => {
+    if(!user || !user.isInstructor) return;
     setLines([]);
     socketService.sendDrawing(courseId, { clear: true });
   };
@@ -126,7 +127,7 @@ export const Whiteboard = ({ courseId }) => {
 
   return (
     <main className="main">
-      <div className="controls">
+      {user.isInstructor? (   <div className="controls">
         <div className="control-group">
           <label htmlFor="stroke-width">Width:</label>
           <input
@@ -167,7 +168,7 @@ export const Whiteboard = ({ courseId }) => {
             <i className="fa-solid fa-trash"></i> Clear
           </button>
         </div>
-      </div>
+      </div>): ''}
       <div
         className="board"
         ref={boardContainerRef}
