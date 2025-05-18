@@ -53,3 +53,36 @@ async def update_user_profile(db: AsyncSession, user_id: str, bio: str = None, p
         "is_instructor": user.is_instructor
     }
 
+async def get_user_profile_picture(db: AsyncSession, user_id: str):
+    stmt = select(User).filter(User.user_id == user_id)
+    result = await db.execute(stmt)
+    user = result.scalar_one_or_none()
+    
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+    
+    if not user.profile_picture:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Profile picture not found"
+        )
+    
+    try:
+
+        profile_handler_instance = ProfileHandler()
+        pfp_path = profile_handler_instance.get_profile_picture_path(user_id)
+        
+
+        presigned_url = profile_handler_instance.get_presigned_url(pfp_path)
+        
+        return {
+            "url": presigned_url
+        }
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to generate profile picture URL: {str(e)}"
+        )

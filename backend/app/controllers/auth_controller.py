@@ -51,7 +51,7 @@ async def authenticate_user(db: AsyncSession, username: str, password: str, requ
 
     access_token = create_access_token({
        "uuid": user.user_id, "username": user.username, "email": user.email,
-       "is_instructor": user.is_instructor, "bio": user.bio, "profile_picture": user.profile_picture,
+       "is_instructor": user.is_instructor, "bio": user.bio,
        "pending_validation": user.pending_validation
     })
 
@@ -197,7 +197,6 @@ async def authenticate_google_user(db: AsyncSession, google_data: dict, request:
         "email": user.email,
         "is_instructor": user.is_instructor,
         "bio": user.bio,
-        "profile_picture": user.profile_picture,
         "pending_validation": user.pending_validation
     })
 

@@ -28,6 +28,7 @@ class Settings:
   AWS_SECRET_ACCESS_KEY: str = os.getenv("AWS_SECRET_ACCESS_KEY")
   AWS_SESSION_TOKEN: str = os.getenv("AWS_SESSION_TOKEN")
   AWS_REGION: str = os.getenv("AWS_REGION")
+  AWS_PRESIGNED_URL_EXPIRE_MINUTES : str = os.getenv("AWS_PRESIGNED_URL_EXPIRE_MINUTES")
   AWS_BUCKET_NAME: str = os.getenv("AWS_BUCKET_NAME")
 
 settings = Settings()

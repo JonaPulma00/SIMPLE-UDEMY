@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, UploadFile, File, Form, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.database import get_db
 from app.middlewares.authenticate_token import verify_token
-from app.controllers.user_update_controller import update_user_profile
+from app.controllers.user_update_controller import update_user_profile, get_user_profile_picture
 from typing import Optional
 
 router = APIRouter()
@@ -26,3 +26,11 @@ async def update_profile(
         bio=bio,
         profile_picture=profile_picture
     )
+
+@router.get("/profile-picture/{user_id}")
+async def get_profile_picture(
+    user_id: str,
+    db: AsyncSession = Depends(get_db),
+    token_payload: dict = Depends(verify_token)
+):
+    return await get_user_profile_picture(db=db, user_id=user_id)

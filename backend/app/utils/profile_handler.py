@@ -1,6 +1,7 @@
 import boto3
 from fastapi import HTTPException, status, UploadFile
 from app.core.config import settings
+from typing import Optional
 
 class ProfileHandler:
   def __init__(self):
@@ -36,3 +37,17 @@ class ProfileHandler:
       return url
     except Exception as e:
       raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to upload profile picture: {str(e)}")
+    
+  def get_presigned_url(self, pfp_path: str, expires_in: int = {settings.AWS_PRESIGNED_URL_EXPIRE_MINUTES}) -> Optional[str]:
+    try:
+      url = self.s3_client.generate_presigned_url(
+        'get_object',
+        Params={
+          'Bucket': self.bucket_name,
+          'Key': pfp_path
+        },
+        ExpiresIn=expires_in
+      )
+      return url
+    except Exception:
+      raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to generate profile picture url")

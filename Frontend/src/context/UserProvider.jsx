@@ -15,7 +15,6 @@ export const UserProvider = ({ children }) => {
           email: payload.email,
           isInstructor: payload.is_instructor,
           bio: payload.bio,
-          profilePicture: payload.profile_picture,
           pendingValidation: payload.pending_validation,
           uuid: payload.uuid
         });

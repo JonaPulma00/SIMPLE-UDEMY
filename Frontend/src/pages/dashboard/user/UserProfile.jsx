@@ -25,9 +25,11 @@ export const UserProfile = () => {
         <div className="profile-content">
           <div className="profile-section profile-picture-section">
             <div className="profile-picture-container">
-              {user.profilePicture ?(
-                <img src={user.profilePicture} alt={`${user.username} 's Avatar`}/>
-              ): (<Avatar name={user.username} classname="profile-picture"/>)}
+              {user.profilePicture ? (
+                <img src={user.profilePicture} alt={`${user.username} 's Avatar`} className="profile-picture"/>
+              ) : (
+                <Avatar name={user.username} classname="profile-picture"/>
+              )}
               {editMode && (
                 <div className="upload-overlay">
                   <i className="fas fa-camera"></i>
