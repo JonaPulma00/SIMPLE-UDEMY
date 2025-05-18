@@ -1,13 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Sidebar } from "../../../components/Sidebar";
 import { useUser } from "../../../context/UserContext";
 import { Avatar } from "../../../components/Avatar";
+import { getProfilePicture } from "../../../services/userService";
 import "../../../styles/dashboard/user/UserProfile.css";
 
 export const UserProfile = () => {
   const { user } = useUser();
   const [editMode, setEditMode] = useState(false);
+  const [profilePictureUrl, setProfilePictureUrl] = useState(null);
 
+  useEffect(() => {
+    if (user && user.uuid) {
+      const fetchProfilePicture = async () => {
+        try {
+          const url = await getProfilePicture(user.uuid);
+          console.log(url);
+          setProfilePictureUrl(url);
+        } catch (error) {
+          console.error("Failed to load profile picture:", error);
+        }
+      };
+      
+      fetchProfilePicture();
+    }
+  }, [user]);
   return (
     <div className="dashboard-container">
       <Sidebar />
@@ -25,10 +42,10 @@ export const UserProfile = () => {
         <div className="profile-content">
           <div className="profile-section profile-picture-section">
             <div className="profile-picture-container">
-              {user.profilePicture ? (
-                <img src={user.profilePicture} alt={`${user.username} 's Avatar`} className="profile-picture"/>
+              {profilePictureUrl ? (
+                <img src={profilePictureUrl} alt={`${user.username} 's Avatar`} className="profile-picture"/>
               ) : (
-                <Avatar name={user.username} classname="profile-picture"/>
+                <Avatar name={user.username} className="profile-picture"/>
               )}
               {editMode && (
                 <div className="upload-overlay">

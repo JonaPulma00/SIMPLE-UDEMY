@@ -38,7 +38,7 @@ class ProfileHandler:
     except Exception as e:
       raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to upload profile picture: {str(e)}")
     
-  def get_presigned_url(self, pfp_path: str, expires_in: int = {settings.AWS_PRESIGNED_URL_EXPIRE_MINUTES}) -> Optional[str]:
+  def get_presigned_url(self, pfp_path: str, expires_in: int = settings.AWS_PRESIGNED_URL_EXPIRE_MINUTES) -> Optional[str]:
     try:
       url = self.s3_client.generate_presigned_url(
         'get_object',

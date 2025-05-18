@@ -4,6 +4,7 @@ from fastapi import HTTPException, status, UploadFile
 from app.db.models import User
 from app.schemas.user import UserUpdate
 from app.utils.profile_handler import ProfileHandler
+import os
 
 profile_handler = ProfileHandler()
 
@@ -71,12 +72,11 @@ async def get_user_profile_picture(db: AsyncSession, user_id: str):
         )
     
     try:
-
-        profile_handler_instance = ProfileHandler()
-        pfp_path = profile_handler_instance.get_profile_picture_path(user_id)
         
-
-        presigned_url = profile_handler_instance.get_presigned_url(pfp_path)
+        profile_path = user.profile_picture.split(f"{os.getenv('AWS_BUCKET_NAME')}.s3.{os.getenv('AWS_REGION')}.amazonaws.com/")[-1]
+        
+        profile_handler_instance = ProfileHandler()
+        presigned_url = profile_handler_instance.get_presigned_url(profile_path)
         
         return {
             "url": presigned_url

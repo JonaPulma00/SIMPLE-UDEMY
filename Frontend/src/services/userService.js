@@ -35,3 +35,13 @@ export const getUserEnrollments = async (page = 1, limit = 10) => {
     throw error;
   }
 };
+
+export const getProfilePicture = async (userId) => {
+  try {
+    const response = await api.get(`/user/profile-picture/${userId}`);
+    return response.data.url;
+  } catch (error) {
+    console.error("Error retrieving profile picture:", error);
+    throw error;
+  }
+};
