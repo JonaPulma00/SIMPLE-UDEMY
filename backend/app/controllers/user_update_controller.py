@@ -32,7 +32,7 @@ async def update_user_profile(db: AsyncSession, user_id: str, bio: str = None, p
             )
         
         try:
-            profile_url = await profile_handler.upload_profile_picture(profile_picture, user_id)
+            profile_url = await profile_handler.upload_pfp(profile_picture, user_id)
             user.profile_picture = profile_url
         except Exception as e:
             raise HTTPException(
