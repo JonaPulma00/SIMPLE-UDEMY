@@ -47,6 +47,19 @@ class UserUpdate(BaseModel):
     bio: Optional[str] = None
     profile_picture: Optional[str] = None
 
+    @field_validator ('bio', mode='before')
+    def trim_bio(cls, v):
+        return v.strip() if v else v
+    def validate_bio_length(cls, v):
+        if v and len(v) > 500:
+            raise ValueError('Bio must be less than 500 characters')
+        return v
+
+    @field_validator ('profile_picture', mode='before')
+    def trim_profile_picture(cls, v):
+        return v.strip() if v else v
+    
+
 class Token(BaseModel):
     access_token: str
     refresh_token: str
