@@ -43,6 +43,10 @@ class UserLogin(BaseModel):
             raise ValueError('Password cannot be empty')
         return v
 
+class UserUpdate(BaseModel):
+    bio: Optional[str] = None
+    profile_picture: Optional[str] = None
+
 class Token(BaseModel):
     access_token: str
     refresh_token: str

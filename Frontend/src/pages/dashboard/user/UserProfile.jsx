@@ -32,7 +32,7 @@ export const UserProfile = () => {
               {editMode && (
                 <div className="upload-overlay">
                   <i className="fas fa-camera"></i>
-                  <span>Change Photo</span>
+                  <span>Change Profile Picture</span>
                 </div>
               )}
             </div>
