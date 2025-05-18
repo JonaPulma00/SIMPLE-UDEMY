@@ -1,10 +1,9 @@
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../services/userService";
-import '../styles/dashboard/Sidebar.css'
-import iconTest from '../assets/home/teacher.png'
 import { useUser } from "../context/UserContext";
 import { ThemeToggle } from "./ThemeToggle";
-
+import { Avatar } from "./Avatar";
+import '../styles/dashboard/Sidebar.css'
 const truncateUsername = (username, maxLength = 12) => {
   if (!username || username.length <= maxLength) return username;
   return `${username.substring(0, maxLength)}...`;
@@ -39,8 +38,7 @@ export const Sidebar = () => {
 
           <div className="user-profile" onClick={() => navigate('/profile')}>
               <div className="profile-wrapper">
-                <img src="https://ui-avatars.com/api/?name=Jon+Snow&background=0D8ABC&color=fff&size=128
-" alt="user-profile-image" />
+                <Avatar name={user.username} />
               </div>
 
             <div className="profile-info">

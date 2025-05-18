@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Sidebar } from "../../../components/Sidebar";
 import { useUser } from "../../../context/UserContext";
+import { Avatar } from "../../../components/Avatar";
 import "../../../styles/dashboard/user/UserProfile.css";
 
 export const UserProfile = () => {
@@ -24,11 +25,7 @@ export const UserProfile = () => {
         <div className="profile-content">
           <div className="profile-section profile-picture-section">
             <div className="profile-picture-container">
-              <img 
-                src="https://ui-avatars.com/api/?name=Jon+Snow&background=0D8ABC&color=fff&size=128" 
-                alt="Profile" 
-                className="profile-picture" 
-              />
+              <Avatar name={user.username} className="profile-picture"/>
               {editMode && (
                 <div className="upload-overlay">
                   <i className="fas fa-camera"></i>
