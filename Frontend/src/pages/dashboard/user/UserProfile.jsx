@@ -3,28 +3,17 @@ import { Sidebar } from "../../../components/Sidebar";
 import { useUser } from "../../../context/UserContext";
 import { Avatar } from "../../../components/Avatar";
 import { getProfilePicture } from "../../../services/userService";
+import useAsync from "../../../hooks/useAsync";
 import "../../../styles/dashboard/user/UserProfile.css";
 
 export const UserProfile = () => {
   const { user } = useUser();
   const [editMode, setEditMode] = useState(false);
-  const [profilePictureUrl, setProfilePictureUrl] = useState(null);
 
-  useEffect(() => {
-    if (user && user.uuid) {
-      const fetchProfilePicture = async () => {
-        try {
-          const url = await getProfilePicture(user.uuid);
-          console.log(url);
-          setProfilePictureUrl(url);
-        } catch (error) {
-          console.error("Failed to load profile picture:", error);
-        }
-      };
-      
-      fetchProfilePicture();
-    }
-  }, [user]);
+ const { loading, error, value: profilePictureUrl } = useAsync(
+    () => user?.uuid ? getProfilePicture(user.uuid) : Promise.resolve(null),
+    [user?.uuid]
+  );
   return (
     <div className="dashboard-container">
       <Sidebar />
@@ -39,10 +28,15 @@ export const UserProfile = () => {
           </button>
         </div>
 
+        
+
         <div className="profile-content">
           <div className="profile-section profile-picture-section">
             <div className="profile-picture-container">
-              {profilePictureUrl ? (
+              {loading ? (
+                <div className="loading-indicatro">Loading...</div>
+
+              ): profilePictureUrl ? (
                 <img src={profilePictureUrl} alt={`${user.username} 's Avatar`} className="profile-picture"/>
               ) : (
                 <Avatar name={user.username} className="profile-picture"/>
