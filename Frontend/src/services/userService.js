@@ -45,3 +45,13 @@ export const getProfilePicture = async (userId) => {
     throw error;
   }
 };
+
+export const updateUserData = async () => {
+  try {
+    const response = await api.patch("/user/update-profile");
+    return response.data;
+  } catch (error) {
+    console.error("Error while updating user data", error);
+    throw error;
+  }
+};
