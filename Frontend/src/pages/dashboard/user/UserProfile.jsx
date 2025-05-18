@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Sidebar } from "../../../components/Sidebar";
+import { useUser } from "../../../context/UserContext";
 import "../../../styles/dashboard/user/UserProfile.css";
 
 export const UserProfile = () => {
+  const { user } = useUser();
   const [editMode, setEditMode] = useState(false);
 
   return (
@@ -41,22 +43,25 @@ export const UserProfile = () => {
               <div className="user-info">
                 <div className="info-group">
                   <h3>Username</h3>
-                  <p>johndoe123</p>
+                  <p>{user.username}</p>
                 </div>
                 <div className="info-group">
                   <h3>Email</h3>
-                  <p>john.doe@example.com</p>
+                  <p>{user.email}</p>
                 </div>
                 <div className="info-group">
                   <h3>Role</h3>
+                  {user.isInstructor? 
                   <p>Instructor</p>
+                  : <p>Student</p>}
                 </div>
                 <div className="info-group">
                   <h3>Bio</h3>
+                  {user.bio?(
                   <p className="user-bio">
-                    Passionate educator with over 5 years of experience in teaching web development.
-                    Specializing in frontend technologies including React, Angular, and Vue.
+                    {user.bio}
                   </p>
+                  ):( <p>No bio yet</p>)}
                 </div>
               </div>
             ) : (
@@ -66,7 +71,7 @@ export const UserProfile = () => {
                   <input 
                     type="text" 
                     id="username" 
-                    defaultValue="johndoe123" 
+                    defaultValue={user.username} 
                     disabled 
                   />
                 </div>
@@ -75,7 +80,7 @@ export const UserProfile = () => {
                   <input 
                     type="email" 
                     id="email" 
-                    defaultValue="john.doe@example.com" 
+                    defaultValue={user.email}
                     disabled 
                   />
                 </div>
@@ -84,7 +89,7 @@ export const UserProfile = () => {
                   <textarea 
                     id="bio" 
                     rows="5" 
-                    defaultValue="Passionate educator with over 5 years of experience in teaching web development. Specializing in frontend technologies including React, Angular, and Vue."
+                    defaultValue={user.bio? user.bio : ''}
                   />
                 </div>
                 <button type="submit" className="save-profile-btn">
