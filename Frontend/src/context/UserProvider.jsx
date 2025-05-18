@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { UserContext } from "./UserContext";
 import { getToken } from "../services/tokenService";
 import { parseJwt } from "../utils/jwtUtils";
-
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
@@ -15,6 +14,8 @@ export const UserProvider = ({ children }) => {
           username: payload.username,
           email: payload.email,
           isInstructor: payload.is_instructor,
+          bio: payload.bio,
+          profilePicture: payload.profile_picture,
           pendingValidation: payload.pending_validation,
           uuid: payload.uuid
         });
