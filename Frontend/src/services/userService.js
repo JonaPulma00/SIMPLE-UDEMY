@@ -46,12 +46,12 @@ export const getProfilePicture = async (userId) => {
   }
 };
 
-export const updateUserData = async (bioText, profilePicture) => {
+export const updateUserData = async (bio, profilePicture) => {
   try {
     const formData = new FormData();
 
-    if (bioText !== undefined) {
-      formData.append("bio", bioText);
+    if (bio !== undefined) {
+      formData.append("bio", bio);
     }
 
     if (profilePicture) {

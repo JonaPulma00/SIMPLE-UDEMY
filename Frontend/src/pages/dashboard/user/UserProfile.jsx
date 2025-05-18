@@ -2,18 +2,72 @@ import { useState, useEffect } from "react";
 import { Sidebar } from "../../../components/Sidebar";
 import { useUser } from "../../../context/UserContext";
 import { Avatar } from "../../../components/Avatar";
-import { getProfilePicture } from "../../../services/userService";
+import { getProfilePicture, updateUserData } from "../../../services/userService";
 import useAsync from "../../../hooks/useAsync";
+import { useForm } from "../../../hooks/useForm";
+import { refreshData } from "../../../utils/refreshUtils";
+import { toast } from 'react-toastify';
 import "../../../styles/dashboard/user/UserProfile.css";
 
 export const UserProfile = () => {
-  const { user } = useUser();
+  const { user, loadUserFromToken } = useUser();
   const [editMode, setEditMode] = useState(false);
+  const [profilePictureFile, setProfilePictureFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
+  const refresh = refreshData(setRefreshKey);
+
+  const { formState, onInputChange } = useForm({
+    bio: user?.bio || ""
+  })
  const { loading, error, value: profilePictureUrl } = useAsync(
     () => user?.uuid ? getProfilePicture(user.uuid) : Promise.resolve(null),
-    [user?.uuid]
+    [user?.uuid, refreshKey]
   );
+
+  useEffect(() => {
+    if (!editMode || user?.bio !== formState.bio){
+      onInputChange({ target: { name: 'bio', value: user?.bio || '' } });
+    }
+  }, [user, editMode])
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfilePictureFile(file);
+      
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      await updateUserData(formState.bio, profilePictureFile);
+      toast.success("Profile updated successfully!");
+      loadUserFromToken(); 
+      refresh(); 
+      setEditMode(false);
+      setProfilePictureFile(null);
+      setPreviewUrl(null);
+    } catch (error) {
+      toast.error("Failed to update profile: " + (error.response?.data?.detail || error.message));
+    }
+  };
+
+  
+  const handleCancelEdit = () => {
+    setEditMode(false);
+    setProfilePictureFile(null);
+    setPreviewUrl(null);
+    onInputChange({ target: { name: 'bio', value: user?.bio || '' } });
+  };
   return (
     <div className="dashboard-container">
       <Sidebar />
@@ -22,7 +76,7 @@ export const UserProfile = () => {
           <h1>User Profile</h1>
           <button 
             className="edit-profile-btn"
-            onClick={() => setEditMode(!editMode)}
+            onClick={editMode ? handleCancelEdit : () => setEditMode(true)}
           >
             {editMode ? "Cancel" : "Edit Profile"}
           </button>
@@ -34,18 +88,25 @@ export const UserProfile = () => {
           <div className="profile-section profile-picture-section">
             <div className="profile-picture-container">
               {loading ? (
-                <div className="loading-indicatro">Loading...</div>
-
-              ): profilePictureUrl ? (
-                <img src={profilePictureUrl} alt={`${user.username} 's Avatar`} className="profile-picture"/>
+                <div className="loading-indicator">Loading...</div>
+              ) : previewUrl ? (
+                <img src={previewUrl} alt={`${user?.username}'s Avatar Preview`} className="profile-picture"/>
+              ) : profilePictureUrl ? (
+                <img src={profilePictureUrl} alt={`${user?.username}'s Avatar`} className="profile-picture"/>
               ) : (
-                <Avatar name={user.username} className="profile-picture"/>
+                <Avatar name={user?.username} className="profile-picture"/>
               )}
               {editMode && (
-                <div className="upload-overlay">
+                <label className="upload-overlay">
                   <i className="fas fa-camera"></i>
                   <span>Change Profile Picture</span>
-                </div>
+                  <input 
+                    type="file" 
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    style={{ display: 'none' }}
+                  />
+                </label>
               )}
             </div>
           </div>
@@ -77,13 +138,13 @@ export const UserProfile = () => {
                 </div>
               </div>
             ) : (
-              <form className="edit-profile-form">
+              <form className="edit-profile-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label htmlFor="username">Username</label>
                   <input 
                     type="text" 
                     id="username" 
-                    defaultValue={user.username} 
+                    defaultValue={user?.username} 
                     disabled 
                   />
                 </div>
@@ -92,16 +153,18 @@ export const UserProfile = () => {
                   <input 
                     type="email" 
                     id="email" 
-                    defaultValue={user.email}
+                    defaultValue={user?.email}
                     disabled 
                   />
                 </div>
                 <div className="form-group">
                   <label htmlFor="bio">Bio</label>
                   <textarea 
-                    id="bio" 
+                    id="bio"
+                    name="bio"
                     rows="5" 
-                    defaultValue={user.bio? user.bio : ''}
+                    value={formState.bio}
+                    onChange={onInputChange}
                   />
                 </div>
                 <button type="submit" className="save-profile-btn">
