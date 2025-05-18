@@ -12,7 +12,12 @@ async def enroll_user_handler(
     db: AsyncSession = Depends(get_db),
     token_payload: dict = Depends(verify_token)
 ):
-    return await enroll_user(db, token_payload["uuid"], course_id)
+    return await enroll_user(
+        db, 
+        token_payload["uuid"], 
+        course_id, 
+        token_payload["is_instructor"]
+    )
 
 @router.get("/get-enrollments", status_code=status.HTTP_200_OK)
 async def get_user_enrollments_handler(

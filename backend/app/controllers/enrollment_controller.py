@@ -5,7 +5,15 @@ from fastapi import HTTPException, status
 from app.db.models import Enrollments, Course
 import uuid
 
-async def enroll_user(db: AsyncSession, user_id: str, course_id: str):
+async def enroll_user(db: AsyncSession, user_id: str, course_id: str, is_instructor: bool):
+
+    if is_instructor:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, 
+            detail="Instructors cannot enroll in courses"
+        )
+    
+
     course_stmt = select(Course).filter(Course.course_id == course_id)
     course_result = await db.execute(course_stmt)
     course = course_result.scalar_one_or_none()
