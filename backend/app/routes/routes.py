@@ -5,7 +5,7 @@ from app.routes.enrollments_router import router as enrollments_router
 from app.routes.category_router import router as category_router
 from app.routes.lessons_router import router as lessons_router
 from app.routes.stream_router import router as stream_router
-
+from app.routes.user_update_router import router as user_update_router
 router = APIRouter()
 
 # Auth routes
@@ -25,3 +25,6 @@ router.include_router(lessons_router, prefix="/lessons", tags=["Lessons"])
 
 # Stream routes
 router.include_router(stream_router, prefix="/streams", tags=["Streams"])
+
+# User update routes
+router.include_router(user_update_router, prefix="/user", tags=["User"])
