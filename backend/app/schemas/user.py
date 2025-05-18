@@ -13,6 +13,16 @@ class UserCreate(BaseModel):
     def trim_username(cls, v):
         return v.strip()
 
+    @field_validator('username', mode='before')
+    def validate_username_length(cls, v):
+        if len(v) > 50:
+            raise ValueError('Username must be less than 50 characters')
+        return v
+    def username_cannot_be_empty(cls, v):
+        if not v:
+            raise ValueError('Username cannot be empty')
+        return v
+
     @field_validator('password', mode='before')
     def validate_password(cls, v):
         if not v:
@@ -28,6 +38,21 @@ class UserCreate(BaseModel):
     @field_validator('email', mode='before')
     def trim_email(cls, v):
         return v.strip()
+
+    @field_validator('email', mode='before')
+    def validate_email(cls, v):
+        if not v:
+            raise ValueError('Email cannot be empty')
+        return v
+    def validate_email_length(cls, v):
+        if len(v) > 100:
+            raise ValueError('Email must be less than 100 characters')
+        return v
+
+    def email_must_be_email(cls, v):
+        if not re.match(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', v):
+            raise ValueError('Email must be a valid email address')
+        return v
 
 class UserLogin(BaseModel):
     username: str
