@@ -127,7 +127,10 @@ export const WelcomePage = () => {
                   <div 
                     key={course.course_id} 
                     className="course-card" 
-                    onClick={() => navigate(`/explore/${course.course_id}`)}
+                    onClick={() => navigate(user?.isInstructor ? 
+                      `/course/${course.course_id}` : 
+                      `/explore/course/${course.course_id}`
+                    )}
                   >
                     <div className="course-image"></div>
                     <div className="course-content">
