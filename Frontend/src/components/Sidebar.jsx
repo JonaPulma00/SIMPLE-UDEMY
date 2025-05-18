@@ -3,6 +3,8 @@ import { logoutUser } from "../services/userService";
 import { useUser } from "../context/UserContext";
 import { ThemeToggle } from "./ThemeToggle";
 import { Avatar } from "./Avatar";
+import { getProfilePicture } from "../services/userService";
+import useAsync from "../hooks/useAsync";
 import '../styles/dashboard/Sidebar.css'
 const truncateUsername = (username, maxLength = 12) => {
   if (!username || username.length <= maxLength) return username;
@@ -18,7 +20,7 @@ export const Sidebar = () => {
       await logoutUser()
       navigate('/')
     } catch (error) {
-      console.error('Error  on login out: ', error)
+      console.error('Error on login out: ', error)
     }
   }
 
@@ -38,13 +40,17 @@ export const Sidebar = () => {
 
           <div className="user-profile" onClick={() => navigate('/profile')}>
               <div className="profile-wrapper">
-                <Avatar name={user.username} />
+                {user ? (
+                  <Avatar name={user.username} />
+                ) : (
+                  <div className="avatar-placeholder"></div>
+                )}
               </div>
 
             <div className="profile-info">
               <div className="user-name tooltip" title={user?.username || 'User'}>
-                Hello, {truncateUsername(user?.username) || 'User'}
-                <span className="tooltip-text">{user?.username}</span>
+                Hello, {user ? truncateUsername(user.username) : 'User'}
+                {user?.username && <span className="tooltip-text">{user.username}</span>}
               </div>
             </div>
           </div>
@@ -56,7 +62,7 @@ export const Sidebar = () => {
             </NavLink>
           </div>
 
-          {!user?.isInstructor && (
+          {user && !user.isInstructor && (
             <div className="menu-item">
               <NavLink to="/my-courses" className="">
                 <i className="fas fa-book"></i>
@@ -92,7 +98,7 @@ export const Sidebar = () => {
 
           <div className="menu-item">
             <NavLink to="/stream" className="">
-              <i class="fa-solid fa-video"></i>
+              <i className="fa-solid fa-video"></i>
               <span>Streaming</span>
             </NavLink>
           </div>
