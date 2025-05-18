@@ -26,11 +26,7 @@ class UserCreate(BaseModel):
         if len(v) > 100:
             raise ValueError('Email must be less than 100 characters')
         return v
-    @field_validator('email', mode='before')
-    def validate_email_format(cls, v):
-        if not re.match(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', v):
-            raise ValueError('Email must be a valid email address')
-        return v
+    
 
     @field_validator('password', mode='before')
     def validate_password(cls, v):
