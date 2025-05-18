@@ -1,6 +1,5 @@
 import boto3
-from fastapi import HTTPException, status
-from fastapi import UploadFile
+from fastapi import HTTPException, status, UploadFile
 from typing import Optional
 from app.core.config import settings
 

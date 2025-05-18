@@ -38,7 +38,6 @@ async def end_stream(
     user_id = token_payload.get("user_id")
     return await stream_controller.end_stream(db, stream_id, user_id)
 
-# Get all streams for an instructor
 @router.get("/instructor/{instructor_id}", response_model=List[StreamResponse])
 async def get_instructor_streams(
     instructor_id: str,
