@@ -46,9 +46,23 @@ export const getProfilePicture = async (userId) => {
   }
 };
 
-export const updateUserData = async () => {
+export const updateUserData = async (bioText, profilePicture) => {
   try {
-    const response = await api.patch("/user/update-profile");
+    const formData = new FormData();
+
+    if (bioText !== undefined) {
+      formData.append("bio", bioText);
+    }
+
+    if (profilePicture) {
+      formData.append("profile_picture", profilePicture);
+    }
+
+    const response = await api.patch("/user/update-profile", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("Error while updating user data", error);
