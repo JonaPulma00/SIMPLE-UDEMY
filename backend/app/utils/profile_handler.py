@@ -25,7 +25,7 @@ class ProfileHandler:
       self.s3_client.upload_fileobj(
         pfp_file.file,
         self.bucket_name,
-        profile_picture_path,
+        pfp_path,
         ExtraArgs={
           'ContentType': content_type
         }
