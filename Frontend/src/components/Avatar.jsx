@@ -1,5 +1,9 @@
-export const Avatar = () => {
+import { getAvatarUrl } from "../services/avatarService"
+export const Avatar = ({name}) => {
+  const avatarUrl = getAvatarUrl({name})
   return (
-    <div>Avatar</div>
+    <>
+    <img src={avatarUrl} alt={`${name}'s Avatar`}/>
+    </>
   )
 }
