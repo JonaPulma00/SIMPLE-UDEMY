@@ -16,3 +16,23 @@ class ProfileHandler:
   def get_profile_picture_path(self, user_id: str) -> str:
     return f"users/{user_id}/profile_picture.jpg"
     
+  async def upload_pfp(self, pfp_file: UploadFile, user_id: str) -> str:
+    try:
+      pfp_path = self.get_profile_picture_path(user_id)
+
+      content_type = pfp_file.content_type or 'image/jpeg'
+
+      self.s3_client.upload_fileobj(
+        pfp_file.file,
+        self.bucket_name,
+        profile_picture_path,
+        ExtraArgs={
+          'ContentType': content_type
+        }
+      )
+
+      url = f"https://{self.bucket_name}.s3.{settings.AWS_REGION}.amazonaws.com/{pfp_path}"
+
+      return url
+    except Exception as e:
+      raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to upload profile picture: {str(e)}")
