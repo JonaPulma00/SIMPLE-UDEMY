@@ -39,7 +39,8 @@ export const Sidebar = () => {
 
           <div className="user-profile" onClick={() => navigate('/profile')}>
               <div className="profile-wrapper">
-                <img src={iconTest} alt="user-profile-image" />
+                <img src="https://ui-avatars.com/api/?name=Jon+Snow&background=0D8ABC&color=fff&size=128
+" alt="user-profile-image" />
               </div>
 
             <div className="profile-info">

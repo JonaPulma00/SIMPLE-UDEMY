@@ -25,7 +25,7 @@ export const UserProfile = () => {
           <div className="profile-section profile-picture-section">
             <div className="profile-picture-container">
               <img 
-                src="https://via.placeholder.com/150" 
+                src="https://ui-avatars.com/api/?name=Jon+Snow&background=0D8ABC&color=fff&size=128" 
                 alt="Profile" 
                 className="profile-picture" 
               />
