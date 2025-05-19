@@ -15,6 +15,7 @@ export const UserProfile = () => {
   const [profilePictureFile, setProfilePictureFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
 
   const refresh = refreshData(setRefreshKey);
 
@@ -47,6 +48,7 @@ export const UserProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsUploading(true);
     
     try {
       const response = await updateUserData(formState.bio, profilePictureFile);
@@ -54,7 +56,8 @@ export const UserProfile = () => {
       if (response) {
         setUser({
           ...user,
-          bio: response.bio
+          bio: response.bio,
+          profilePictureUrl: response.profile_picture
         });
       }
       loadUserFromToken(); 
@@ -64,6 +67,8 @@ export const UserProfile = () => {
       setPreviewUrl(null);
     } catch (error) {
       toast.error("Failed to update profile: " + (error.response?.data?.detail || error.message));
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -95,6 +100,11 @@ export const UserProfile = () => {
             <div className="profile-picture-container">
               {loading ? (
                 <div className="loading-indicator">Loading...</div>
+              ) : isUploading ? (
+                <div className="loading-indicator">
+                  <i className="fas fa-spinner fa-spin"></i>
+                  <span>Uploading...</span>
+                </div>
               ) : previewUrl ? (
                 <img src={previewUrl} alt={`${user?.username}'s Avatar Preview`} className="profile-picture"/>
               ) : profilePictureUrl ? (
@@ -102,7 +112,7 @@ export const UserProfile = () => {
               ) : (
                 <Avatar name={user?.username} className="profile-picture"/>
               )}
-              {editMode && (
+              {editMode && !isUploading && (
                 <label className="upload-overlay">
                   <i className="fas fa-camera"></i>
                   <span>Change Profile Picture</span>
@@ -173,8 +183,12 @@ export const UserProfile = () => {
                     onChange={onInputChange}
                   />
                 </div>
-                <button type="submit" className="save-profile-btn">
-                  Save Changes
+                <button 
+                  type="submit" 
+                  className="save-profile-btn"
+                  disabled={isUploading}
+                >
+                  {isUploading ? "Uploading..." : "Save Changes"}
                 </button>
               </form>
             )}

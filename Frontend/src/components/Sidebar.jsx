@@ -4,6 +4,7 @@ import { useUser } from "../context/UserContext";
 import { ThemeToggle } from "./ThemeToggle";
 import { Avatar } from "./Avatar";
 import { getProfilePicture } from "../services/userService";
+import { toast } from "react-toastify";
 import useAsync from "../hooks/useAsync";
 import '../styles/dashboard/Sidebar.css'
 const truncateUsername = (username, maxLength = 12) => {
@@ -25,6 +26,7 @@ export const Sidebar = () => {
       navigate('/')
     } catch (error) {
       console.error('Error on login out: ', error)
+      toast.error('Error on login out: ', error)
     }
   }
 
@@ -45,13 +47,13 @@ export const Sidebar = () => {
           <div className="user-profile" onClick={() => navigate('/profile')}>
               <div className="profile-wrapper">
                 {loading ? (
-                  <div className="loading-indicator">Loading...</div>
+                  <div className="loading-indicator">...</div>
                 ) : profilePictureUrl ? (
                   <img 
-                  src={profilePictureUrl} 
-                  alt={`${user?.username}'s Avatar`} 
-                  className="profile-picture"
-                />
+                    src={profilePictureUrl} 
+                    alt={`${user?.username}'s Avatar`} 
+                    className="profile-picture"
+                  />
                 ) : (
                   <Avatar name={user?.username} />
                 )}
