@@ -199,8 +199,6 @@ Per visualitzar i provar tots els endpoints disponibles, accediu a la documentac
 
 ### Frontend
 ```
-C:\Users\jonar\OneDrive\Escritorio\course-project\Frontend\src
-
 ├── assets/           # Recursos estàtics
 ├── components/       # Components reutilitzables
 ├── context/          # Context de React
@@ -220,8 +218,6 @@ C:\Users\jonar\OneDrive\Escritorio\course-project\Frontend\src
 
 ### Backend
 ```
-C:\Users\jonar\OneDrive\Escritorio\course-project\Backend\app
-
 ├── controllers/      # Controladors de la API
 ├── core/            # Configuració central
 ├── db/              # Models i configuració de base de dades
@@ -235,8 +231,6 @@ C:\Users\jonar\OneDrive\Escritorio\course-project\Backend\app
 
 ### Socket
 ```
-C:\Users\jonar\OneDrive\Escritorio\course-project\Socket
-
 ├── config/          # Configuració del Socket
 ├── handlers/        # Manejadors d'esdeveniments
 ├── middlewares/     # Middlewares del Socket
