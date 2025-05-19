@@ -15,6 +15,10 @@ export const Sidebar = () => {
   const navigate = useNavigate()
   const { user } = useUser()
 
+  const { loading, error, value: profilePictureUrl } = useAsync(
+    () => user?.uuid ? getProfilePicture(user.uuid) : Promise.resolve(null),
+    [user?.uuid]
+  );
   const handleLogout = async () => {
     try {
       await logoutUser()
@@ -40,10 +44,16 @@ export const Sidebar = () => {
 
           <div className="user-profile" onClick={() => navigate('/profile')}>
               <div className="profile-wrapper">
-                {user ? (
-                  <Avatar name={user.username} />
+                {loading ? (
+                  <div className="loading-indicator">Loading...</div>
+                ) : profilePictureUrl ? (
+                  <img 
+                  src={profilePictureUrl} 
+                  alt={`${user?.username}'s Avatar`} 
+                  className="profile-picture"
+                />
                 ) : (
-                  <div className="avatar-placeholder"></div>
+                  <Avatar name={user?.username} />
                 )}
               </div>
 

@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import "../../../styles/dashboard/user/UserProfile.css";
 
 export const UserProfile = () => {
-  const { user, loadUserFromToken } = useUser();
+  const { user, loadUserFromToken, setUser } = useUser();
   const [editMode, setEditMode] = useState(false);
   const [profilePictureFile, setProfilePictureFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -49,8 +49,14 @@ export const UserProfile = () => {
     e.preventDefault();
     
     try {
-      await updateUserData(formState.bio, profilePictureFile);
+      const response = await updateUserData(formState.bio, profilePictureFile);
       toast.success("Profile updated successfully!");
+      if (response) {
+        setUser({
+          ...user,
+          bio: response.bio
+        });
+      }
       loadUserFromToken(); 
       refresh(); 
       setEditMode(false);
