@@ -47,7 +47,7 @@ export const Sidebar = () => {
           <div className="user-profile" onClick={() => navigate('/profile')}>
               <div className="profile-wrapper">
                 {loading ? (
-                  <div className="loading-indicator">...</div>
+                  <div className="loading-indicator-sidebar">...</div>
                 ) : profilePictureUrl ? (
                   <img 
                     src={profilePictureUrl} 
