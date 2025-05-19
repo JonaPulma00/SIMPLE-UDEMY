@@ -193,7 +193,7 @@ Per visualitzar i provar tots els endpoints disponibles, accediu a la documentac
 
 ## Diagrama Entitat-Relació
 
-![db diagrama](/Backend/app/db/dbDiagram.png)
+![db diagrama](/backend/app/db/dbDiagram.png)
 
 
 ## Estructura de Directoris
