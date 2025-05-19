@@ -12,10 +12,10 @@
 
 
 .chat-message {
-  padding: 8px 10px;
-  margin-bottom: 8px;
-  border-radius: 4px;
+  padding: 8px 12px;
+  border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.2);
+  word-break: break-word;
 }
 
 .chat-username {
@@ -50,6 +50,10 @@
   flex: 1;
   padding: 15px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  scroll-behavior: smooth;
 }
 
 .chat-input {
@@ -67,6 +71,12 @@
   border: 1px solid var(--section-border-color);
   border-radius: 4px;
   color: var(--primary-white-color);
+  font-size: 0.9rem;
+}
+
+.chat-input input:focus {
+  outline: none;
+  border-color: var(--primary-green);
 }
 
 .chat-input button {
@@ -86,6 +96,7 @@
 .chat-input button:hover {
   background-color: var(--transparent-green-hover);
   color: var(--primary-white-color);
+  transform: scale(1.05);
 }
 
 @media (max-width: 1180px) {
