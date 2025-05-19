@@ -1,14 +1,43 @@
 # Documentació del Projecte - Plataforma de Cursos
 
+## Índex
+
+1. [Descripció del Projecte](#descripció-del-projecte)
+2. [Tecnologies Utilitzades](#tecnologies-utilitzades)
+3. [Requisits Previs](#requisits-previs)
+4. [Configuració de Google Cloud](#configuració-de-google-cloud)
+   - 4.1. [Creació d'un projecte nou](#1-creació-dun-projecte-nou)
+   - 4.2. [Configuració de la pantalla de consentiment OAuth](#2-configuració-de-la-pantalla-de-consentiment-oauth)
+   - 4.3. [Creació de les credencials OAuth](#3-creació-de-les-credencials-oauth-client-id)
+5. [Configuració de bucket S3 amb CORS](#configuració-de-bucket-s3-amb-cors-aws-academy)
+   - 5.1. [Creació del bucket](#1-creació-del-bucket)
+   - 5.2. [Configuració de CORS](#2-configuració-de-cors)
+   - 5.3. [Verificació](#3-verificació)
+6. [Procediment d'Inicialització](#procediment-dinicialització)
+   - 6.1. [Configuració del Socket](#configuració-del-socket)
+   - 6.2. [Configuració dels Scripts](#configuració-dels-scripts)
+   - 6.3. [Configuració del Frontend](#configuració-del-frontend)
+   - 6.4. [Configuració de Docker](#configuració-de-docker)
+   - 6.5. [Configuració del Backend](#configuració-del-backend)
+7. [Accés als Endpoints](#accés-als-endpoints)
+8. [Diagrama Entitat-Relació](#diagrama-entitat-relació)
+9. [Estructura de Directoris](#estructura-de-directoris)
+   - 9.1. [Frontend](#frontend)
+   - 9.2. [Backend](#backend)
+   - 9.3. [Socket](#socket)
+10. [Dependències i Funcionalitats](#dependències-i-funcionalitats)
+
+---
+
 ## Descripció del Projecte
 
 Plataforma per visualitzar i crear cursos (clon d'Udemy amb funcionalitats bàsiques), que inclou capacitats de streaming on els usuaris es poden connectar en un mode similar a Twitch.
 
 ## Tecnologies Utilitzades
 
-- **Frontend**: React JS + Vite 19
-- **Backend**: FastAPI 0.115.11
-- **Socket**: Socket.IO 4.8.1
+- **Frontend**: React JS (19) + Vite
+- **Backend**: FastAPI (0.115.11)
+- **Socket**: Socket.IO (4.8.1)
 
 ## Requisits Previs
 
