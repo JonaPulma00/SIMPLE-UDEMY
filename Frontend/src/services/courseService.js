@@ -172,6 +172,18 @@ const deleteSection = async (courseId, sectionId) => {
   }
 };
 
+export const deleteLesson = async (courseId, lessonId) => {
+  try {
+    const response = await api.delete(
+      `/lessons/delete-lesson/${courseId}/lessons/${lessonId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting lesson:", error);
+    throw error;
+  }
+};
+
 export const courseService = {
   getCourses,
   createCourse,
@@ -186,4 +198,5 @@ export const courseService = {
   uploadLessonVideo,
   getLessonVideo,
   deleteSection,
+  deleteLesson,
 };

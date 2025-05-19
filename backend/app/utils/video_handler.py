@@ -54,3 +54,15 @@ class VideoHandler:
             return url
         except Exception:
              raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to generate video URL")
+
+    def delete_video(self, video_path: str):
+        try:
+            self.s3_client.delete_object(
+                Bucket=self.bucket_name,
+                Key=video_path
+            )
+            return True
+        except Exception as e:
+            print(f"Error deleting video from S3: {str(e)}")
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to delete video")
+            return False

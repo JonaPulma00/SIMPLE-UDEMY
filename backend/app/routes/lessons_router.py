@@ -6,7 +6,7 @@ from typing import Dict
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.database import get_db
 from app.middlewares.authorization import verify_instructor
-from app.controllers.lesson_controller import add_lesson_to_section, update_lesson_video, get_lesson_video
+from app.controllers.lesson_controller import add_lesson_to_section, update_lesson_video, get_lesson_video, delete_lesson
 from app.schemas.course import LessonCreate
 
 router = APIRouter()
@@ -42,4 +42,13 @@ async def get_lesson_video_route(
     db: AsyncSession = Depends(get_db),
     token_payload: dict = Depends(verify_token)
 ):
-    return await get_lesson_video(db, lesson_id) 
+    return await get_lesson_video(db, lesson_id)
+
+@router.delete("/delete-lesson/{course_id}/lessons/{lesson_id}")
+async def delete_lesson_route(
+    course_id: str,
+    lesson_id: str,
+    db: AsyncSession = Depends(get_db),
+    token_payload: dict = Depends(verify_instructor)
+):
+    return await delete_lesson(db, lesson_id, course_id, token_payload["uuid"]) 

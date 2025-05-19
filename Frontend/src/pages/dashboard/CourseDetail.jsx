@@ -25,6 +25,8 @@ export const CourseDetail = () => {
   const [currentVideoTitle, setCurrentVideoTitle] = useState("");
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
   const [sectionToDelete, setSectionToDelete] = useState(null);
+  const [isDeleteLessonModalOpen, setIsDeleteLessonModalOpen] = useState(false);
+  const [lessonToDelete, setLessonToDelete] = useState(null);
 
   const [lessonData, setLessonData] = useState({
     title: "",
@@ -140,6 +142,24 @@ export const CourseDetail = () => {
     }
   };
 
+  const handleDeleteLesson = (lessonId, e) => {
+    e.stopPropagation();
+    setLessonToDelete(lessonId);
+    setIsDeleteLessonModalOpen(true);
+  };
+
+  const confirmDeleteLesson = async () => {
+    try {
+      await courseService.deleteLesson(courseId, lessonToDelete);
+      toast.success("Lesson deleted successfully");
+      setIsDeleteLessonModalOpen(false);
+      setLessonToDelete(null);
+      refreshData(setRefreshKey)();
+    } catch (error) {
+      toast.error("Failed to delete lesson: " + (error.response?.data?.detail || error.message));
+    }
+  };
+
   return (
     <>
       {loading ? (
@@ -203,7 +223,10 @@ export const CourseDetail = () => {
                                 <button className="lesson-btn edit">
                                   <i className="fas fa-edit"></i>
                                 </button>
-                                <button className="lesson-btn delete">
+                                <button 
+                                  className="lesson-btn delete"
+                                  onClick={(e) => handleDeleteLesson(lesson.lesson_id, e)}
+                                >
                                   <i className="fas fa-trash"></i>
                                 </button>
                               </div>
@@ -363,6 +386,37 @@ export const CourseDetail = () => {
               onClick={confirmDeleteSection}
             >
               Delete Section
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={isDeleteLessonModalOpen}
+        onClose={() => {
+          setIsDeleteLessonModalOpen(false);
+          setLessonToDelete(null);
+        }}
+        title="Delete Lesson"
+      >
+        <div className="delete-confirmation">
+          <p>Are you sure you want to delete this lesson?</p>
+          <p className="warning-text">This action cannot be undone.</p>
+          <div className="confirmation-actions">
+            <button
+              className="cancel-btn"
+              onClick={() => {
+                setIsDeleteLessonModalOpen(false);
+                setLessonToDelete(null);
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              className="delete-btn"
+              onClick={confirmDeleteLesson}
+            >
+              Delete Lesson
             </button>
           </div>
         </div>

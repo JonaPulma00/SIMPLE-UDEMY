@@ -92,3 +92,46 @@ async def get_lesson_video(db: AsyncSession, lesson_id: str):
         return {"url": presigned_url}
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to retrieve video")
+
+async def delete_lesson(db: AsyncSession, lesson_id: str, course_id: str, user_id: str):
+
+    course = await get_course_by_id(db, course_id, user_id)
+    
+
+    stmt = select(Lesson).filter(Lesson.lesson_id == lesson_id)
+    result = await db.execute(stmt)
+    lesson = result.scalar_one_or_none()
+    
+    if not lesson:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Lesson not found"
+        )
+    
+
+    section_stmt = select(Section).filter(
+        Section.section_id == lesson.section_id,
+        Section.course_id == course_id
+    )
+    section_result = await db.execute(section_stmt)
+    section = section_result.scalar_one_or_none()
+    
+    if not section:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Lesson does not belong to this course"
+        )
+    
+ 
+    if lesson.video_url:
+        try:
+            video_path = lesson.video_url.split(f"{os.getenv('AWS_BUCKET_NAME')}.s3.{os.getenv('AWS_REGION')}.amazonaws.com/")[-1]
+            video_handler.delete_video(video_path)
+        except Exception as e:
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to delete video")
+    
+
+    await db.delete(lesson)
+    await db.commit()
+    
+    return {"message": "Lesson deleted successfully"}
