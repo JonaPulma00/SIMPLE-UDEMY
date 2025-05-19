@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { socketService } from '../services/socketService';
 import { useParams } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
@@ -9,6 +9,15 @@ export const StreamChat = () => {
   const { courseId } = useParams();
   const { user } = useUser();
   const [messages, setMessages] = useState([]);
+  const messagesEndRef = useRef(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({behavior: "smooth"})
+  }
+
+  useEffect(()=> {
+    scrollToBottom();
+  }, [messages])
 
   useEffect(()=> {
 
@@ -21,6 +30,7 @@ export const StreamChat = () => {
 
     return () => {
       socketService.offMessage();
+      socketService.leaveRoom(courseId);
     }
   }, [courseId], [user.uuid]);
 
@@ -55,6 +65,7 @@ export const StreamChat = () => {
             <span className="chat-text">{msg.text}</span>
           </div>
         ))}
+        <div ref={messagesEndRef} />
       </div>
       
       <form className="chat-input" onSubmit={handleSendMessage}>
