@@ -46,9 +46,26 @@ export const UserProfile = () => {
     }
   };
 
+  const validateBio = (bio) => {
+    if (bio.length > 200) {
+      return false;
+    }
+    return true;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsUploading(true);
+    
+
+    if (!validateBio(formState.bio)) {
+      toast.error("Bio must be less than 200 characters");
+      return;
+    }
+  
+    const isUpdatingProfilePic = !!profilePictureFile;
+    if (isUpdatingProfilePic) {
+      setIsUploading(true);
+    }
     
     try {
       const response = await updateUserData(formState.bio, profilePictureFile);
@@ -66,9 +83,11 @@ export const UserProfile = () => {
       setProfilePictureFile(null);
       setPreviewUrl(null);
     } catch (error) {
-      toast.error("Failed to update profile: " + (error.response?.data?.detail || error.message));
+      toast.error("Failed to update profile: " + (error.message));
     } finally {
-      setIsUploading(false);
+      if (isUpdatingProfilePic) {
+        setIsUploading(false);
+      }
     }
   };
 
