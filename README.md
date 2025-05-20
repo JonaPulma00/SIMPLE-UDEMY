@@ -205,7 +205,6 @@ Per visualitzar i provar tots els endpoints disponibles, accediu a la documentac
 ├── context/          # Context de React
 ├── hooks/            # Hooks personalitzats
 ├── interceptor/      # Interceptors HTTP
-├── node_modules/     # Dependències de Node.js
 ├── pages/            # Pàgines de l'aplicació
 ├── router/           # Configuració de routing
 ├── services/         # Serveis i API calls
@@ -214,19 +213,18 @@ Per visualitzar i provar tots els endpoints disponibles, accediu a la documentac
 ├── App.css           # Estils principals
 ├── App.jsx           # Component principal
 ├── main.jsx          # Punt d'entrada
-└── package-lock.json # Lockfile de NPM
+└── 
 ```
 
 ### Backend
 ```
-├── controllers/      # Controladors de la API
+├── controllers/     # Controladors de la API
 ├── core/            # Configuració central
 ├── db/              # Models i configuració de base de dades
 ├── middlewares/     # Middlewares personalitzats
 ├── routes/          # Definició de rutes
 ├── schemas/         # Esquemes Pydantic
 ├── utils/           # Utilitats del backend
-├── __pycache__/     # Cache de Python
 └── main.py          # Punt d'entrada de l'aplicació
 ```
 
@@ -235,11 +233,6 @@ Per visualitzar i provar tots els endpoints disponibles, accediu a la documentac
 ├── config/          # Configuració del Socket
 ├── handlers/        # Manejadors d'esdeveniments
 ├── middlewares/     # Middlewares del Socket
-├── node_modules/    # Dependències de Node.js
-├── .env             # Variables d'entorn
-├── .gitignore       # Arxius ignorats per Git
-├── package-lock.json # Lockfile de NPM
-├── package.json     # Configuració del projecte
 └── server.js        # Servidor Socket.IO
 ```
 
@@ -258,7 +251,3 @@ Per visualitzar i provar tots els endpoints disponibles, accediu a la documentac
 | **redis** | 5.2.1 | Client per interactuar amb base de dades Redis en memòria |
 | **boto3** | 1.28.18 | SDK oficial d'AWS per interactuar amb serveis com S3, DynamoDB |
 | **slowapi** | 0.1.9 | Implementació de rate limiting per prevenir abús d'APIs |
-| **limits** | 5.2.0 | Gestió i definició de límits de peticions |
-| **deprecated** | 1.2.18 | Marcatge de funcions obsoletes amb avisos |
-| **packaging** | 25.0 | Eines per gestió de versions i especificacions de paquets |
-| **wrapt** | 1.17.2 | Utilitats per crear decoradors i gestionar funcions encapsulades |
