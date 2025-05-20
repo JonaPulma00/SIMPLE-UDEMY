@@ -7,7 +7,11 @@ export const registerMessagesHandlers = (io, socket) => {
       const { roomId, message, id, username } = data;
 
       if (!roomId || !message || !id || !username) return;
-      console.log(`Message received in room ${roomId}: ${message}`);
+      if (!message || typeof message !== "string") return;
+      const trimmedMessage = message.trim();
+
+      if (!trimmedMessage || trimmedMessage.length > 200) return;
+      console.log(`Message received in room ${roomId}: ${trimmedMessage}`);
       socket.to(roomId.toString()).emit("receive-message", {
         id,
         text: message,
