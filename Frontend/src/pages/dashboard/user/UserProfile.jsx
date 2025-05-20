@@ -23,7 +23,7 @@ export const UserProfile = () => {
     bio: user?.bio || ""
   })
  const { loading, error, value: profilePictureUrl } = useAsync(
-    () => user?.uuid ? getProfilePicture(user.uuid) : Promise.resolve(null),
+    () => user?.uuid ? getProfilePicture(user?.uuid) : Promise.resolve(null),
     [user?.uuid, refreshKey]
   );
 
@@ -132,23 +132,23 @@ export const UserProfile = () => {
               <div className="user-info">
                 <div className="info-group">
                   <h3>Username</h3>
-                  <p>{user.username}</p>
+                  <p>{user?.username}</p>
                 </div>
                 <div className="info-group">
                   <h3>Email</h3>
-                  <p>{user.email}</p>
+                  <p>{user?.email}</p>
                 </div>
                 <div className="info-group">
                   <h3>Role</h3>
-                  {user.isInstructor? 
+                  {user?.isInstructor? 
                   <p>Instructor</p>
                   : <p>Student</p>}
                 </div>
                 <div className="info-group">
                   <h3>Bio</h3>
-                  {user.bio?(
+                  {user?.bio?(
                   <p className="user-bio">
-                    {user.bio}
+                    {user?.bio}
                   </p>
                   ):( <p>No bio yet</p>)}
                 </div>

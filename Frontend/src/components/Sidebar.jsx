@@ -55,7 +55,7 @@ export const Sidebar = () => {
                     className="profile-picture"
                   />
                 ) : (
-                  <Avatar name={user?.username} />
+                  <Avatar name={user?.username} className="profile-picture"/>
                 )}
               </div>
 

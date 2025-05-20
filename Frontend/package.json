@@ -1,7 +1,7 @@
 {
   "name": "course-project",
   "private": true,
-  "version": "0.1",
+  "version": "1",
   "author": "Jonathan Rodas",
   "type": "module",
   "scripts": {
