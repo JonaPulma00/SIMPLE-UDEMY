@@ -1,4 +1,4 @@
-from fastapi import Request, HTTPException, Depends
+from fastapi import Request, HTTPException, Depends, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import jwt
 import os
@@ -15,6 +15,6 @@ async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(secur
         payload = jwt.decode(token, SECRET_KEY, algorithms=[os.getenv('JWT_ALGORITHM')])
         return payload
     except jwt.ExpiredSignatureError:
-        raise HTTPException(status_code=403, detail="Token has expired")
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Token has expired")
     except jwt.InvalidTokenError:
-        raise HTTPException(status_code=403, detail="Invalid token")
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid token")
