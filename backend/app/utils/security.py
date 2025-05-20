@@ -33,17 +33,3 @@ def add_to_blacklist(token: str):
 def is_token_blacklisted(token: str) -> bool:
     return redis_client.get(token) == 'blacklisted'
 
-def verify_token(token: str):
-    if is_token_blacklisted(token):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Token has been invalidated"
-        )
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[settings.JWT_ALGORITHM])
-        return payload
-    except jwt.PyJWTError:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid token"
-        )
