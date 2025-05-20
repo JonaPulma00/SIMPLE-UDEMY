@@ -37,6 +37,11 @@ export const StreamChat = () => {
   const handleSendMessage = (e) => {
     e.preventDefault();
 
+    const trimmedMessage = chatMessage.trim();
+    if (!trimmedMessage || trimmedMessage.length > 200) return;
+
+
+
     const messageId = Date.now();
     const messageStructure = {
       id: messageId,
@@ -74,6 +79,7 @@ export const StreamChat = () => {
           placeholder="Type a message..." 
           value={chatMessage}
           onChange={(e) => setChatMessage(e.target.value)}
+          maxLength={200}
         />
         <button type="submit">
           <i className="fas fa-paper-plane"></i>
