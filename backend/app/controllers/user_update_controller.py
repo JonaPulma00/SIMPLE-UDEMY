@@ -22,7 +22,8 @@ async def update_user_profile(db: AsyncSession, user_id: str, bio: str = None, p
     
 
     if bio is not None:
-        user.bio = bio
+        user_update = UserUpdate(bio=bio)
+        user.bio = user_update.bio
     
 
     if profile_picture:

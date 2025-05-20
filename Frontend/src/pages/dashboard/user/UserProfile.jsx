@@ -181,6 +181,7 @@ export const UserProfile = () => {
                     rows="5" 
                     value={formState.bio}
                     onChange={onInputChange}
+                    maxLength={200}
                   />
                 </div>
                 <button 

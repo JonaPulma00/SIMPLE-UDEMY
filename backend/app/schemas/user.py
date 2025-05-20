@@ -65,8 +65,8 @@ class UserUpdate(BaseModel):
     def validate_bio(cls, v):
         if v:
             v = v.strip()
-            if len(v) > 500:
-                raise ValueError('Bio must be less than 500 characters')
+            if len(v) > 200:
+                raise ValueError('Bio must be less than 200 characters')
         return v
 
     @field_validator('profile_picture', mode='before')
