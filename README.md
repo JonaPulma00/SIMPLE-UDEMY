@@ -111,9 +111,9 @@ Un cop configurada, ja podeu realitzar peticions GET, PUT, etc. al bucket des d'
 ### Configuració del Socket
 1. Executeu `npm install` i creeu l'arxiu `.env` amb el següent contingut:
    ```env
-   PORT=3500
-   APP_URL=http://localhost:5200
-   JWT_SECRET=6bc8ace84472b2b5e74eb58d7a6fcf7a79141e324c54a4257f5a550ebb882555
+   PORT=SOCKET_PORT
+   APP_URL=FRONTEND_URL
+   JWT_SECRET=SECRET_JWT
    ```
    
    **Important**: El secret JWT ha de coincidir amb el del backend per garantir la signatura correcta
@@ -126,16 +126,16 @@ Un cop configurada, ja podeu realitzar peticions GET, PUT, etc. al bucket des d'
 ### Configuració dels Scripts
 1. Creeu l'arxiu `.env.backup` amb:
    ```env
-   DB_ROOT_PASSWORD=Patata123*
+   DB_ROOT_PASSWORD=PASSWORD_ASSIGNAT
    ```
 2. Configureu una tasca programada que executi l'script `backup_db.ps1`, o executeu-lo manualment amb: `.\backup_db.ps1`
 
 ### Configuració del Frontend
 1. Executeu `npm install` i creeu l'arxiu `.env`:
    ```env
-   VITE_APP_API_URL=http://127.0.0.1:8000/api/v1
-   VITE_GOOGLE_CLIENT_ID=149066278626-1sfsa01j3ib30038mmchar8h89j64nu1.apps.googleusercontent.com
-   VITE_SOCKET_SERVER_URL=http://localhost:3500
+   VITE_APP_API_URL=URL_DE_LA_APP
+   VITE_GOOGLE_CLIENT_ID=GOOGLE_ID
+   VITE_SOCKET_SERVER_URL=SOCKET_URL
    VITE_AVATAR_URL=https://ui-avatars.com/api/
    ```
 2. Inicieu el Frontend: `npm run dev`
@@ -144,12 +144,12 @@ Un cop configurada, ja podeu realitzar peticions GET, PUT, etc. al bucket des d'
 ### Configuració de Docker
 1. Creeu l'arxiu `.env`:
    ```env
-   MYSQL_ROOT_PASSWORD=Patata123*
-   DB_USER=root
-   DB_PASSWORD=myed123
-   DB_HOST=mysql
-   DB_PORT=3306
-   DB_NAME=projecteDb
+   MYSQL_ROOT_PASSWORD=ROOT_PASSWORD
+   DB_USER=USER
+   DB_PASSWORD=CONTRASENYA
+   DB_HOST=HOST_ASSIGNAT
+   DB_PORT=PORT_ASSIGNAT
+   DB_NAME=NOM_DB
    ```
 2. Inicieu els contenidors: `docker-compose up -d`
 3. Atureu els contenidors: `docker compose down`
@@ -158,29 +158,29 @@ Un cop configurada, ja podeu realitzar peticions GET, PUT, etc. al bucket des d'
 1. Creeu l'arxiu `.env` amb la configuració completa:
    ```env
    # === CONFIGURACIÓ DE BASE DE DADES ===
-   DB_USER=root
-   DB_PASSWORD=Patata123*
-   DB_HOST=localhost
-   DB_PORT=3306
-   DB_NAME=projecteDB
+   DB_USER=USER
+   DB_PASSWORD=CONTRASENYA
+   DB_HOST=HOST_ASSIGNAT
+   DB_PORT=PORT_ASSIGNAT
+   DB_NAME=NOM_DB
 
    # === CONFIGURACIÓ DE REDIS ===
-   REDIS_HOST=localhost
-   REDIS_PORT=6380
+   REDIS_HOST=REDIS_HOST   
+   REDIS_PORT=PORT ASSIGNAT
 
    # === CONFIGURACIÓ JWT ===
-   SECRET_KEY=6bc8ace84472b2b5e74eb58d7a6fcf7a79141e324c54a4257f5a550ebb882555
-   JWT_ALGORITHM=HS256
-   ACCESS_TOKEN_EXPIRE_MINUTES=1200
-   REFRESH_TOKEN_EXPIRE_MINUTES=604800
+   SECRET_KEY=SECRET_KEY_JWT
+   JWT_ALGORITHM=ALGORITME_DE_HASH
+   ACCESS_TOKEN_EXPIRE_MINUTES=EXPIRACIÓ_ASSIGNADA
+   REFRESH_TOKEN_EXPIRE_MINUTES=EXPIRACIÓ_ASSIGNADA
 
    # === CONFIGURACIÓ AWS ===
-   AWS_ACCESS_KEY_ID=ASIATWZMDDJVST4RO73P
-   AWS_SECRET_ACCESS_KEY=tFrdhYikWL/zQbjbjDI0zMuDfgde2g4ZT1HQwo+S
-   AWS_SESSION_TOKEN='IQoJb3JpZ2luX2VjENb//////////wEaCXVzLXdlc3QtMiJGMEQCIADg5qI25Avb9JyWg15iMYnsMKj0eonKJ2KIsDlqkFTTAiAeYXVKMvQrRveFoEPxNRdEgAuTQVKr3LV7aUMSQkZcEyqrAgiP//////////8BEAEaDDI1NTEwNjE2MTI1OSIM2P3Was0wy6b1u8I0Kv8BrazBtZlHKH2JGNSgOcZ0FXXAv4PcQ3upGSLqN8ljagQFgCHGRWFQD7BiX3DerKd0x6YEpDPCeKU4c0sIsLbAc1mCCjn2vcmoZmfGkmhmjtsDgCTOq2q4lSsHzdw76/aUd1JyMSWyYjyqd4/ZaolY1yvWEFxLr6C4v3+dzGh6neM1SQJy5jWD2JHLvjO2QjpPMSHn+h0pivZzIOGXks+i+iRz+G3EOIHMS6OZyUPyX+gq8fSssEfZINEool8fYJ3T/B6VSaVO64YZUPBHn4q3xg5LkfbvV+Ddt2PmYsoElVLQ2u20XCEe0ImJ29a5SCWgM5P+y6S9C5YKasgJkyVSMLrhrMEGOp4BLxAMkMbLjPJRb0zAC8sQynBbQ+nL/iPlT9sKE7+KhYEFHXv4XPzJbODXjXp7Z9ecfNeySCPTSioOqdrKJpgacHQG8ZtTZNkhfMrJcMG+47JjmdYLzkwaQMTmp1CrRG+jDBGYGzeoXYRpf+9rdyAgPzZhAeRKRZx7QealPSPxA2Uc/EucFCOdPFHXUMhqiunWA7dwSApeeT6C45p8334='
-   AWS_PRESIGNED_URL_EXPIRE_MINUTES=3600
-   AWS_BUCKET_NAME=myed-project
-   AWS_REGION=us-east-1
+   AWS_ACCESS_KEY_ID=KEY_IAM/ACADEMIC_LAB
+   AWS_SECRET_ACCESS_KEY=ACCESS_KEY/IAM/ACADEMIC_LAB
+   AWS_SESSION_TOKEN='SESSION_TOKEN'
+   AWS_PRESIGNED_URL_EXPIRE_MINUTES=EXPIRACIÓ_ASSIGNADA
+   AWS_BUCKET_NAME=NOM_BUCKET_S3
+   AWS_REGION=AWS_REGION
    ```
 2. Instal·leu les dependències: `pip install -r requirements.txt`
 3. Inicieu el Backend: `uvicorn app.main:app --reload`
