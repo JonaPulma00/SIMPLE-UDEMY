@@ -33,12 +33,6 @@ async def update_user_profile(db: AsyncSession, user_id: str, bio: str = None, p
     
 
     if profile_picture:
-        if profile_picture.content_type not in ["image/jpeg", "image/png", "image/jpg"]:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST, 
-                detail="File must be a JPEG or PNG image"
-            )
-        
         try:
             profile_url = await profile_handler.upload_pfp(profile_picture, user_id)
             user.profile_picture = profile_url

@@ -2,6 +2,8 @@ import boto3
 from fastapi import HTTPException, status, UploadFile
 from app.core.config import settings
 from typing import Optional
+from PIL import Image
+import io
 
 class ProfileHandler:
   def __init__(self):
@@ -19,8 +21,32 @@ class ProfileHandler:
     
   async def upload_pfp(self, pfp_file: UploadFile, user_id: str) -> str:
     try:
-      pfp_path = self.get_profile_picture_path(user_id)
+     
+      current_position = pfp_file.file.tell()
+      
+      
+      try:
+        image_data = await pfp_file.read()
+        Image.open(io.BytesIO(image_data))
+        
+        
+        if pfp_file.content_type not in ["image/jpeg", "image/png", "image/jpg"]:
+          raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, 
+            detail="File must be a JPEG or PNG image"
+          )
+        
+       
+        pfp_file.file.seek(0)
+      except Exception:
 
+        pfp_file.file.seek(current_position)
+        raise HTTPException(
+          status_code=status.HTTP_400_BAD_REQUEST,
+          detail="Invalid image file. Only JPEG and PNG images are allowed."
+        )
+      
+      pfp_path = self.get_profile_picture_path(user_id)
       content_type = pfp_file.content_type or 'image/jpeg'
 
       self.s3_client.upload_fileobj(
@@ -35,6 +61,8 @@ class ProfileHandler:
       url = f"https://{self.bucket_name}.s3.{settings.AWS_REGION}.amazonaws.com/{pfp_path}"
 
       return url
+    except HTTPException:
+      raise
     except Exception as e:
       raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to upload profile picture: {str(e)}")
     
