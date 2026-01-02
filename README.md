@@ -255,6 +255,14 @@ Per visualitzar i provar tots els endpoints disponibles, accediu a la documentac
 
 
 ## Imatges
+<img width="1907" height="931" alt="image" src="https://github.com/user-attachments/assets/f23d6a6f-dbcf-417d-9c39-b79f5e791f2e" />
+<img width="1875" height="915" alt="image" src="https://github.com/user-attachments/assets/9ce80d2f-cb44-44a9-8264-29fdfdce25e5" />
+<img width="1876" height="976" alt="image" src="https://github.com/user-attachments/assets/939a9b58-e6f4-4bc6-b2f6-54df56395647" />
+<img width="1917" height="927" alt="image" src="https://github.com/user-attachments/assets/b44c0e48-9eeb-4d4d-94af-c4bd89d827ca" />
+<img width="1908" height="933" alt="image" src="https://github.com/user-attachments/assets/7359a11d-a841-4990-8377-8ee5f657803b" />
+<img width="1882" height="1062" alt="image" src="https://github.com/user-attachments/assets/f4f6609a-870f-427b-b721-5e2c82ff36bd" />
+<img width="1903" height="1032" alt="image" src="https://github.com/user-attachments/assets/0dacc550-e078-49c2-895d-279e984c8608" />
+<img width="1858" height="1054" alt="image" src="https://github.com/user-attachments/assets/327249bd-9a32-47e7-918b-2cf241f0aef7" />
 
 
 
