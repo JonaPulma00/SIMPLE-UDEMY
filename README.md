@@ -255,11 +255,6 @@ Per visualitzar i provar tots els endpoints disponibles, accediu a la documentac
 
 
 ## Imatges
-
-<img width="1902" height="938" alt="image" src="https://github.com/user-attachments/assets/649b1980-5401-4846-ac6e-ce10f627f789" />
-<img width="1919" height="937" alt="image" src="https://github.com/user-attachments/assets/d2019fb4-b7f7-459e-97aa-8a17d9b18f1d" />
-<img width="1905" height="930" alt="image" src="https://github.com/user-attachments/assets/1feeae37-0b70-4f6b-821b-d530d10bff28" />
-<img width="1899" height="926" alt="image" src="https://github.com/user-attachments/assets/08a5636c-4e7b-4306-a472-d6dfcdb450cf" />
 <img width="1914" height="923" alt="image" src="https://github.com/user-attachments/assets/dfeff99c-bd4f-470d-ac78-5319dbcaa1ba" />
 
 
