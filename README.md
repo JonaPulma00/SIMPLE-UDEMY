@@ -255,7 +255,6 @@ Per visualitzar i provar tots els endpoints disponibles, accediu a la documentac
 
 
 ## Imatges
-<img width="1914" height="923" alt="image" src="https://github.com/user-attachments/assets/dfeff99c-bd4f-470d-ac78-5319dbcaa1ba" />
 
 
 
